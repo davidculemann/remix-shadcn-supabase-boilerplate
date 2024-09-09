@@ -35,6 +35,24 @@ function App({ children }: { children: React.ReactNode }) {
 		createClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
 	);
 
+	const signUp = () => {
+		supabase.auth.signUp({
+			email: "",
+			password: "password",
+		});
+	};
+
+	const signIn = () => {
+		supabase.auth.signInWithPassword({
+			email: "",
+			password: "password",
+		});
+	};
+
+	const signOut = () => {
+		supabase.auth.signOut();
+	};
+
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
