@@ -5,6 +5,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 	isRouteErrorResponse,
+	useLoaderData,
 	useRouteError,
 } from "@remix-run/react";
 
@@ -15,14 +16,33 @@ import {
 	ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 
+import { createClient } from "@supabase/supabase-js";
+import { useState } from "react";
 import "./globals.css";
 
+export const loader = () => {
+	const env = {
+		SUPABASE_URL: process.env.SUPABASE_URL,
+		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+	};
+	return { env };
+};
+
 function App({ children }: { children: React.ReactNode }) {
+	const { env } = useLoaderData<{ env: any }>();
+
+	const [supabase] = useState(() =>
+		createClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
+	);
+
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
 				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1"
+				/>
 				<Meta />
 				<Links />
 				<ThemeSwitcherScript />

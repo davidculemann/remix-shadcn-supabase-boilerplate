@@ -10,11 +10,11 @@ export function ThemeSwitcherSafeHTML({
 	children,
 	lang,
 	...props
-}: React.HTMLProps<HTMLHtmlElement> & { lang: string }) {
+}: React.HTMLProps<HTMLHtmlElement> & {
+	lang: string;
+}) {
 	const dataTheme =
-		typeof document === "undefined"
-			? undefined
-			: document.documentElement.getAttribute("data-theme") || undefined;
+		typeof document === "undefined" ? undefined : document.documentElement.getAttribute("data-theme") || undefined;
 
 	return (
 		<html {...props} lang={lang} data-theme={dataTheme}>
@@ -50,9 +50,7 @@ export function ThemeSwitcherScript() {
 }
 
 export function getTheme() {
-	return validateTheme(
-		typeof document === "undefined" ? "system" : localStorage.getItem("theme"),
-	);
+	return validateTheme(typeof document === "undefined" ? "system" : localStorage.getItem("theme"));
 }
 
 /**
@@ -62,9 +60,7 @@ export function getTheme() {
 export function toggleTheme() {
 	let currentTheme = validateTheme(localStorage.getItem("theme"));
 	if (currentTheme === "system") {
-		currentTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-			? "dark"
-			: "light";
+		currentTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 	}
 	const newTheme = currentTheme === "light" ? "dark" : "light";
 	localStorage.setItem("theme", newTheme);
@@ -86,7 +82,5 @@ export function setTheme(theme: Theme | string) {
 }
 
 function validateTheme(theme: string | null): Theme {
-	return theme === "light" || theme === "dark" || theme === "system"
-		? theme
-		: "system";
+	return theme === "light" || theme === "dark" || theme === "system" ? theme : "system";
 }

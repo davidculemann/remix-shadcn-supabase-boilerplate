@@ -24,23 +24,16 @@ export default function handleRequest(
 	return new Promise((resolve, reject) => {
 		let shellRendered = false;
 		const { pipe, abort } = renderToPipeableStream(
-			<RemixServer
-				context={remixContext}
-				url={request.url}
-				abortDelay={ABORT_DELAY}
-			/>,
+			<RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
 			{
 				onAllReady() {
 					if (!isBot) return;
 
 					resolve(
-						new Response(
-							createReadableStreamFromReadable(pipe(new PassThrough())),
-							{
-								headers,
-								status,
-							},
-						),
+						new Response(createReadableStreamFromReadable(pipe(new PassThrough())), {
+							headers,
+							status,
+						}),
 					);
 				},
 				onShellReady() {
@@ -49,13 +42,10 @@ export default function handleRequest(
 					if (isBot) return;
 
 					resolve(
-						new Response(
-							createReadableStreamFromReadable(pipe(new PassThrough())),
-							{
-								headers,
-								status,
-							},
-						),
+						new Response(createReadableStreamFromReadable(pipe(new PassThrough())), {
+							headers,
+							status,
+						}),
 					);
 				},
 				onShellError(error: unknown) {
