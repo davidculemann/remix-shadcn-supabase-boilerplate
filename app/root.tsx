@@ -6,6 +6,7 @@ import {
 	ScrollRestoration,
 	isRouteErrorResponse,
 	useLoaderData,
+	useRevalidator,
 	useRouteError,
 } from "@remix-run/react";
 
@@ -16,8 +17,8 @@ import {
 	ThemeSwitcherScript,
 } from "@/components/theme-switcher";
 
-import { createClient } from "@supabase/supabase-js";
-import { useState } from "react";
+import { createBrowserClient } from "@supabase/auth-helpers-remix";
+import { useEffect, useState } from "react";
 import "./globals.css";
 
 export const loader = () => {
@@ -32,26 +33,39 @@ function App({ children }: { children: React.ReactNode }) {
 	const { env } = useLoaderData<{ env: any }>();
 
 	const [supabase] = useState(() =>
-		createClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
+		createBrowserClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
 	);
 
 	const signUp = () => {
 		supabase.auth.signUp({
 			email: "",
-			password: "password",
+			password: "",
 		});
 	};
 
 	const signIn = () => {
 		supabase.auth.signInWithPassword({
 			email: "",
-			password: "password",
+			password: "",
 		});
 	};
 
 	const signOut = () => {
 		supabase.auth.signOut();
 	};
+
+	const revalidator = useRevalidator();
+
+	useEffect(() => {
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange(() => {
+			revalidator.revalidate();
+		});
+		return () => {
+			subscription?.unsubscribe();
+		};
+	}, [supabase, revalidator]);
 
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
@@ -68,6 +82,9 @@ function App({ children }: { children: React.ReactNode }) {
 			<body>
 				<GlobalPendingIndicator />
 				<Header />
+				<button onClick={signUp}>Sign Up</button>
+				<button onClick={signIn}>Sign Up</button>
+				<button onClick={signOut}>Sign Up</button>
 				{children}
 				<ScrollRestoration />
 				<Scripts />

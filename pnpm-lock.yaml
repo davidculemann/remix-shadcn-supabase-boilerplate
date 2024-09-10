@@ -29,6 +29,9 @@ importers:
       '@remix-run/serve':
         specifier: ^2.12.0
         version: 2.12.0(typescript@5.3.3)
+      '@supabase/auth-helpers-remix':
+        specifier: ^0.4.0
+        version: 0.4.0(@supabase/supabase-js@2.45.3)
       '@supabase/supabase-js':
         specifier: ^2.45.3
         version: 2.45.3
@@ -1098,6 +1101,16 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@supabase/auth-helpers-remix@0.4.0':
+    resolution: {integrity: sha512-NchmOVizANjWXUMSHauXHdzj2sTJ0BsK9vqc44FnNTBzy8/FSmHlOgNBq1BRduyZakZ2XFo+dlPQ0IrWAZW88w==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.39.8
+
+  '@supabase/auth-helpers-shared@0.7.0':
+    resolution: {integrity: sha512-FBFf2ei2R7QC+B/5wWkthMha8Ca2bWHAndN+syfuEUUfufv4mLcAgBCcgNg5nJR8L0gZfyuaxgubtOc9aW3Cpg==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.39.8
+
   '@supabase/auth-js@2.65.0':
     resolution: {integrity: sha512-+wboHfZufAE2Y612OsKeVP4rVOeGZzzMLD/Ac3HrTQkkY4qXNjI6Af9gtmxwccE5nFvTiF114FEbIQ1hRq5uUw==}
 
@@ -1997,6 +2010,9 @@ packages:
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
+
+  jose@4.15.9:
+    resolution: {integrity: sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -4294,6 +4310,16 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.21.2':
     optional: true
 
+  '@supabase/auth-helpers-remix@0.4.0(@supabase/supabase-js@2.45.3)':
+    dependencies:
+      '@supabase/auth-helpers-shared': 0.7.0(@supabase/supabase-js@2.45.3)
+      '@supabase/supabase-js': 2.45.3
+
+  '@supabase/auth-helpers-shared@0.7.0(@supabase/supabase-js@2.45.3)':
+    dependencies:
+      '@supabase/supabase-js': 2.45.3
+      jose: 4.15.9
+
   '@supabase/auth-js@2.65.0':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -5327,6 +5353,8 @@ snapshots:
   javascript-stringify@2.1.0: {}
 
   jiti@1.21.6: {}
+
+  jose@4.15.9: {}
 
   js-tokens@4.0.0: {}
 
