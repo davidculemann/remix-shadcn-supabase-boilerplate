@@ -9,14 +9,28 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"style": {
+				"noNonNullAssertion": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
+			},
+			"a11y": {
+				"useButtonType": "off"
+			},
+			"correctness": {
+				"noEmptyPattern": "off"
+			},
+			"complexity": {
+				"noForEach": "off"
+			}
 		}
 	},
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
 		"ignore": [],
-		"attributePosition": "auto",
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineWidth": 120,

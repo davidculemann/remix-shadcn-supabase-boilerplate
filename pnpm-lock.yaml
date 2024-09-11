@@ -14,6 +14,9 @@ importers:
       '@radix-ui/react-icons':
         specifier: 1.3.0
         version: 1.3.0(react@18.2.0)
+      '@radix-ui/react-label':
+        specifier: ^2.1.0
+        version: 2.1.0(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@radix-ui/react-slot':
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.56)(react@18.2.0)
@@ -29,12 +32,15 @@ importers:
       '@remix-run/serve':
         specifier: ^2.12.0
         version: 2.12.0(typescript@5.3.3)
-      '@supabase/auth-helpers-remix':
-        specifier: ^0.4.0
-        version: 0.4.0(@supabase/supabase-js@2.45.3)
+      '@supabase/ssr':
+        specifier: ^0.5.1
+        version: 0.5.1(@supabase/supabase-js@2.45.3)
       '@supabase/supabase-js':
         specifier: ^2.45.3
         version: 2.45.3
+      '@tabler/icons-react':
+        specifier: ^3.16.0
+        version: 3.16.0(react@18.2.0)
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -102,6 +108,9 @@ importers:
       dotenv-cli:
         specifier: 7.3.0
         version: 7.3.0
+      icons-react:
+        specifier: link:@types/tabler/icons-react
+        version: link:@types/tabler/icons-react
       postcss:
         specifier: 8.4.35
         version: 8.4.35
@@ -713,6 +722,15 @@ packages:
       '@types/react':
         optional: true
 
+  '@radix-ui/react-compose-refs@1.1.0':
+    resolution: {integrity: sha512-b4inOtiaOnYf9KWyO3jAeeCG6FeyfY6ldiEPanbUjWd+xIk5wZeHa8yVwmrJ2vderhu/BQvzCrJI0lHd+wIiqw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
   '@radix-ui/react-context@1.0.1':
     resolution: {integrity: sha512-ebbrdFoYTcuZ0v4wG5tedGnp9tzcV8awzsxYph7gXUyvnNLuTIcCk1q17JEbnVhXAKG9oX3KtchwiMIAYp9NLg==}
     peerDependencies:
@@ -793,6 +811,19 @@ packages:
       '@types/react':
         optional: true
 
+  '@radix-ui/react-label@2.1.0':
+    resolution: {integrity: sha512-peLblDlFw/ngk3UWq0VnYaOLy6agTZZ+MUO/WhVfm14vJGML+xH4FAl2XQGLqdefjNb7ApRg6Yn7U42ZhmYXdw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   '@radix-ui/react-menu@2.0.6':
     resolution: {integrity: sha512-BVkFLS+bUC8HcImkRKPSiVumA1VPOOEC5WBMiT+QAVsPzW1FJzI9KnqgGxVDPBcql5xXrHkD3JOVoXWEXD8SYA==}
     peerDependencies:
@@ -858,6 +889,19 @@ packages:
       '@types/react-dom':
         optional: true
 
+  '@radix-ui/react-primitive@2.0.0':
+    resolution: {integrity: sha512-ZSpFm0/uHa8zTvKBDjLFWLo8dkr4MBsiDLz0g3gMUwqgLHz9rTaRRGYDgvZPtBJgYCBKXkS9fzmoySgr8CO6Cw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   '@radix-ui/react-roving-focus@1.0.4':
     resolution: {integrity: sha512-2mUg5Mgcu001VkGy+FfzZyzbmuUWzgWkj3rvv4yu+mLw03+mTzbxZHvfcGyFp2b8EkQeMkpRQ5FiA2Vr2O6TeQ==}
     peerDependencies:
@@ -876,6 +920,15 @@ packages:
     peerDependencies:
       '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@radix-ui/react-slot@1.1.0':
+    resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -1101,16 +1154,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@supabase/auth-helpers-remix@0.4.0':
-    resolution: {integrity: sha512-NchmOVizANjWXUMSHauXHdzj2sTJ0BsK9vqc44FnNTBzy8/FSmHlOgNBq1BRduyZakZ2XFo+dlPQ0IrWAZW88w==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.39.8
-
-  '@supabase/auth-helpers-shared@0.7.0':
-    resolution: {integrity: sha512-FBFf2ei2R7QC+B/5wWkthMha8Ca2bWHAndN+syfuEUUfufv4mLcAgBCcgNg5nJR8L0gZfyuaxgubtOc9aW3Cpg==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.39.8
-
   '@supabase/auth-js@2.65.0':
     resolution: {integrity: sha512-+wboHfZufAE2Y612OsKeVP4rVOeGZzzMLD/Ac3HrTQkkY4qXNjI6Af9gtmxwccE5nFvTiF114FEbIQ1hRq5uUw==}
 
@@ -1127,11 +1170,24 @@ packages:
   '@supabase/realtime-js@2.10.2':
     resolution: {integrity: sha512-qyCQaNg90HmJstsvr2aJNxK2zgoKh9ZZA8oqb7UT2LCh3mj9zpa3Iwu167AuyNxsxrUE8eEJ2yH6wLCij4EApA==}
 
+  '@supabase/ssr@0.5.1':
+    resolution: {integrity: sha512-+G94H/GZG0nErZ3FQV9yJmsC5Rj7dmcfCAwOt37hxeR1La+QTl8cE9whzYwPUrTJjMLGNXoO+1BMvVxwBAbz4g==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.43.4
+
   '@supabase/storage-js@2.7.0':
     resolution: {integrity: sha512-iZenEdO6Mx9iTR6T7wC7sk6KKsoDPLq8rdu5VRy7+JiT1i8fnqfcOr6mfF2Eaqky9VQzhP8zZKQYjzozB65Rig==}
 
   '@supabase/supabase-js@2.45.3':
     resolution: {integrity: sha512-4wAux6cuVMrdH/qUjKn6p3p3L9AtAO3Une6ojIrtpCj1RaXKVoyIATiacSRAI+pKff6XZBVCGC29v+z4Jo/uSw==}
+
+  '@tabler/icons-react@3.16.0':
+    resolution: {integrity: sha512-u2ABvvw71+VZMmkQ9PXsBQb+xoox8YSV8+96Xbg5jocE+gqIrAJD/3dJxWN9YhEP3TBhbcFQdkY4svvhhE+FBw==}
+    peerDependencies:
+      react: '>= 16'
+
+  '@tabler/icons@3.16.0':
+    resolution: {integrity: sha512-GU7MSx4uQEr55BmyON6hD/QYTl6k1v0YlRhM91gBWDoKAbyCt6QIYw7rpJ/ecdh5zrHaTOJKPenZ4+luoutwFA==}
 
   '@tailwindcss/typography@0.5.10':
     resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
@@ -2010,9 +2066,6 @@ packages:
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
-
-  jose@4.15.9:
-    resolution: {integrity: sha512-1vUQX+IdDMVPj4k8kOxgUqlcK518yluMuGZwqlr44FS1ppZB/5GWh4rZG89erpOBOJjU/OBsnCVFfapsRz6nEA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3865,6 +3918,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.2.56
 
+  '@radix-ui/react-compose-refs@1.1.0(@types/react@18.2.56)(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
+    optionalDependencies:
+      '@types/react': 18.2.56
+
   '@radix-ui/react-context@1.0.1(@types/react@18.2.56)(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.6
@@ -3939,6 +3998,15 @@ snapshots:
       react: 18.2.0
     optionalDependencies:
       '@types/react': 18.2.56
+
+  '@radix-ui/react-label@2.1.0(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    optionalDependencies:
+      '@types/react': 18.2.56
+      '@types/react-dom': 18.2.19
 
   '@radix-ui/react-menu@2.0.6(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -4017,6 +4085,15 @@ snapshots:
       '@types/react': 18.2.56
       '@types/react-dom': 18.2.19
 
+  '@radix-ui/react-primitive@2.0.0(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.2.56)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    optionalDependencies:
+      '@types/react': 18.2.56
+      '@types/react-dom': 18.2.19
+
   '@radix-ui/react-roving-focus@1.0.4(@types/react-dom@18.2.19)(@types/react@18.2.56)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.6
@@ -4039,6 +4116,13 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.25.6
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.56)(react@18.2.0)
+      react: 18.2.0
+    optionalDependencies:
+      '@types/react': 18.2.56
+
+  '@radix-ui/react-slot@1.1.0(@types/react@18.2.56)(react@18.2.0)':
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.2.56)(react@18.2.0)
       react: 18.2.0
     optionalDependencies:
       '@types/react': 18.2.56
@@ -4310,16 +4394,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.21.2':
     optional: true
 
-  '@supabase/auth-helpers-remix@0.4.0(@supabase/supabase-js@2.45.3)':
-    dependencies:
-      '@supabase/auth-helpers-shared': 0.7.0(@supabase/supabase-js@2.45.3)
-      '@supabase/supabase-js': 2.45.3
-
-  '@supabase/auth-helpers-shared@0.7.0(@supabase/supabase-js@2.45.3)':
-    dependencies:
-      '@supabase/supabase-js': 2.45.3
-      jose: 4.15.9
-
   '@supabase/auth-js@2.65.0':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -4346,6 +4420,11 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@supabase/ssr@0.5.1(@supabase/supabase-js@2.45.3)':
+    dependencies:
+      '@supabase/supabase-js': 2.45.3
+      cookie: 0.6.0
+
   '@supabase/storage-js@2.7.0':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -4361,6 +4440,13 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  '@tabler/icons-react@3.16.0(react@18.2.0)':
+    dependencies:
+      '@tabler/icons': 3.16.0
+      react: 18.2.0
+
+  '@tabler/icons@3.16.0': {}
 
   '@tailwindcss/typography@0.5.10(tailwindcss@3.4.1)':
     dependencies:
@@ -5353,8 +5439,6 @@ snapshots:
   javascript-stringify@2.1.0: {}
 
   jiti@1.21.6: {}
-
-  jose@4.15.9: {}
 
   js-tokens@4.0.0: {}
 
