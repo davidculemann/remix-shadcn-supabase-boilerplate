@@ -1,22 +1,29 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { createServerClient } from "@supabase/auth-helpers-remix";
-import { Database } from "db_types";
+import { createServerClient, parseCookieHeader, serializeCookieHeader } from "@supabase/ssr";
+import type { Database } from "db_types";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const response = new Response();
-	const supabase = createServerClient<Database>(
-		process.env.SUPABASE_URL!,
-		process.env.SUPABASE_ANON_KEY!,
-		{ request, response }
-	);
+	const headers = new Headers();
+
+	const supabase = createServerClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
+		cookies: {
+			getAll() {
+				return parseCookieHeader(request.headers.get("Cookie") ?? "");
+			},
+			setAll(cookiesToSet) {
+				cookiesToSet.forEach(({ name, value, options }) =>
+					headers.append("Set-Cookie", serializeCookieHeader(name, value, options)),
+				);
+			},
+		},
+	});
 
 	const { data } = await supabase.from("profiles").select();
 
-	return {
-		data,
-		headers: response.headers,
-	};
+	return new Response("...", {
+		headers,
+	});
 };
 
 export default function Dashboard() {

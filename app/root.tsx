@@ -12,16 +12,15 @@ import {
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
-import {
-	ThemeSwitcherSafeHTML,
-	ThemeSwitcherScript,
-} from "@/components/theme-switcher";
+import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from "@/components/theme-switcher";
 
-import { createBrowserClient } from "@supabase/auth-helpers-remix";
-import { useEffect, useState } from "react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { createBrowserClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { createContext, useEffect, useState } from "react";
 import "./globals.css";
 
-export const loader = () => {
+export const loader = ({}: LoaderFunctionArgs) => {
 	const env = {
 		SUPABASE_URL: process.env.SUPABASE_URL,
 		SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
@@ -29,13 +28,14 @@ export const loader = () => {
 	return { env };
 };
 
+export const SupabaseContext = createContext<{ supabase: SupabaseClient<any, "public", any> | null }>({
+	supabase: null,
+});
+
 function App({ children }: { children: React.ReactNode }) {
-	const { env } = useLoaderData<{ env: any }>();
+	const { env } = useLoaderData<typeof loader>();
 
-	const [supabase] = useState(() =>
-		createBrowserClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
-	);
-
+	const [supabase] = useState(() => createBrowserClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!));
 	const signUp = () => {
 		supabase.auth.signUp({
 			email: "",
@@ -56,6 +56,7 @@ function App({ children }: { children: React.ReactNode }) {
 
 	const revalidator = useRevalidator();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const {
 			data: { subscription },
@@ -65,16 +66,13 @@ function App({ children }: { children: React.ReactNode }) {
 		return () => {
 			subscription?.unsubscribe();
 		};
-	}, [supabase, revalidator]);
+	}, [supabase]); //NOTE: had to remove revalidator from the dep array to prevent infinite loop
 
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
 				<meta charSet="utf-8" />
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1"
-				/>
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
 				<ThemeSwitcherScript />
@@ -85,7 +83,7 @@ function App({ children }: { children: React.ReactNode }) {
 				<button onClick={signUp}>Sign Up</button>
 				<button onClick={signIn}>Sign Up</button>
 				<button onClick={signOut}>Sign Up</button>
-				{children}
+				<SupabaseContext.Provider value={{ supabase }}>{children}</SupabaseContext.Provider>
 				<ScrollRestoration />
 				<Scripts />
 			</body>
