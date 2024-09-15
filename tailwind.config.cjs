@@ -5,12 +5,7 @@ function lightDarkVar(baseName) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
+	content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
 	prefix: "",
 	theme: {
 		container: {
@@ -63,17 +58,31 @@ module.exports = {
 			},
 			keyframes: {
 				"accordion-down": {
-					from: { height: "0" },
-					to: { height: "var(--radix-accordion-content-height)" },
+					from: {
+						height: "0",
+					},
+					to: {
+						height: "var(--radix-accordion-content-height)",
+					},
 				},
 				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: "0" },
+					from: {
+						height: "var(--radix-accordion-content-height)",
+					},
+					to: {
+						height: "0",
+					},
 				},
 				progress: {
-					"0%": { transform: " translateX(0) scaleX(0)" },
-					"40%": { transform: "translateX(0) scaleX(0.4)" },
-					"100%": { transform: "translateX(100%) scaleX(0.5)" },
+					"0%": {
+						transform: " translateX(0) scaleX(0)",
+					},
+					"40%": {
+						transform: "translateX(0) scaleX(0.4)",
+					},
+					"100%": {
+						transform: "translateX(100%) scaleX(0.5)",
+					},
 				},
 			},
 			animation: {

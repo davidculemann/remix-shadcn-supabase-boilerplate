@@ -3,10 +3,7 @@ import { Link } from "@remix-run/react";
 import * as React from "react";
 import { useHydrated } from "remix-utils/use-hydrated";
 
-import {
-	getTheme,
-	setTheme as setSystemTheme,
-} from "@/components/theme-switcher";
+import { getTheme, setTheme as setSystemTheme } from "@/components/theme-switcher";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -36,11 +33,7 @@ export function Header() {
 			</div>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button
-						className="w-10 h-10 rounded-full border"
-						size="icon"
-						variant="ghost"
-					>
+					<Button className="w-10 h-10 rounded-full border" size="icon" variant="ghost">
 						<span className="sr-only">Theme selector</span>
 						{!hydrated ? null : theme === "dark" ? (
 							<MoonIcon />

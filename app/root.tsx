@@ -1,23 +1,28 @@
-import {
-	Links,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-	isRouteErrorResponse,
-	useRouteError,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } from "@remix-run/react";
 
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
-import {
-	ThemeSwitcherSafeHTML,
-	ThemeSwitcherScript,
-} from "@/components/theme-switcher";
+import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from "@/components/theme-switcher";
 
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import LogoutButton from "./components/logout-button";
 import "./globals.css";
+import { useSupabase } from "./lib/supabase/supabase";
+import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "./lib/supabase/supabase.server";
 
-function App({ children }: { children: React.ReactNode }) {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const { session, headers } = await getSupabaseWithSessionHeaders({
+		request,
+	});
+	const env = getSupabaseEnv();
+	return json({ env, session }, { headers });
+};
+
+export default function App() {
+	const { env, session } = useLoaderData<typeof loader>();
+
+	const { supabase } = useSupabase({ env, session });
+
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
@@ -28,45 +33,13 @@ function App({ children }: { children: React.ReactNode }) {
 				<ThemeSwitcherScript />
 			</head>
 			<body>
+				<LogoutButton />
 				<GlobalPendingIndicator />
 				<Header />
-				{children}
+				<Outlet context={{ supabase }} />
 				<ScrollRestoration />
 				<Scripts />
 			</body>
 		</ThemeSwitcherSafeHTML>
-	);
-}
-
-export default function Root() {
-	return (
-		<App>
-			<Outlet />
-		</App>
-	);
-}
-
-export function ErrorBoundary() {
-	const error = useRouteError();
-	let status = 500;
-	let message = "An unexpected error occurred.";
-	if (isRouteErrorResponse(error)) {
-		status = error.status;
-		switch (error.status) {
-			case 404:
-				message = "Page Not Found";
-				break;
-		}
-	} else {
-		console.error(error);
-	}
-
-	return (
-		<App>
-			<div className="container prose py-8">
-				<h1>{status}</h1>
-				<p>{message}</p>
-			</div>
-		</App>
 	);
 }

@@ -1,40 +1,19 @@
-# Welcome to Remix + Vite + shadcn/ui!
+# Boilerplate for Remix + Vite + shadcn/ui + Supabase!
 
-📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/future/vite) for details on supported features.
+## Supabase
 
-## Getting Started
-
-Node Server:
+-   enter your Supabase URL and key in `.env`:
 
 ```sh
-npx create-remix@latest --template jacob-ebey/remix-shadcn
+VITE_SUPABASE_URL=https://<your_supabase_url>.supabase.co
+VITE_SUPABASE_KEY=<your_supabase_key>
 ```
 
-Cloudflare Pages:
+-   generate typescript types for your Supabase tables:
 
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/cloudflare
+```sh
+supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
 ```
-
-Or for a more flushed out template with a login flow and a SQLite database backed by Drizzle ORM:
-
-Node Server:
-
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/drizzle
-```
-
-Cloudflare Pages:
-
-```shellscript
-npx create-remix@latest --template https://github.com/jacob-ebey/remix-shadcn/tree/drizzle-cloudflare
-```
-
-## Built in theme switcher
-
-![image](https://github.com/jacob-ebey/remix-shadcn/assets/12063586/c6ed812c-764f-46b7-af30-26284f55535c)
-
-![image](https://github.com/jacob-ebey/remix-shadcn/assets/12063586/4e378230-3b4b-4b78-8af4-096b30aacf79)
 
 ## Development
 
@@ -72,8 +51,8 @@ If you're familiar with deploying Node applications, the built-in Remix app serv
 
 Make sure to deploy the output of `npm run build` and the server
 
-- `server.js`
-- `build/server`
-- `build/client`
+-   `server.js`
+-   `build/server`
+-   `build/client`
 
 Take a look at the provided Dockerfile for further details on how to configure a production environment.
