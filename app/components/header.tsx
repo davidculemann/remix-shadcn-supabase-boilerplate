@@ -13,6 +13,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import LogoutButton from "./logout-button";
 
 export function Header() {
 	const hydrated = useHydrated();
@@ -31,6 +32,7 @@ export function Header() {
 					<span className="text-lg font-bold">shadcn</span>
 				</Link>
 			</div>
+			<LogoutButton />
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button className="w-10 h-10 rounded-full border" size="icon" variant="ghost">

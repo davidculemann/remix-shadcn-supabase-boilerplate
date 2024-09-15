@@ -1,11 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } from "@remix-run/react";
 
-import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
-import { Header } from "@/components/header";
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from "@/components/theme-switcher";
 
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import LogoutButton from "./components/logout-button";
 import "./globals.css";
 import { useSupabase } from "./lib/supabase/supabase";
 import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "./lib/supabase/supabase.server";
@@ -32,10 +29,7 @@ export default function App() {
 				<Links />
 				<ThemeSwitcherScript />
 			</head>
-			<body>
-				<LogoutButton />
-				<GlobalPendingIndicator />
-				<Header />
+			<body className="flex min-h-screen w-full flex-col bg-muted/40">
 				<Outlet context={{ supabase }} />
 				<ScrollRestoration />
 				<Scripts />
