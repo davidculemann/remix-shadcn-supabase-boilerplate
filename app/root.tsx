@@ -23,6 +23,7 @@ export default function App() {
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
 			<head>
+				<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
