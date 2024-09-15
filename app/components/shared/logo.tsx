@@ -1,5 +1,5 @@
-import logoImage from "/public/images/logo.svg";
+import LogoImage from "public/assets/logo.svg";
 
-export default function Logo({ className }: { readonly className?: string }) {
-	return <img src={logoImage} alt="logo" className={className} />;
+export default function Logo({ className = "h-10" }: { readonly className?: string }) {
+	return <img src={LogoImage} alt="logo" className={className} />;
 }

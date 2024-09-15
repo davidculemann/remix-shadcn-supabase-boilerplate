@@ -14,10 +14,12 @@
 				"noNonNullAssertion": "off"
 			},
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noAssignInExpressions": "off"
 			},
 			"a11y": {
-				"useButtonType": "off"
+				"useButtonType": "off",
+				"noSvgWithoutTitle": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off"
