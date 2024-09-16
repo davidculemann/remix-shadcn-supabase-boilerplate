@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { type ActionFunctionArgs, json, redirect } from "@remix-run/node";
-import { Form, Link } from "@remix-run/react";
+import { Form, Link, useNavigation } from "@remix-run/react";
 
 export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData();
@@ -27,6 +27,8 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Signup() {
+	const navigation = useNavigation();
+
 	return (
 		<div className="w-full max-w-md">
 			<Form method="POST">
@@ -47,7 +49,9 @@ export default function Signup() {
 						</div>
 					</CardContent>
 					<CardFooter className="flex flex-col">
-						<LoadingButton className="w-full">Sign Up</LoadingButton>
+						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
+							Sign Up
+						</LoadingButton>
 					</CardFooter>
 				</Card>
 				<div className="mt-4 text-center text-sm">
