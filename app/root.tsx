@@ -31,7 +31,7 @@ export default function App() {
 				<Links />
 				<ThemeSwitcherScript />
 			</head>
-			<body className="flex min-h-screen w-full flex-col bg-muted/40">
+			<body className="flex min-h-screen h-screen w-full flex-col bg-muted/40">
 				<Outlet context={{ supabase }} />
 				<ScrollRestoration />
 				<Scripts />

@@ -1,5 +1,6 @@
+import { Icons } from "@/components/icons";
 import { LoadingButton } from "@/components/shared/loading-button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import ProviderLoginButton from "@/components/shared/provider-login-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
@@ -27,37 +28,46 @@ export default function Signin() {
 	const navigation = useNavigation();
 
 	return (
-		<div className="w-full max-w-md">
-			<Form method="POST">
-				<Card>
-					<CardHeader className="space-y-1">
-						<CardTitle className="text-3xl font-bold">Sign In</CardTitle>
-						<CardDescription>Enter your details to sign in to your account</CardDescription>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="space-y-2">
+		<Form method="POST" className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
+			<div className="flex items-center justify-center py-12">
+				<div className="mx-auto grid w-[350px] gap-6">
+					<div className="grid gap-2 text-center">
+						<h1 className="text-3xl font-bold">Login</h1>
+						<p className="text-balance text-muted-foreground">
+							Enter your email below to login to your account
+						</p>
+					</div>
+					<div className="grid gap-4">
+						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
-							<Input id="email" name="email" type="text" placeholder="username or email" />
+							<Input id="email" type="email" placeholder="m@example.com" required />
 						</div>
-						<div className="space-y-2">
-							<Label htmlFor="password">Password</Label>
-							<Input id="password" name="password" type="password" placeholder="password" />
+						<div className="grid gap-2">
+							<div className="flex items-center">
+								<Label htmlFor="password">Password</Label>
+								<Link to="/forgot-password" className="ml-auto inline-block text-sm underline">
+									Forgot your password?
+								</Link>
+							</div>
+							<Input id="password" type="password" required />
 						</div>
-					</CardContent>
-					<CardFooter className="flex flex-col gap-3">
 						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
 							Sign in
 						</LoadingButton>
-						{/* <ProviderLoginButton provider="google" signInFn={signInWithGoogle} /> */}
-					</CardFooter>
-				</Card>
-				<div className="mt-4 text-center text-sm">
-					Don't have an account?
-					<Link className="underline ml-2" to="/signup">
-						Sign Up
-					</Link>
+						<ProviderLoginButton provider="google" />
+						<ProviderLoginButton provider="github" />
+					</div>
+					<div className="mt-4 text-center text-sm">
+						Don't have an account?
+						<Link className="underline ml-2" to="/signup">
+							Sign Up
+						</Link>
+					</div>
 				</div>
-			</Form>
-		</div>
+			</div>
+			<div className="hidden bg-muted lg:block">
+				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto" />
+			</div>
+		</Form>
 	);
 }
