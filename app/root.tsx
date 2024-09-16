@@ -2,6 +2,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } 
 
 import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from "@/components/theme-switcher";
 
+import { Toaster } from "@/components/ui/toaster";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import "./globals.css";
 import { useSupabase } from "./lib/supabase/supabase";
@@ -34,6 +35,7 @@ export default function App() {
 				<Outlet context={{ supabase }} />
 				<ScrollRestoration />
 				<Scripts />
+				<Toaster />
 			</body>
 		</ThemeSwitcherSafeHTML>
 	);

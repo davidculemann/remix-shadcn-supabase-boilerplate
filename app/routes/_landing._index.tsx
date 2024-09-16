@@ -1,6 +1,7 @@
 import { title } from "@/config.shared";
 import type { MetaFunction } from "@remix-run/node";
 
+import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,11 +21,14 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+	const { toast } = useToast();
+
 	async function handleSubmitEmail(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		await axios.post("api/mailing-list", formData);
+		toast({ title: "Success!", description: "You have been added to the mailing list." });
 	}
 
 	return (
