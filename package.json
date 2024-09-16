@@ -24,6 +24,7 @@
 		"@supabase/ssr": "^0.5.1",
 		"@supabase/supabase-js": "^2.45.3",
 		"@tabler/icons-react": "^3.16.0",
+		"axios": "^1.7.7",
 		"class-variance-authority": "0.7.0",
 		"clsx": "2.1.0",
 		"compression": "1.7.4",

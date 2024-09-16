@@ -1,6 +1,12 @@
 import { title } from "@/config.shared";
 import type { MetaFunction } from "@remix-run/node";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Form, Link } from "@remix-run/react";
+import axios from "axios";
+
 export const meta: MetaFunction = () => {
 	return [
 		{
@@ -13,14 +19,16 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Link } from "@remix-run/react";
-
 export default function Index() {
+	async function handleSubmitEmail(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const form = event.currentTarget;
+		const formData = new FormData(form);
+		await axios.post("api/mailing-list", formData);
+	}
+
 	return (
-		<div className="container flex flex-col min-h-screen pb-16">
+		<div className="container flex flex-col min-h-screen pb-4">
 			<main className="flex-1">
 				<section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
 					<div className="container px-4 md:px-6 mx-auto">
@@ -131,16 +139,23 @@ export default function Index() {
 									Ready to Land Your Dream Job?
 								</h2>
 								<p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-									Join thousands of job seekers who've boosted their careers with EasyCV.
+									Enter your email below to join the mailing list and receive updates on EasyCV's
+									progress.
 								</p>
 							</div>
 							<div className="w-full max-w-sm space-y-2">
-								<form className="flex space-x-2">
-									<Input className="flex-1" placeholder="Enter your email" type="email" />
-									<Button type="submit">Get Started</Button>
-								</form>
+								<Form onSubmit={handleSubmitEmail} className="flex space-x-2">
+									<Input
+										className="flex-1"
+										placeholder="Enter your email"
+										type="email"
+										id="email"
+										name="email"
+									/>
+									<Button type="submit">Submit</Button>
+								</Form>
 								<p className="text-xs text-gray-500">
-									Start your free 7-day trial. No credit card required.
+									We will email you with updates about new features.
 								</p>
 							</div>
 						</div>

@@ -5,11 +5,7 @@ import { marketingConfig } from "@/lib/config/marketing";
 import { cn } from "@/lib/styles";
 import { Link, Outlet } from "@remix-run/react";
 
-interface MarketingLayoutProps {
-	children: React.ReactNode;
-}
-
-export default function MarketingLayout({ children }: MarketingLayoutProps) {
+export default function MarketingLayout() {
 	return (
 		<div className="flex min-h-screen flex-col">
 			<header className="container z-40 bg-background">
