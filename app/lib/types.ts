@@ -1,7 +1,5 @@
 import type { Icons } from "@/components/icons";
 
-export type Provider = "google" | "facebook" | "twitter" | "github";
-
 export type NavItem = {
 	title: string;
 	href: string;

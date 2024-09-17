@@ -1,13 +1,15 @@
 import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
 import { Header } from "@/components/header";
-import { Outlet } from "@remix-run/react";
+import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
+import { Outlet, useOutletContext } from "@remix-run/react";
 
 export default function AuthLayout() {
+	const { supabase } = useOutletContext<SupabaseOutletContext>();
 	return (
 		<>
 			<GlobalPendingIndicator />
 			<Header />
-			<Outlet />
+			<Outlet context={{ supabase }} />
 		</>
 	);
 }
