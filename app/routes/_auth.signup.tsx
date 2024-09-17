@@ -1,5 +1,6 @@
+import { Icons } from "@/components/icons";
 import { LoadingButton } from "@/components/shared/loading-button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import ProviderLoginButton from "@/components/shared/provider-login-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -30,37 +31,49 @@ export default function Signup() {
 	const navigation = useNavigation();
 
 	return (
-		<div className="w-full max-w-md">
-			<Form method="POST">
-				<Card>
-					<CardHeader className="space-y-1">
-						<CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
-						<CardDescription>Enter your details to create a new account</CardDescription>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="space-y-2">
+		<Form method="POST" className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
+			<div className="flex items-center justify-center py-12">
+				<div className="mx-auto grid w-[350px] gap-6">
+					<div className="grid gap-2 text-center">
+						<h1 className="text-3xl font-bold">Create an account</h1>
+						<p className="text-balance text-muted-foreground">Enter an email and password</p>
+					</div>
+					<div className="grid gap-4">
+						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
-							<Input id="email" name="email" type="email" placeholder="name@example.com" />
+							<Input id="email" type="email" placeholder="email@example.com" required />
 						</div>
-
-						<div className="space-y-2">
-							<Label htmlFor="password">Password</Label>
-							<Input id="password" name="password" type="password" placeholder="password" />
+						<div className="grid gap-2">
+							<div className="flex items-center">
+								<Label htmlFor="password">Password</Label>
+							</div>
+							<Input id="password" type="password" required />
 						</div>
-					</CardContent>
-					<CardFooter className="flex flex-col">
 						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
-							Sign Up
+							Sign up
 						</LoadingButton>
-					</CardFooter>
-				</Card>
-				<div className="mt-4 text-center text-sm">
-					Have an account?
-					<Link className="underline ml-2" to="/signin">
-						Sign In
-					</Link>
+					</div>
+					<div className="mt-4 text-center text-sm">
+						Already have an account?
+						<Link className="underline ml-2" to="/signin">
+							Sign In
+						</Link>
+					</div>
+					<div className="relative">
+						<div className="absolute inset-0 flex items-center">
+							<span className="w-full border-t" />
+						</div>
+						<div className="relative flex justify-center text-xs uppercase">
+							<span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+						</div>
+					</div>
+					<ProviderLoginButton provider="google" />
+					<ProviderLoginButton provider="github" />
 				</div>
-			</Form>
-		</div>
+			</div>
+			<div className="hidden bg-muted lg:grid lg:place-items-center">
+				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto" />
+			</div>
+		</Form>
 	);
 }

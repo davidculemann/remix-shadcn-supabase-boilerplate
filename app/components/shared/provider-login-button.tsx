@@ -10,6 +10,11 @@ const providerLogos: Partial<Record<Provider, string>> = {
 	github: "https://www.svgrepo.com/show/303615/github-icon-1-logo.svg",
 };
 
+const providerDisplayName: Partial<Record<Provider, string>> = {
+	google: "Google",
+	github: "GitHub",
+};
+
 export default function ProviderLoginButton({
 	provider,
 }: {
@@ -17,7 +22,7 @@ export default function ProviderLoginButton({
 }) {
 	const { supabase } = useOutletContext<SupabaseOutletContext>();
 	const { toast } = useToast();
-	console.log(window.location.origin);
+
 	const handleSignIn = async () => {
 		const { error } = await supabase.auth.signInWithOAuth({
 			provider,
@@ -27,7 +32,6 @@ export default function ProviderLoginButton({
 		});
 
 		if (error) {
-			console.log("Sign in ", error);
 			toast({
 				variant: "destructive",
 				description: `Error occured: ${error}`,
@@ -40,7 +44,7 @@ export default function ProviderLoginButton({
 		<Button className="w-full" variant="outline" onClick={handleSignIn}>
 			<span className="flex gap-2">
 				<img src={providerLogo} alt="Google Logo" width={18} height={18} />
-				Sign in with {provider}
+				{providerDisplayName[provider]}
 			</span>
 		</Button>
 	);
