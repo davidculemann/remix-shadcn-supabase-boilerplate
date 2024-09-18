@@ -34,6 +34,7 @@ export default function Signup() {
 		<Form method="POST" className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
 			<div className="flex items-center justify-center py-12">
 				<div className="mx-auto grid w-[350px] gap-6">
+					<Icons.logo className="lg:hidden h-12 mx-auto" />
 					<div className="grid gap-2 text-center">
 						<h1 className="text-3xl font-bold">Create an account</h1>
 						<p className="text-balance text-muted-foreground">Enter an email and password</p>
@@ -52,23 +53,23 @@ export default function Signup() {
 						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
 							Sign up
 						</LoadingButton>
-					</div>
-					<div className="mt-4 text-center text-sm">
-						Already have an account?
-						<Link className="underline ml-2" to="/signin">
-							Sign In
-						</Link>
-					</div>
-					<div className="relative">
-						<div className="absolute inset-0 flex items-center">
-							<span className="w-full border-t" />
+						<div className="mt-4 text-center text-sm">
+							Already have an account?
+							<Link className="underline ml-2" to="/signin">
+								Sign In
+							</Link>
 						</div>
-						<div className="relative flex justify-center text-xs uppercase">
-							<span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+						<div className="relative">
+							<div className="absolute inset-0 flex items-center">
+								<span className="w-full border-t" />
+							</div>
+							<div className="relative flex justify-center text-xs uppercase">
+								<span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+							</div>
 						</div>
+						<ProviderLoginButton provider="google" />
+						<ProviderLoginButton provider="github" />
 					</div>
-					<ProviderLoginButton provider="google" />
-					<ProviderLoginButton provider="github" />
 				</div>
 			</div>
 			<div className="hidden bg-muted lg:grid lg:place-items-center">
