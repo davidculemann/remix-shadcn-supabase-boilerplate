@@ -41,7 +41,7 @@ export default function ProviderLoginButton({
 
 	const providerLogo = providerLogos[provider];
 	return (
-		<Button className="w-full" variant="outline" onClick={handleSignIn}>
+		<Button className="w-full" variant="outline" onClick={handleSignIn} type="button">
 			<span className="flex gap-2">
 				<img src={providerLogo} alt="Google Logo" width={18} height={18} />
 				{providerDisplayName[provider]}
