@@ -44,7 +44,7 @@ export default function Index() {
 							Create stunning resumes, compelling cover letters, and ace your interviews with EasyCV's
 							AI-driven platform.
 						</p>
-						<div className="space-x-4">
+						<div className="space-x-4 flex">
 							<Link to="/signin">
 								<Button size="lg">Get Started</Button>
 							</Link>
