@@ -87,6 +87,9 @@
         --theme-dark: initial;
         color-scheme: dark;
     }
+    .font-heading {
+        font-family: "Cal Sans";
+    }
 }
 
 @layer base {

@@ -4,6 +4,7 @@ import { ThemeSwitcherSafeHTML, ThemeSwitcherScript } from "@/components/theme-s
 
 import { Toaster } from "@/components/ui/toaster";
 import type { LoaderFunctionArgs } from "@remix-run/node";
+import "cal-sans";
 import "./globals.css";
 import { useSupabase } from "./lib/supabase/supabase";
 import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "./lib/supabase/supabase.server";
