@@ -12,7 +12,7 @@ export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
-	const { supabase } = getSupabaseWithHeaders({ request });
+	const { supabase, headers } = getSupabaseWithHeaders({ request });
 
 	const { error } = await supabase.auth.signUp({
 		email,
@@ -23,8 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		return json({ message: error.message }, { status: 400 });
 	}
 
-	redirect("/dashboard");
-	return null;
+	return redirect("/dashboard", { headers });
 }
 
 export default function Signup() {
@@ -42,23 +41,17 @@ export default function Signup() {
 					<div className="grid gap-4">
 						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
-							<Input id="email" type="email" placeholder="email@example.com" required />
+							<Input id="email" type="email" name="email" placeholder="email@example.com" required />
 						</div>
 						<div className="grid gap-2">
 							<div className="flex items-center">
 								<Label htmlFor="password">Password</Label>
 							</div>
-							<Input id="password" type="password" required />
+							<Input id="password" type="password" name="password" required />
 						</div>
 						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
 							Sign up
 						</LoadingButton>
-						<div className="mt-4 text-center text-sm">
-							Already have an account?
-							<Link className="underline ml-2" to="/signin">
-								Sign In
-							</Link>
-						</div>
 						<div className="relative">
 							<div className="absolute inset-0 flex items-center">
 								<span className="w-full border-t" />
@@ -69,6 +62,12 @@ export default function Signup() {
 						</div>
 						<ProviderLoginButton provider="google" />
 						<ProviderLoginButton provider="github" />
+					</div>
+					<div className="mt-4 text-center text-sm">
+						Already have an account?
+						<Link className="underline ml-2" to="/signin">
+							Sign In
+						</Link>
 					</div>
 				</div>
 			</div>

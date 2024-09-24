@@ -39,7 +39,7 @@ export default function Signin() {
 					<div className="grid gap-4">
 						<div className="grid gap-2">
 							<Label htmlFor="email">Email</Label>
-							<Input id="email" type="email" placeholder="email@example.com" required />
+							<Input id="email" type="email" name="email" placeholder="email@example.com" required />
 						</div>
 						<div className="grid gap-2">
 							<div className="flex items-center">
@@ -48,7 +48,7 @@ export default function Signin() {
 									Forgot your password?
 								</Link>
 							</div>
-							<Input id="password" type="password" required />
+							<Input id="password" type="password" name="password" required />
 						</div>
 						<LoadingButton className="w-full" loading={navigation.state === "submitting"}>
 							Sign in
