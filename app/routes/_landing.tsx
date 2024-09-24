@@ -14,7 +14,7 @@ export default function MarketingLayout() {
 				<div className="flex h-20 items-center justify-between py-6">
 					<MainNav items={marketingConfig.mainNav} />
 					<nav>
-						<Link to="/signin" className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "px-4")}>
+						<Link to="/signin" className={cn(buttonVariants({ variant: "secondary" }), "px-4")}>
 							Login
 						</Link>
 					</nav>
