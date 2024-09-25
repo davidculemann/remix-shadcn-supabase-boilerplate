@@ -50,26 +50,28 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 
 export const requireUser = async ({
 	supabase,
+	headers,
 	redirectTo = "/signin",
-}: { supabase: SupabaseClient; redirectTo?: string }) => {
+}: { supabase: SupabaseClient; headers?: Headers; redirectTo?: string }) => {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	if (!user) throw redirect(redirectTo);
+	if (!user) throw redirect(redirectTo, { headers });
 
 	return user;
 };
 
 export const forbidUser = async ({
 	supabase,
+	headers,
 	redirectTo = "/dashboard",
-}: { supabase: SupabaseClient; redirectTo?: string }) => {
+}: { supabase: SupabaseClient; headers?: Headers; redirectTo?: string }) => {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	if (user) throw redirect(redirectTo);
+	if (user) throw redirect(redirectTo, { headers });
 
 	return user;
 };
