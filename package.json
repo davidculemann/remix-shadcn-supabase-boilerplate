@@ -23,7 +23,7 @@
 		"@remix-run/react": "^2.12.0",
 		"@remix-run/serve": "^2.12.0",
 		"@supabase/ssr": "^0.5.1",
-		"@supabase/supabase-js": "^2.45.3",
+		"@supabase/supabase-js": "^2.45.4",
 		"@tabler/icons-react": "^3.16.0",
 		"axios": "^1.7.7",
 		"cal-sans": "^1.0.1",
@@ -39,6 +39,7 @@
 		"react-dom": "18.2.0",
 		"remix-auth": "^3.7.0",
 		"remix-auth-form": "^1.5.0",
+		"remix-auth-supabase": "^4.0.2",
 		"remix-utils": "7.5.0",
 		"tailwind-merge": "2.2.1",
 		"tailwindcss-animate": "1.0.7"
