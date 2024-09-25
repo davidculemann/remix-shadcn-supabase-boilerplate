@@ -21,6 +21,20 @@ export const meta: MetaFunction = () => {
 	];
 };
 
+const STEPS = [
+	{
+		number: 1,
+		title: "Input Details",
+		description: "Enter your experience, skills, and target job. Our AI does the rest.",
+	},
+	{
+		number: 2,
+		title: "Generate Documents",
+		description: "Get instant AI-generated documents. Edit and perfect with our smart tools.",
+	},
+	{ number: 3, title: "Apply & Succeed", description: "Submit your polished applications and ace your interviews." },
+];
+
 export default function Index() {
 	const { toast } = useToast();
 
@@ -109,45 +123,9 @@ export default function Index() {
 						</p>
 					</div>
 					<div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-8">
-						<div className="relative overflow-hidden rounded-lg border bg-background p-2">
-							<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<span className="text-2xl font-bold text-primary">1</span>
-								</div>
-								<div className="space-y-2">
-									<h3 className="font-bold">Input Your Details</h3>
-									<p className="text-sm text-muted-foreground">
-										Enter your experience, skills, and target job. Our AI does the rest.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div className="relative overflow-hidden rounded-lg border bg-background p-2">
-							<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<span className="text-2xl font-bold text-primary">2</span>
-								</div>
-								<div className="space-y-2">
-									<h3 className="font-bold">Review and Refine</h3>
-									<p className="text-sm text-muted-foreground">
-										Get instant AI-generated documents. Edit and perfect with our smart tools.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div className="relative overflow-hidden rounded-lg border bg-background p-2">
-							<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-								<div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-									<span className="text-2xl font-bold text-primary">3</span>
-								</div>
-								<div className="space-y-2">
-									<h3 className="font-bold">Apply with Confidence</h3>
-									<p className="text-sm text-muted-foreground">
-										Submit your polished applications and ace your interviews.
-									</p>
-								</div>
-							</div>
-						</div>
+						{STEPS.map(({ number, description, title }) => (
+							<Step key={number} {...{ number, description, title }} />
+						))}
 					</div>
 				</section>
 
@@ -177,6 +155,22 @@ export default function Index() {
 					</div>
 				</section>
 			</main>
+		</div>
+	);
+}
+
+function Step({ number, title, description }: { number: number; title: string; description: string }) {
+	return (
+		<div className="relative overflow-hidden rounded-lg border bg-background p-2">
+			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+				<div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+					<span className="text-2xl font-bold text-blue-600">{number}</span>
+				</div>
+				<div className="space-y-2">
+					<h3 className="font-bold">{title}</h3>
+					<p className="text-sm text-muted-foreground">{description}</p>
+				</div>
+			</div>
 		</div>
 	);
 }
