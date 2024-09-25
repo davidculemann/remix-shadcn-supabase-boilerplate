@@ -1,4 +1,4 @@
-import { useRevalidator } from "@remix-run/react";
+import { redirect, useRevalidator } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Session, SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "db_types";
@@ -46,4 +46,30 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 	}, [supabase, serverAccessToken, revalidator]);
 
 	return { supabase };
+};
+
+export const requireUser = async ({
+	supabase,
+	redirectTo = "/signin",
+}: { supabase: SupabaseClient; redirectTo?: string }) => {
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	if (!user) throw redirect(redirectTo);
+
+	return user;
+};
+
+export const forbidUser = async ({
+	supabase,
+	redirectTo = "/dashboard",
+}: { supabase: SupabaseClient; redirectTo?: string }) => {
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	if (user) throw redirect(redirectTo);
+
+	return user;
 };

@@ -1,8 +1,19 @@
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/styles";
-import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
+import { type SupabaseOutletContext, forbidUser } from "@/lib/supabase/supabase";
+import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, Outlet, useOutletContext } from "@remix-run/react";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+	const { supabase } = getSupabaseWithHeaders({ request });
+	await forbidUser({ supabase, redirectTo: "/dashboard" });
+
+	const { data } = await supabase.auth.getSession();
+
+	return { user: data?.session?.user };
+}
 
 export default function AuthLayout() {
 	const { supabase } = useOutletContext<SupabaseOutletContext>();

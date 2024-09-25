@@ -21,6 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
 	if (error) {
 		return json({ message: error.message }, { status: 400 });
 	}
+
 	return redirect("/dashboard", { headers });
 }
 
