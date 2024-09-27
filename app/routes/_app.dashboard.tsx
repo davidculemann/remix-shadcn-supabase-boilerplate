@@ -5,6 +5,7 @@ import { useLoaderData } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
+
 	await requireUser({ supabase, headers });
 
 	const { data } = await supabase.auth.getSession();
