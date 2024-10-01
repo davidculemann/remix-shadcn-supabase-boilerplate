@@ -1,6 +1,7 @@
-import { redirect, useRevalidator } from "@remix-run/react";
+import { PROTECTED_ROUTES } from "@/config.shared";
+import { useLocation, useNavigate, useRevalidator } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
-import type { Session, SupabaseClient } from "@supabase/supabase-js";
+import type { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import type { Database } from "db_types";
 import { useEffect, useState } from "react";
 
@@ -22,9 +23,11 @@ type UseSupabase = {
 };
 
 export const useSupabase = ({ env, session }: UseSupabase) => {
-	// Singleton
+	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const [supabase] = useState(() => createBrowserClient<Database>(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!));
 	const revalidator = useRevalidator();
+	const [user, setUser] = useState<User | null>();
 
 	const serverAccessToken = session?.access_token;
 
@@ -33,9 +36,15 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((event, session) => {
 			console.log("Auth event happened: ", event, session);
+			if (event === "SIGNED_IN") {
+				setUser(session?.user ?? null);
+			} else if (event === "SIGNED_OUT") {
+				setUser(null);
+			}
+
+			if (!session?.user && PROTECTED_ROUTES.includes(pathname)) navigate("/signin");
 
 			if (session?.access_token !== serverAccessToken) {
-				// call loaders
 				revalidator.revalidate();
 			}
 		});
@@ -43,35 +52,7 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 		return () => {
 			subscription.unsubscribe();
 		};
-	}, [supabase, serverAccessToken, revalidator]);
+	}, [supabase, serverAccessToken, revalidator, navigate]);
 
-	return { supabase };
-};
-
-export const requireUser = async ({
-	supabase,
-	headers,
-	redirectTo = "/signin",
-}: { supabase: SupabaseClient; headers?: Headers; redirectTo?: string }) => {
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
-
-	if (!user) throw redirect(redirectTo, { headers });
-
-	return user;
-};
-
-export const forbidUser = async ({
-	supabase,
-	headers,
-	redirectTo = "/dashboard",
-}: { supabase: SupabaseClient; headers?: Headers; redirectTo?: string }) => {
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
-
-	if (user) throw redirect(redirectTo, { headers });
-
-	return user;
+	return { supabase, user };
 };

@@ -22,7 +22,8 @@
 				"noSvgWithoutTitle": "off"
 			},
 			"correctness": {
-				"noEmptyPattern": "off"
+				"noEmptyPattern": "off",
+				"useExhaustiveDependencies": "off"
 			},
 			"complexity": {
 				"noForEach": "off"

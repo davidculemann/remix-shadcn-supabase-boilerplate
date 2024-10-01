@@ -4,9 +4,15 @@ import ProviderLoginButton from "@/components/shared/provider-login-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
-import { type ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { forbidUser, getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import { type ActionFunctionArgs, type LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import { Form, Link, useNavigation } from "@remix-run/react";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+	const { supabase, headers } = getSupabaseWithHeaders({ request });
+	await forbidUser({ supabase, headers, redirectTo: "/dashboard" });
+	return null;
+}
 
 export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData();

@@ -3,8 +3,7 @@ import { LoadingButton } from "@/components/shared/loading-button";
 import ProviderLoginButton from "@/components/shared/provider-login-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { forbidUser } from "@/lib/supabase/supabase";
-import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import { forbidUser, getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { type ActionFunctionArgs, type LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import { Form, Link, useNavigation } from "@remix-run/react";
 

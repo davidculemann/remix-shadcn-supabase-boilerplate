@@ -1,5 +1,6 @@
-import { createServerClient, parse, serialize } from "@supabase/ssr";
-import type { Database } from "db_types";
+import { redirect } from "@remix-run/node";
+import { createServerClient, parseCookieHeader, serializeCookieHeader } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export const getSupabaseEnv = () => ({
 	SUPABASE_URL: process.env.SUPABASE_URL!,
@@ -7,24 +8,18 @@ export const getSupabaseEnv = () => ({
 });
 
 export function getSupabaseWithHeaders({ request }: { request: Request }) {
-	const cookies = parse(request.headers.get("Cookie") ?? "");
 	const headers = new Headers();
 
-	const supabase = createServerClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
+	const supabase = createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
 		cookies: {
-			get(key) {
-				return cookies[key];
+			getAll() {
+				return parseCookieHeader(request.headers.get("Cookie") ?? "");
 			},
-			set(key, value, options) {
-				headers.append("Set-Cookie", serialize(key, value, options));
+			setAll(cookiesToSet) {
+				cookiesToSet.forEach(({ name, value, options }) =>
+					headers.append("Set-Cookie", serializeCookieHeader(name, value, options)),
+				);
 			},
-			remove(key, options) {
-				headers.append("Set-Cookie", serialize(key, "", options));
-			},
-		},
-		auth: {
-			detectSessionInUrl: true,
-			flowType: "pkce",
 		},
 	});
 
@@ -45,3 +40,31 @@ export async function getSupabaseWithSessionHeaders({
 
 	return { session, headers, supabase };
 }
+
+export const requireUser = async ({
+	supabase,
+	headers,
+	redirectTo = "/signin",
+}: { redirectTo?: string; supabase: SupabaseClient; headers: Headers }) => {
+	const {
+		data: { user },
+		error,
+	} = await supabase.auth.getUser();
+	if (!user || error) throw redirect(redirectTo, { headers });
+
+	return user;
+};
+
+export const forbidUser = async ({
+	supabase,
+	headers,
+	redirectTo = "/dashboard",
+}: { supabase: SupabaseClient; headers?: Headers; redirectTo?: string }) => {
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	if (user) throw redirect(redirectTo, { headers });
+
+	return user;
+};

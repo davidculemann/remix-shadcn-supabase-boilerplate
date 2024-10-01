@@ -18,6 +18,7 @@ interface LoadingButtonProps {
 	variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost";
 	loading?: boolean;
 	onClick?: () => void;
+	type?: "button" | "submit" | "reset";
 }
 
 export function LoadingButton({
@@ -27,6 +28,7 @@ export function LoadingButton({
 	className,
 	onClick = () => {},
 	variant,
+	...props
 }: Readonly<LoadingButtonProps>) {
 	return (
 		<Button
@@ -36,6 +38,7 @@ export function LoadingButton({
 			className={cn(className)}
 			onClick={onClick}
 			variant={variant}
+			{...props}
 		>
 			{loading ? <Loader text={loadingText} /> : children}
 		</Button>
