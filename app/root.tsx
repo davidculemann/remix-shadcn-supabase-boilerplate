@@ -23,7 +23,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
 	const { env, session } = useLoaderData<typeof loader>();
 
-	const { supabase } = useSupabase({ env, session });
+	const { supabase, isLoading } = useSupabase({ env, session });
 
 	return (
 		<ThemeSwitcherSafeHTML lang="en">
@@ -37,11 +37,11 @@ export default function App() {
 			</head>
 			<body className="flex min-h-screen h-screen w-full flex-col bg-muted/40">
 				<QueryClientProvider client={queryClient}>
-					<Outlet context={{ supabase }} />
+					<Outlet context={{ supabase, isLoading }} />
 					<ScrollRestoration />
 					<Scripts />
 					<Toaster />
-					<ReactQueryDevtools />
+					<ReactQueryDevtools buttonPosition="bottom-left" />
 				</QueryClientProvider>
 			</body>
 		</ThemeSwitcherSafeHTML>

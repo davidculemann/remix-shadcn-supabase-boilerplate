@@ -9,7 +9,8 @@ export type TypedSupabaseClient = SupabaseClient<Database>;
 
 export type SupabaseOutletContext = {
 	supabase: TypedSupabaseClient;
-	domainUrl: string;
+	domainUrl?: string;
+	isLoading?: boolean;
 };
 
 type SupabaseEnv = {
@@ -28,6 +29,7 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 	const [supabase] = useState(() => createBrowserClient<Database>(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!));
 	const revalidator = useRevalidator();
 	const [user, setUser] = useState<User | null>();
+	const [isLoading, setIsLoading] = useState(true);
 
 	const serverAccessToken = session?.access_token;
 
@@ -42,17 +44,21 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 				setUser(null);
 			}
 
-			if (!session?.user && PROTECTED_ROUTES.includes(pathname)) navigate("/signin");
+			if (!session?.user && PROTECTED_ROUTES.includes(pathname)) {
+				navigate("/signin");
+			}
 
 			if (session?.access_token !== serverAccessToken) {
 				revalidator.revalidate();
 			}
+
+			setIsLoading(false);
 		});
 
 		return () => {
 			subscription.unsubscribe();
 		};
-	}, [supabase, serverAccessToken, revalidator, navigate]);
+	}, [supabase, serverAccessToken, revalidator, navigate, pathname]);
 
-	return { supabase, user };
+	return { supabase, user, isLoading };
 };

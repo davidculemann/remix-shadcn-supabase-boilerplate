@@ -15,7 +15,8 @@
 			},
 			"suspicious": {
 				"noExplicitAny": "off",
-				"noAssignInExpressions": "off"
+				"noAssignInExpressions": "off",
+				"noArrayIndexKey": "off"
 			},
 			"a11y": {
 				"useButtonType": "off",

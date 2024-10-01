@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import ModeToggle from "../shared/mode-toggle";
 
 export default function SiteFooter() {
 	return (
@@ -13,9 +12,6 @@ export default function SiteFooter() {
 					Privacy
 				</Link>
 			</nav>
-			<span className="ml-0 lg:ml-4">
-				<ModeToggle />
-			</span>
 		</footer>
 	);
 }

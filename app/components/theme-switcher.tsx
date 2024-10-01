@@ -10,14 +10,12 @@ export function ThemeSwitcherSafeHTML({
 	children,
 	lang,
 	...props
-}: React.HTMLProps<HTMLHtmlElement> & {
-	lang: string;
-}) {
+}: React.HTMLProps<HTMLHtmlElement> & { lang: string }) {
 	const dataTheme =
 		typeof document === "undefined" ? undefined : document.documentElement.getAttribute("data-theme") || undefined;
 
 	return (
-		<html {...props} lang={lang} data-theme={dataTheme}>
+		<html {...props} lang={lang} data-theme={dataTheme} className={dataTheme === "dark" ? "dark" : ""}>
 			{children}
 		</html>
 	);
