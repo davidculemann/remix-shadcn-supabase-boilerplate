@@ -1,8 +1,8 @@
 import { buttonVariants } from "@/components/ui/button";
 import { marketingConfig } from "@/lib/config/marketing";
 import { cn } from "@/lib/styles";
+import { ThemeToggle } from "@/routes/resources.theme-toggle";
 import { Link } from "@remix-run/react";
-import ModeToggle from "../shared/mode-toggle";
 import MainNav from "./main-nav";
 
 export default function SiteHeader() {
@@ -11,7 +11,7 @@ export default function SiteHeader() {
 			<div className="flex h-20 items-center justify-between py-6">
 				<MainNav items={marketingConfig.mainNav} />
 				<span className="flex gap-6">
-					<ModeToggle />
+					<ThemeToggle />
 					<nav>
 						<Link to="/signin" className={cn(buttonVariants({ variant: "secondary" }), "px-4")}>
 							Login
