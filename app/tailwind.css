@@ -81,3 +81,7 @@
 html body[data-scroll-locked] {
     overflow: auto !important;
 } 
+
+.font-heading {
+  font-family: "Cal Sans";
+}
