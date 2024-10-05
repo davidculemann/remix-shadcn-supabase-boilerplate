@@ -20,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
-	const { supabase, headers } = getSupabaseWithHeaders({ request });
+	const { supabase } = getSupabaseWithHeaders({ request });
 
 	const { error } = await supabase.auth.signUp({
 		email,
@@ -116,7 +116,7 @@ export default function Signup() {
 				</div>
 			</div>
 			<div className="hidden bg-muted lg:grid lg:place-items-center">
-				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto" />
+				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto h-32" />
 			</div>
 		</Form>
 	);

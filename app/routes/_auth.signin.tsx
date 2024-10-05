@@ -80,7 +80,7 @@ export default function Signin() {
 				</div>
 			</div>
 			<div className="hidden bg-muted lg:grid lg:place-items-center">
-				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto" />
+				<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto h-32" />
 			</div>
 		</Form>
 	);
