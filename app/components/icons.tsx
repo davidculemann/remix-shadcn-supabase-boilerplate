@@ -13,6 +13,7 @@ import {
 	Loader2,
 	type Icon as LucideIcon,
 	type LucideProps,
+	MailCheck,
 	Moon,
 	MoreVertical,
 	Pizza,
@@ -26,7 +27,7 @@ import {
 } from "lucide-react";
 import Logo from "./shared/logo";
 
-export type Icon = LucideIcon;
+export type Icon = typeof LucideIcon;
 
 export const Icons = {
 	logo: Logo,
@@ -50,6 +51,7 @@ export const Icons = {
 	sun: SunMedium,
 	moon: Moon,
 	laptop: Laptop,
+	mail: MailCheck,
 	gitHub: ({ ...props }: LucideProps) => (
 		<svg
 			aria-hidden="true"
