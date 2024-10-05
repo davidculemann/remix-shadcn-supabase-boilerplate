@@ -14,10 +14,17 @@ export default function AuthLayout() {
 			>
 				<>
 					<Icons.chevronLeft className="mr-2 h-4 w-4" />
-					Back
+					Home
 				</>
 			</Link>
-			<Outlet context={{ supabase }} />
+			<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
+				<div className="flex items-center justify-center py-12 h-full">
+					<Outlet context={{ supabase }} />
+				</div>
+				<div className="hidden bg-muted lg:grid lg:place-items-center">
+					<Icons.logo className="object-cover dark:brightness-[0.2] dark:grayscale m-auto h-32" />
+				</div>
+			</div>
 		</main>
 	);
 }

@@ -14,7 +14,7 @@ export default function SiteHeader() {
 					<ThemeToggle />
 					<nav>
 						<Link to="/signin" className={cn(buttonVariants({ variant: "secondary" }), "px-4")}>
-							Login
+							Sign in
 						</Link>
 					</nav>
 				</span>
