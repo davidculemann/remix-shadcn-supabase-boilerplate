@@ -1,3 +1,4 @@
+import { useToast } from "@/components/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { LoadingButton } from "@/components/shared/loading-button";
 import ProviderLoginButton from "@/components/shared/provider-login-button";
@@ -5,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { forbidUser, getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { type ActionFunctionArgs, type LoaderFunctionArgs, json, redirect } from "@remix-run/node";
-import { Form, Link, useNavigation } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
+import { useEffect } from "react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
@@ -31,8 +33,24 @@ export async function action({ request }: ActionFunctionArgs) {
 	return redirect("/dashboard", { headers });
 }
 
+type ActionStatus = {
+	success: boolean;
+	message: string;
+};
+
 export default function Signin() {
 	const navigation = useNavigation();
+
+	const actionData = useActionData<ActionStatus | undefined>(); // Hook to retrieve action response
+	const { toast } = useToast();
+
+	useEffect(() => {
+		if (actionData)
+			toast({
+				variant: actionData?.success ? "default" : "destructive",
+				description: actionData.message,
+			});
+	}, [actionData]);
 
 	return (
 		<Form method="POST" className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">

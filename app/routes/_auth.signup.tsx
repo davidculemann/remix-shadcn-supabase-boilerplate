@@ -48,7 +48,7 @@ export default function Signup() {
 	useEffect(() => {
 		if (actionData)
 			toast({
-				variant: actionData?.success ? "default" : "destructive",
+				variant: isSignupComplete ? "default" : "destructive",
 				description: actionData.message,
 			});
 	}, [actionData]);
