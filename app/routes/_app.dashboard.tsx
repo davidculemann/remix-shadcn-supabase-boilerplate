@@ -15,9 +15,5 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Dashboard() {
 	const user = useLoaderData<typeof loader>();
 
-	return (
-		<div className="h-full">
-			<h1>Welcome, {user?.user_metadata?.name || user?.email}</h1>
-		</div>
-	);
+	return <div className="h-full" />;
 }

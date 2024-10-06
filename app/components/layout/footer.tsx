@@ -3,28 +3,16 @@ import { Link } from "@remix-run/react";
 export function Footer() {
 	return (
 		<div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className="mx-4 md:mx-8 flex h-14 items-center">
-				<p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
-					Built on top of{" "}
-					<Link
-						to="https://ui.shadcn.com"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="font-medium underline underline-offset-4"
-					>
-						shadcn/ui
+			<div className="mx-4 md:mx-8 flex h-14 items-center gap-4">
+				<p className="text-xs text-gray-500">© 2024 David Culemann. All rights reserved.</p>
+				<nav className="sm:ml-auto flex gap-4 sm:gap-6">
+					<Link className="text-xs hover:underline underline-offset-4" to="#">
+						Terms of Service
 					</Link>
-					. The source code is available on{" "}
-					<Link
-						to="https://github.com/salimi-my/shadcn-ui-sidebar"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="font-medium underline underline-offset-4"
-					>
-						GitHub
+					<Link className="text-xs hover:underline underline-offset-4" to="#">
+						Privacy
 					</Link>
-					.
-				</p>
+				</nav>
 			</div>
 		</div>
 	);

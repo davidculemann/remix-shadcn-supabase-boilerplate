@@ -1,4 +1,3 @@
-import SiteFooter from "@/components/landing/site-footer";
 import AdminPanelLayout from "@/components/layout/admin-panel-layout";
 import { ContentLayout } from "@/components/layout/content-layout";
 import { GlobalPendingIndicator } from "@/components/layout/global-pending-indicator";
@@ -24,7 +23,6 @@ export default function AuthLayout() {
 	return (
 		<>
 			<GlobalPendingIndicator />
-			{/* <AppHeader /> */}
 			<AdminPanelLayout>
 				<ContentLayout title="Dashboard">
 					<Breadcrumb>
@@ -42,7 +40,6 @@ export default function AuthLayout() {
 					</Breadcrumb>
 					<Outlet context={{ supabase }} />
 				</ContentLayout>
-				<SiteFooter />
 			</AdminPanelLayout>
 		</>
 	);
