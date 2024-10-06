@@ -1,4 +1,4 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useLoaderData } from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useFetcher, useLoaderData } from "@remix-run/react";
 
 import { Toaster } from "@/components/ui/toaster";
 import { ClientHintCheck, getHints, useNonce, useTheme } from "@/lib/client-hints";
@@ -12,6 +12,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "cal-sans";
 import clsx from "clsx";
+import { useEffect } from "react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { session, headers } = await getSupabaseWithSessionHeaders({
@@ -35,11 +36,24 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function App() {
 	const { env, session } = useLoaderData<typeof loader>();
-
 	const { supabase, isLoading, user } = useSupabase({ env, session });
+	const fetcher = useFetcher();
 
 	const theme = useTheme();
 	const nonce = useNonce();
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.shiftKey && event.metaKey && event.key === "s") {
+				fetcher.submit(null, { method: "post", action: "/signout" });
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [fetcher]);
 
 	return (
 		<html lang="en" className={clsx(theme)}>

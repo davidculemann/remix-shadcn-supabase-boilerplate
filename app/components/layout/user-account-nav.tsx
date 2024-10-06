@@ -8,27 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Form, Link } from "@remix-run/react";
 import type { UserMetadata } from "@supabase/supabase-js";
-import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { UserAvatar } from "./user-avatar";
 
 export function UserAccountNav({ user }: { user: UserMetadata }) {
-	useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.shiftKey && event.metaKey && event.key === "Q") {
-				const formElement: HTMLFormElement = document.querySelector('form[action="/signout"]')!;
-				if (formElement) {
-					formElement.submit();
-				}
-			}
-		};
-
-		document.addEventListener("keydown", handleKeyDown);
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
@@ -60,7 +43,7 @@ export function UserAccountNav({ user }: { user: UserMetadata }) {
 							className="justify-start sm:justify-center w-full text-left px-2"
 						>
 							Log out
-							<DropdownMenuShortcut className="hidden sm:inline-block">⇧⌘Q</DropdownMenuShortcut>
+							<DropdownMenuShortcut className="hidden sm:inline-block">⇧⌘S</DropdownMenuShortcut>
 						</Button>
 					</Form>
 				</DropdownMenuItem>
