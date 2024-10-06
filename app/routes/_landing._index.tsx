@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form } from "@remix-run/react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -60,11 +61,21 @@ export default function Index() {
 	return (
 		<div className="flex flex-col">
 			<main className="flex-1">
-				<section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
+				<motion.section
+					className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32"
+					initial={{ opacity: 0, y: -50 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5 }}
+				>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+						<motion.h1
+							className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ delay: 0.2, duration: 0.6 }}
+						>
 							Land Your Dream Job with AI-Powered Career Tools
-						</h1>
+						</motion.h1>
 						<p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
 							Create stunning resumes, compelling cover letters, and ace your interviews with EasyCV's
 							AI-driven platform.
@@ -78,9 +89,12 @@ export default function Index() {
 							</Button>
 						</div>
 					</div>
-				</section>
+				</motion.section>
 
-				<section
+				<motion.section
+					initial={{ opacity: 0, y: -50 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5 }}
 					id="features"
 					className="container space-y-6 bg-slate-50 dark:bg-transparent md:py-12 lg:py-24"
 				>
@@ -127,7 +141,7 @@ export default function Index() {
 							</CardContent>
 						</Card>
 					</div>
-				</section>
+				</motion.section>
 
 				<section id="how-it-works" className="container py-8 md:py-12 lg:py-24">
 					<div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
