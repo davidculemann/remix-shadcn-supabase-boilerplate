@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/styles";
+import { cn } from "@/lib/utils";
 import { IconLoader } from "@tabler/icons-react";
 
 function Loader({ text }: { readonly text: string }) {

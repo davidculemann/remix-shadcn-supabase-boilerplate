@@ -2,10 +2,10 @@ import * as React from "react";
 
 import { Icons } from "@/components/icons";
 import { siteConfig } from "@/lib/config/site";
-import { cn } from "@/lib/styles";
 import type { MainNavItem } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { Link, useLocation } from "@remix-run/react";
-import { MobileNav } from "../mobile-nav";
+import { MobileNav } from "./mobile-nav";
 
 interface MainNavProps {
 	items?: MainNavItem[];

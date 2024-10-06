@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import { marketingConfig } from "@/lib/config/marketing";
-import { cn } from "@/lib/styles";
+import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/routes/resources.theme-toggle";
 import { Link } from "@remix-run/react";
 import MainNav from "./main-nav";

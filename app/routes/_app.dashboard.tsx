@@ -15,5 +15,5 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function Dashboard() {
 	const user = useLoaderData<typeof loader>();
 
-	return <pre>{JSON.stringify(user, null, 2)}</pre>;
+	return <h1>Welcome, {user?.user_metadata?.name || user?.email}</h1>;
 }

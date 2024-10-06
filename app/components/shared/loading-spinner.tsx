@@ -1,4 +1,4 @@
-import { cn } from "@/lib/styles";
+import { cn } from "@/lib/utils";
 
 export interface ISVGProps extends React.SVGProps<SVGSVGElement> {
 	size?: number;

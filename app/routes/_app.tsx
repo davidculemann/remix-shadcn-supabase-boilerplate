@@ -1,5 +1,6 @@
-import { GlobalPendingIndicator } from "@/components/global-pending-indicator";
-import { Header } from "@/components/header";
+import SiteFooter from "@/components/landing/site-footer";
+import AppHeader from "@/components/layout/app-header";
+import { GlobalPendingIndicator } from "@/components/layout/global-pending-indicator";
 import PageLoading from "@/components/shared/page-loading";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { Outlet, useOutletContext } from "@remix-run/react";
@@ -13,8 +14,11 @@ export default function AuthLayout() {
 	return (
 		<>
 			<GlobalPendingIndicator />
-			<Header />
-			<Outlet context={{ supabase }} />
+			<AppHeader />
+			<div className="h-full">
+				<Outlet context={{ supabase }} />
+			</div>
+			<SiteFooter />
 		</>
 	);
 }

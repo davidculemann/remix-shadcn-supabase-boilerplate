@@ -1,8 +1,8 @@
 import { Icons } from "@/components/icons";
 import { useLockBody } from "@/hooks/use-lock-body";
 import { siteConfig } from "@/lib/config/site";
-import { cn } from "@/lib/styles";
 import type { MainNavItem } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { Link } from "@remix-run/react";
 
 interface MobileNavProps {

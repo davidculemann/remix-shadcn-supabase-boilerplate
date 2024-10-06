@@ -1,6 +1,6 @@
 import { useNavigation } from "@remix-run/react";
 
-import { cn } from "@/lib/styles";
+import { cn } from "@/lib/utils";
 
 export function GlobalPendingIndicator() {
 	const navigation = useNavigation();

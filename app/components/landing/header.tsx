@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 
 import { ThemeToggle } from "@/routes/resources.theme-toggle";
-import LogoutButton from "./logout-button";
+import LogoutButton from "../shared/logout-button";
 
 export function Header() {
 	return (

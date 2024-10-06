@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/styles";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
+import { cn } from "@/lib/utils";
 import { Link, Outlet, useOutletContext } from "@remix-run/react";
 
 export default function AuthLayout() {
