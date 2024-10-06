@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getMenuList } from "@/lib/menu-list";
 import { cn } from "@/lib/utils";
-import { Link, useLocation } from "@remix-run/react";
+import { Link, useFetcher, useLocation } from "@remix-run/react";
 import { CollapseMenuButton } from "./collapse-menu-button";
 
 interface MenuProps {
@@ -14,7 +14,12 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
 	const { pathname } = useLocation();
+	const fetcher = useFetcher();
 	const menuList = getMenuList(pathname);
+
+	function handleSignOut() {
+		fetcher.submit(null, { method: "post", action: "/signout" });
+	}
 
 	return (
 		<ScrollArea className="[&>div>div[style]]:!block">
@@ -95,7 +100,7 @@ export function Menu({ isOpen }: MenuProps) {
 							<Tooltip delayDuration={100}>
 								<TooltipTrigger asChild>
 									<Button
-										onClick={() => {}}
+										onClick={handleSignOut}
 										variant="outline"
 										className="w-full justify-center h-10 mt-5"
 									>
