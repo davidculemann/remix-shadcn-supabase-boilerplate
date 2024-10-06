@@ -6,19 +6,12 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
-import { Form, Link, useOutletContext } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import type { UserMetadata } from "@supabase/supabase-js";
 import { Button } from "../ui/button";
 import { UserAvatar } from "./user-avatar";
 
 export function UserAccountNav({ user }: { user: UserMetadata }) {
-	const { supabase } = useOutletContext<SupabaseOutletContext>();
-
-	const handleSignOut = async () => {
-		await supabase.auth.signOut();
-	};
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
