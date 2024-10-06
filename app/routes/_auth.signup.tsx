@@ -76,7 +76,7 @@ export default function Signup() {
 							<Input id="email" type="email" name="email" placeholder="email@example.com" required />
 						</div>
 						<div className="grid gap-2">
-							<div className="flex items-center">
+							<div className="flex items-center h-5">
 								<Label htmlFor="password">Password</Label>
 							</div>
 							<Input id="password" type="password" name="password" required />
