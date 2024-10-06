@@ -1,12 +1,9 @@
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Await, useLoaderData } from "@remix-run/react";
-import { Suspense } from "react";
+import { useLoaderData } from "@remix-run/react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-	const { supabase, headers } = getSupabaseWithHeaders({ request });
-
-	//await requireUser({ supabase, headers });
+	const { supabase } = getSupabaseWithHeaders({ request });
 
 	const {
 		data: { user },
@@ -17,12 +14,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Dashboard() {
 	const user = useLoaderData<typeof loader>();
-	console.log(user, typeof user);
-	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<Await resolve={user}>
-				<pre>{JSON.stringify(user, null, 2)}</pre>
-			</Await>
-		</Suspense>
-	);
+
+	return <pre>{JSON.stringify(user, null, 2)}</pre>;
 }

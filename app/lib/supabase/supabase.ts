@@ -32,7 +32,7 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 	const { toast } = useToast();
 
 	const [supabase] = useState(() => createBrowserClient<Database>(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!));
-	const [user, setUser] = useState<User | null>();
+	const [user, setUser] = useState<User | null>(session?.user ?? null);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const serverAccessToken = session?.access_token;
@@ -63,10 +63,18 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 			setIsLoading(false);
 		});
 
+		// Ensure the initial loading state is set correctly
+		if (session?.user) {
+			setUser(session.user);
+			setIsLoading(false);
+		} else {
+			setIsLoading(false);
+		}
+
 		return () => {
 			subscription.unsubscribe();
 		};
-	}, [supabase, serverAccessToken, revalidator, navigate, pathname]);
+	}, [supabase, serverAccessToken, revalidator, navigate, pathname, session?.user]);
 
 	return { supabase, user, isLoading };
 };
