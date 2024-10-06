@@ -45,14 +45,12 @@ npm start
 
 Now you'll need to pick a host to deploy it to.
 
-### DIY
+## Credits
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build` and the server
-
--   `server.js`
--   `build/server`
--   `build/client`
-
-Take a look at the provided Dockerfile for further details on how to configure a production environment.
+-   [Remix](https://remix.run)
+-   [Vite](https://vitejs.dev)
+-   [shadcn/ui](https://shadcn/ui)
+-   [Supabase](https://supabase.io)
+-   [Resend](https://resend.io)
+-   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
+-   [Biome](https://biomejs.dev)

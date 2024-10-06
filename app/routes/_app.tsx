@@ -1,13 +1,21 @@
 import SiteFooter from "@/components/landing/site-footer";
-import AppHeader from "@/components/layout/app-header";
+import AdminPanelLayout from "@/components/layout/admin-panel-layout";
+import { ContentLayout } from "@/components/layout/content-layout";
 import { GlobalPendingIndicator } from "@/components/layout/global-pending-indicator";
 import PageLoading from "@/components/shared/page-loading";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
-import { Outlet, useFetcher, useOutletContext } from "@remix-run/react";
+import { Link, Outlet, useOutletContext } from "@remix-run/react";
 
 export default function AuthLayout() {
 	const { supabase, isLoading, user } = useOutletContext<SupabaseOutletContext>();
-	const fetcher = useFetcher();
 
 	if (isLoading || !user) {
 		return <PageLoading />;
@@ -16,9 +24,26 @@ export default function AuthLayout() {
 	return (
 		<>
 			<GlobalPendingIndicator />
-			<AppHeader />
-			<Outlet context={{ supabase }} />
-			<SiteFooter />
+			{/* <AppHeader /> */}
+			<AdminPanelLayout>
+				<ContentLayout title="Dashboard">
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem>
+								<BreadcrumbLink asChild>
+									<Link to="/">Home</Link>
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator />
+							<BreadcrumbItem>
+								<BreadcrumbPage>Dashboard</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
+					<Outlet context={{ supabase }} />
+				</ContentLayout>
+				<SiteFooter />
+			</AdminPanelLayout>
 		</>
 	);
 }
