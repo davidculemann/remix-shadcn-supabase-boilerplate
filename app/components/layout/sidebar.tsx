@@ -1,10 +1,9 @@
-import { PanelsTopLeft } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { useStore } from "@/hooks/use-store";
 import { cn } from "@/lib/utils";
 import { Link } from "@remix-run/react";
+import { Icons } from "../icons";
 import { Menu } from "./menu";
 import { SidebarToggle } from "./sidebar-toggle";
 
@@ -31,7 +30,7 @@ export function Sidebar() {
 					asChild
 				>
 					<Link to="/dashboard" className="flex items-center gap-2">
-						<PanelsTopLeft className="w-6 h-6 mr-1" />
+						<Icons.logo />
 						<h1
 							className={cn(
 								"font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
@@ -40,7 +39,7 @@ export function Sidebar() {
 									: "translate-x-0 opacity-100",
 							)}
 						>
-							Brand
+							easycv
 						</h1>
 					</Link>
 				</Button>
