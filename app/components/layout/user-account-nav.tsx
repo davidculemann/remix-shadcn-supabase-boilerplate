@@ -3,14 +3,21 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Form, Link } from "@remix-run/react";
+import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
+import { Link, useOutletContext } from "@remix-run/react";
 import type { UserMetadata } from "@supabase/supabase-js";
-import { Button } from "../ui/button";
 import { UserAvatar } from "./user-avatar";
 
 export function UserAccountNav({ user }: { user: UserMetadata }) {
+	const { supabase } = useOutletContext<SupabaseOutletContext>();
+
+	const handleSignOut = async () => {
+		await supabase.auth.signOut();
+	};
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
@@ -34,12 +41,9 @@ export function UserAccountNav({ user }: { user: UserMetadata }) {
 					<Link to="/dashboard/settings">Settings</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<Form method="POST" action="/signout">
-						<Button type="submit" variant="ghost" className="w-full text-left">
-							Sign out
-						</Button>
-					</Form>
+				<DropdownMenuItem onClick={handleSignOut}>
+					Log out
+					<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
