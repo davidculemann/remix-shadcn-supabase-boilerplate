@@ -153,7 +153,13 @@ export default function Index() {
 						</p>
 						<div className="w-full max-w-sm space-y-2">
 							<Form onSubmit={handleSubmitEmail} className="flex space-x-2">
-								<Input className="flex-1" placeholder="Enter your email" id="email" name="email" />
+								<Input
+									className="flex-1"
+									placeholder="Enter your email"
+									id="email"
+									name="email"
+									type="email"
+								/>
 								<Button type="submit">Submit</Button>
 							</Form>
 							<p className="text-xs text-muted-foreground">
