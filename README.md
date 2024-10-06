@@ -1,4 +1,16 @@
-# Boilerplate for Remix + Vite + shadcn/ui + Supabase!
+# Boilerplate for Remix + Vite + shadcn/ui + Supabase
+
+## What's inside?
+
+-   A fullstack app with Remix, Vite, shadcn/ui, and Supabase
+-   Complete authentication flow with Supabase
+    -   Signup with email, Google, Github
+    -   Login with email, Google, Github
+    -   Forgot password flow
+    -   Logout
+-   Protected routes
+-   A beautiful and professional dashboard layout, credit to [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
+-   Easily configurable for your own project
 
 ## Supabase
 
