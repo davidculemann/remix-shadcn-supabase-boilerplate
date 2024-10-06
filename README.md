@@ -2,7 +2,7 @@
 
 ## What's inside?
 
--   A fullstack app with Remix, Vite, shadcn/ui, and Supabase
+-   A fullstack app with [Remix](https://remix.run), [Vite](https://vitejs.dev), [shadcn/ui](https://shadcn/ui), and [Supabase](https://supabase.io)
 -   Complete authentication flow with Supabase
     -   Signup with email, Google, Github
     -   Login with email, Google, Github
