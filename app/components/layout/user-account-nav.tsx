@@ -14,7 +14,7 @@ export function UserAccountNav({ user }: { user: UserMetadata }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<UserAvatar user={{ name: user.name || null, image: user.image || null }} className="h-8 w-8" />
+				<UserAvatar user={{ name: user.name || null, image: user.avatar_url || null }} className="h-8 w-8" />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
 				<div className="flex items-center justify-start gap-2 p-2">
