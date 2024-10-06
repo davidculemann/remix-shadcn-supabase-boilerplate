@@ -15,9 +15,7 @@ export default function AuthLayout() {
 		<>
 			<GlobalPendingIndicator />
 			<AppHeader />
-			<div className="h-full">
-				<Outlet context={{ supabase }} />
-			</div>
+			<Outlet context={{ supabase }} />
 			<SiteFooter />
 		</>
 	);
