@@ -7,8 +7,9 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
-import { Link, useOutletContext } from "@remix-run/react";
+import { Form, Link, useOutletContext } from "@remix-run/react";
 import type { UserMetadata } from "@supabase/supabase-js";
+import { Button } from "../ui/button";
 import { UserAvatar } from "./user-avatar";
 
 export function UserAccountNav({ user }: { user: UserMetadata }) {
@@ -41,9 +42,13 @@ export function UserAccountNav({ user }: { user: UserMetadata }) {
 					<Link to="/dashboard/settings">Settings</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem onClick={handleSignOut}>
-					Log out
-					<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+				<DropdownMenuItem asChild>
+					<Form method="POST" action="/signout" className="py-0 px-0">
+						<Button type="submit" variant="ghost" className="w-full text-left px-2">
+							Log out
+							<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+						</Button>
+					</Form>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
