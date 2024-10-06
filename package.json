@@ -42,6 +42,7 @@
 		"cookie": "^0.6.0",
 		"cross-env": "7.0.3",
 		"express": "4.18.2",
+		"framer-motion": "^11.11.1",
 		"isbot": "5.1.0",
 		"lucide-react": "^0.441.0",
 		"morgan": "1.10.0",
