@@ -42,8 +42,19 @@ export default function Index() {
 		event.preventDefault();
 		const form = event.currentTarget;
 		const formData = new FormData(form);
-		await axios.post("api/mailing-list", formData);
-		toast({ title: "Success!", description: "You have been added to the mailing list." });
+		try {
+			await axios.post("api/mailing-list", formData);
+			toast({ title: "Success!", description: "You have been added to the mailing list." });
+		} catch (error) {
+			if (axios.isAxiosError(error) && error.response) {
+				const { error: errorMessage = "An unexpected error occurred. Please try again." } = error.response.data;
+				toast({
+					title: "Error",
+					variant: "destructive",
+					description: errorMessage,
+				});
+			} else toast({ title: "Error", description: "An unexpected error occurred. Please try again." });
+		}
 	}
 
 	return (
@@ -142,13 +153,7 @@ export default function Index() {
 						</p>
 						<div className="w-full max-w-sm space-y-2">
 							<Form onSubmit={handleSubmitEmail} className="flex space-x-2">
-								<Input
-									className="flex-1"
-									placeholder="Enter your email"
-									type="email"
-									id="email"
-									name="email"
-								/>
+								<Input className="flex-1" placeholder="Enter your email" id="email" name="email" />
 								<Button type="submit">Submit</Button>
 							</Form>
 							<p className="text-xs text-muted-foreground">
