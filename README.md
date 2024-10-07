@@ -63,6 +63,8 @@ Now you'll need to pick a host to deploy it to.
 -   [Vite](https://vitejs.dev)
 -   [shadcn/ui](https://shadcn/ui)
 -   [Supabase](https://supabase.io)
+-   [React Query](https://react-query.tanstack.com)
+-   [Framer Motion](https://www.framer.com/motion)
 -   [Resend](https://resend.io)
 -   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
 -   [Biome](https://biomejs.dev)

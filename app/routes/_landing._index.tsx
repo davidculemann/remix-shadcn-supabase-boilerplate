@@ -6,6 +6,7 @@ import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { enterAnimation } from "@/lib/framer/animations";
 import { Form } from "@remix-run/react";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -61,21 +62,11 @@ export default function Index() {
 	return (
 		<div className="flex flex-col">
 			<main className="flex-1">
-				<motion.section
-					className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32"
-					initial={{ opacity: 0, y: -50 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
-				>
+				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32" {...enterAnimation}>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-						<motion.h1
-							className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.2, duration: 0.6 }}
-						>
+						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
 							Land Your Dream Job with AI-Powered Career Tools
-						</motion.h1>
+						</h1>
 						<p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
 							Create stunning resumes, compelling cover letters, and ace your interviews with EasyCV's
 							AI-driven platform.
@@ -92,9 +83,7 @@ export default function Index() {
 				</motion.section>
 
 				<motion.section
-					initial={{ opacity: 0, y: -50 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
+					{...enterAnimation}
 					id="features"
 					className="container space-y-6 bg-slate-50 dark:bg-transparent md:py-12 lg:py-24"
 				>
@@ -143,7 +132,7 @@ export default function Index() {
 					</div>
 				</motion.section>
 
-				<section id="how-it-works" className="container py-8 md:py-12 lg:py-24">
+				<motion.section {...enterAnimation} id="how-it-works" className="container py-8 md:py-12 lg:py-24">
 					<div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
 						<h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">How It Works</h2>
 						<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
@@ -155,9 +144,9 @@ export default function Index() {
 							<Step key={number} {...{ number, description, title }} />
 						))}
 					</div>
-				</section>
+				</motion.section>
 
-				<section className="container py-8 md:py-12 lg:py-24">
+				<motion.section {...enterAnimation} className="container py-8 md:py-12 lg:py-24">
 					<div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
 						<h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
 							Ready to Land Your Dream Job?
@@ -181,7 +170,7 @@ export default function Index() {
 							</p>
 						</div>
 					</div>
-				</section>
+				</motion.section>
 			</main>
 		</div>
 	);
