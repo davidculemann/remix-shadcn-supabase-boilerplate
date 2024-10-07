@@ -6,10 +6,11 @@ import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { enterAnimation } from "@/lib/framer/animations";
+import { containerVariants, enterAnimation, itemVariants } from "@/lib/framer/animations";
 import { Form } from "@remix-run/react";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -39,6 +40,8 @@ const STEPS = [
 
 export default function Index() {
 	const { toast } = useToast();
+	const howItWorksRef = useRef(null);
+	const isInView = useInView(howItWorksRef, { amount: 0.6, once: true });
 
 	async function handleSubmitEmail(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -132,18 +135,33 @@ export default function Index() {
 					</div>
 				</motion.section>
 
-				<motion.section {...enterAnimation} id="how-it-works" className="container py-8 md:py-12 lg:py-24">
-					<div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+				<motion.section
+					ref={howItWorksRef}
+					initial="hidden"
+					animate={isInView ? "show" : "hidden"}
+					variants={containerVariants}
+					id="how-it-works"
+					className="container py-8 md:py-12 lg:py-24"
+				>
+					<motion.div
+						{...enterAnimation}
+						className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center"
+					>
 						<h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">How It Works</h2>
 						<p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
 							Three simple steps to revolutionize your job search process.
 						</p>
-					</div>
-					<div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-8">
+					</motion.div>
+					<motion.div
+						initial="hidden"
+						animate={isInView ? "show" : "hidden"}
+						variants={containerVariants}
+						className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-8"
+					>
 						{STEPS.map(({ number, description, title }) => (
 							<Step key={number} {...{ number, description, title }} />
 						))}
-					</div>
+					</motion.div>
 				</motion.section>
 
 				<motion.section {...enterAnimation} className="container py-8 md:py-12 lg:py-24">
@@ -178,7 +196,7 @@ export default function Index() {
 
 function Step({ number, title, description }: { number: number; title: string; description: string }) {
 	return (
-		<div className="relative overflow-hidden rounded-lg border bg-background p-2">
+		<motion.div variants={itemVariants} className="relative overflow-hidden rounded-lg border bg-background p-2">
 			<div className="flex h-[180px] flex-col justify-between rounded-md p-6">
 				<div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
 					<span className="text-2xl font-bold text-blue-600">{number}</span>
@@ -188,6 +206,6 @@ function Step({ number, title, description }: { number: number; title: string; d
 					<p className="text-sm text-muted-foreground">{description}</p>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
