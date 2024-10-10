@@ -29,20 +29,20 @@ export type SiteConfig = {
 	project: string;
 	description: string;
 	url: string;
-	ogImage: string;
-	links: {
+	ogImage?: string;
+	links?: {
 		twitter: string;
 		github: string;
 	};
-	twitter: {
+	twitter?: {
 		handle: string;
 		url: string;
 	};
-	license: {
+	license?: {
 		name: string;
 		url: string;
 	};
-	github: {
+	github?: {
 		repoUrl: string;
 	};
 };
