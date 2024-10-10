@@ -12,7 +12,23 @@
 -   A beautiful and professional dashboard layout, credit to [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
 -   Easily configurable for your own project
 
-## Supabase
+## Setup
+
+-   Clone the repo:
+
+```sh
+git clone git@github.com:davidculemann/remix-shadcn-boilerplate.git
+```
+
+-   Install dependencies:
+
+```sh
+pnpm install
+```
+
+### Supabase
+
+-   Create a new project on [Supabase](https://supabase.io)
 
 -   enter your Supabase URL and key in `.env`:
 
@@ -26,6 +42,10 @@ VITE_SUPABASE_KEY=<your_supabase_key>
 ```sh
 supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
 ```
+
+### Email
+
+-   Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
 
 ## Development
 
