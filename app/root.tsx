@@ -13,12 +13,19 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
+import { isProductionHost, removeTrailingSlashes } from "./utils/http.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { session, headers } = await getSupabaseWithSessionHeaders({
 		request,
 	});
 	const env = getSupabaseEnv();
+
+	removeTrailingSlashes(request);
+
+	let isDevHost = !isProductionHost(request);
+	let url = new URL(request.url);
+
 	return json(
 		{
 			env,
@@ -29,6 +36,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 					theme: getTheme(request),
 				},
 			},
+			host: url.host,
+			isProductionHost: !isDevHost,
+			noIndex: isDevHost,
 		},
 		{ headers },
 	);

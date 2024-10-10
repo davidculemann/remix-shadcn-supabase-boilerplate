@@ -1,50 +1,44 @@
 import {
-  createContext as React_createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useLayoutEffect as React_useLayoutEffect,
-  useMemo,
-  useState,
+	createContext as React_createContext,
+	useLayoutEffect as React_useLayoutEffect,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
 } from "react";
 
-export const canUseDOM = !!(
-  typeof window !== "undefined" &&
-  window.document &&
-  window.document.createElement
-);
+export const canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
 
 export const useLayoutEffect = canUseDOM ? React_useLayoutEffect : useEffect;
 
 let hydrating = true;
 export function useHydrated() {
-  let [hydrated, setHydrated] = useState(() => !hydrating);
-  useEffect(() => {
-    hydrating = false;
-    setHydrated(true);
-  }, []);
-  return hydrated;
+	let [hydrated, setHydrated] = useState(() => !hydrating);
+	useEffect(() => {
+		hydrating = false;
+		setHydrated(true);
+	}, []);
+	return hydrated;
 }
 
 export function useForceUpdate() {
-  let [, dispatch] = useState(() => Object.create(null));
-  return useCallback(() => {
-    dispatch(Object.create(null));
-  }, []);
+	let [, dispatch] = useState(() => Object.create(null));
+	return useCallback(() => {
+		dispatch(Object.create(null));
+	}, []);
 }
 
-export function composeEventHandlers<
-  EventType extends { defaultPrevented: boolean },
->(
-  theirHandler: ((event: EventType) => any) | undefined,
-  ourHandler: (event: EventType) => any,
+export function composeEventHandlers<EventType extends { defaultPrevented: boolean }>(
+	theirHandler: ((event: EventType) => any) | undefined,
+	ourHandler: (event: EventType) => any,
 ): (event: EventType) => any {
-  return (event) => {
-    theirHandler && theirHandler(event);
-    if (!event.defaultPrevented) {
-      return ourHandler(event);
-    }
-  };
+	return (event) => {
+		theirHandler?.(event);
+		if (!event.defaultPrevented) {
+			return ourHandler(event);
+		}
+	};
 }
 
 /**
@@ -54,10 +48,10 @@ export function composeEventHandlers<
  * of the weird mechanics of using refs with TS.
  */
 export type AssignableRef<ValueType> =
-  | {
-      bivarianceHack(instance: ValueType | null): void;
-    }["bivarianceHack"]
-  | React.MutableRefObject<ValueType | null>;
+	| {
+			bivarianceHack(instance: ValueType | null): void;
+	  }["bivarianceHack"]
+	| React.MutableRefObject<ValueType | null>;
 
 /**
  * Passes or assigns an arbitrary value to a ref function or object.
@@ -65,20 +59,19 @@ export type AssignableRef<ValueType> =
  * @param ref
  * @param value
  */
-export function assignRef<RefValueType = any>(
-  ref: AssignableRef<RefValueType> | null | undefined,
-  value: any,
-) {
-  if (ref == null) return;
-  if (isFunction(ref)) {
-    ref(value);
-  } else {
-    try {
-      ref.current = value;
-    } catch (error) {
-      throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
-    }
-  }
+export function assignRef<RefValueType = any>(ref: AssignableRef<RefValueType> | null | undefined, value: any) {
+	if (ref == null) return;
+	if (isFunction(ref)) {
+		if (typeof ref === "function") {
+			ref(value);
+		}
+	} else {
+		try {
+			(ref as React.MutableRefObject<RefValueType | null>).current = value;
+		} catch (error) {
+			throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
+		}
+	}
 }
 
 /**
@@ -88,31 +81,29 @@ export function assignRef<RefValueType = any>(
  *
  * @param refs Refs to fork
  */
-export function useComposedRefs<RefValueType = any>(
-  ...refs: (AssignableRef<RefValueType> | null | undefined)[]
-) {
-  return useCallback((node: any) => {
-    for (let ref of refs) {
-      assignRef(ref, node);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, refs);
+export function useComposedRefs<RefValueType = any>(...refs: (AssignableRef<RefValueType> | null | undefined)[]) {
+	return useCallback((node: any) => {
+		for (let ref of refs) {
+			assignRef(ref, node);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, refs);
 }
 
 export function isBoolean(value: any): value is boolean {
-  return typeof value === "boolean";
+	return typeof value === "boolean";
 }
 
 export function isNumber(value: any): value is number {
-  return typeof value === "number" && !Number.isNaN(value);
+	return typeof value === "number" && !Number.isNaN(value);
 }
 
 export function isString(value: any): value is string {
-  return typeof value === "string";
+	return typeof value === "string";
 }
 
-export function isFunction(value: any): value is Function {
-  return typeof value === "function";
+export function isFunction(value: any): boolean {
+	return typeof value === "function";
 }
 
 /**
@@ -121,42 +112,32 @@ export function isFunction(value: any): value is Function {
  *
  * @param element
  */
-export function getOwnerDocument<T extends Element>(
-  element: T | null | undefined,
-) {
-  if (!canUseDOM) {
-    throw new Error("`document` can only be accessed in a browser environment");
-  }
-  return element?.ownerDocument || document;
+export function getOwnerDocument<T extends Element>(element: T | null | undefined) {
+	if (!canUseDOM) {
+		throw new Error("`document` can only be accessed in a browser environment");
+	}
+	return element?.ownerDocument || document;
 }
 
-export function getOwnerWindow<T extends Element>(
-  element: T | null | undefined,
-) {
-  let ownerDocument = getOwnerDocument(element);
-  return ownerDocument.defaultView || window;
+export function getOwnerWindow<T extends Element>(element: T | null | undefined) {
+	let ownerDocument = getOwnerDocument(element);
+	return ownerDocument.defaultView || window;
 }
 
 export function makeId(...args: (string | number | null | undefined)[]) {
-  return args.filter((val) => val != null).join("--");
+	return args.filter((val) => val != null).join("--");
 }
 
-export function isAnchorElement(
-  element: Node | EventTarget | null | undefined,
-): element is HTMLAnchorElement {
-  return !!(element && "tagName" in element && element?.tagName === "A");
+export function isAnchorElement(element: Node | EventTarget | null | undefined): element is HTMLAnchorElement {
+	return !!(element && "tagName" in element && element?.tagName === "A");
 }
 
-export function isInputElement(
-  element: Element | null | undefined,
-): element is HTMLInputElement {
-  return !!(element && "tagName" in element && element?.tagName === "INPUT");
+export function isInputElement(element: Element | null | undefined): element is HTMLInputElement {
+	return !!(element && "tagName" in element && element?.tagName === "INPUT");
 }
 
-export function isButtonElement(
-  element: Element | null | undefined,
-): element is HTMLButtonElement {
-  return !!(element && "tagName" in element && element?.tagName === "BUTTON");
+export function isButtonElement(element: Element | null | undefined): element is HTMLButtonElement {
+	return !!(element && "tagName" in element && element?.tagName === "BUTTON");
 }
 
 /**
@@ -164,14 +145,12 @@ export function isButtonElement(
  *
  * @param nativeEvent
  */
-export function isRightClick(
-  nativeEvent: MouseEvent | PointerEvent | TouchEvent,
-) {
-  return "which" in nativeEvent
-    ? nativeEvent.which === 3
-    : "button" in nativeEvent
-      ? (nativeEvent as any).button === 2
-      : false;
+export function isRightClick(nativeEvent: MouseEvent | PointerEvent | TouchEvent) {
+	return "which" in nativeEvent
+		? nativeEvent.which === 3
+		: "button" in nativeEvent
+			? (nativeEvent as any).button === 2
+			: false;
 }
 
 /**
@@ -179,14 +158,12 @@ export function isRightClick(
  *
  * @param element
  */
-export function getComputedStyles(
-  element: Element,
-): CSSStyleDeclaration | null {
-  let ownerWindow = getOwnerWindow(element);
-  if (ownerWindow) {
-    return ownerWindow.getComputedStyle(element, null);
-  }
-  return null;
+export function getComputedStyles(element: Element): CSSStyleDeclaration | null {
+	let ownerWindow = getOwnerWindow(element);
+	if (ownerWindow) {
+		return ownerWindow.getComputedStyle(element, null);
+	}
+	return null;
 }
 
 /**
@@ -196,53 +173,48 @@ export function getComputedStyles(
  * @param styleProp
  */
 export function getComputedStyle(element: Element, styleProp: string) {
-  return getComputedStyles(element)?.getPropertyValue(styleProp) || null;
+	return getComputedStyles(element)?.getPropertyValue(styleProp) || null;
 }
 
 type ContextProvider<T> = React.FC<React.PropsWithChildren<T>>;
 
 export function createContext<ContextValueType extends object | null>(
-  rootComponentName: string,
-  defaultContext?: ContextValueType,
-): [
-  ContextProvider<ContextValueType>,
-  (callerComponentName: string) => ContextValueType,
-] {
-  let Ctx = React_createContext<ContextValueType | undefined>(defaultContext);
+	rootComponentName: string,
+	defaultContext?: ContextValueType,
+): [ContextProvider<ContextValueType>, (callerComponentName: string) => ContextValueType] {
+	let Ctx = React_createContext<ContextValueType | undefined>(defaultContext);
 
-  function Provider(props: React.PropsWithChildren<ContextValueType>) {
-    let { children, ...context } = props;
-    let value = useMemo(
-      () => context,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      Object.values(context),
-    ) as ContextValueType;
-    return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
-  }
+	function Provider(props: React.PropsWithChildren<ContextValueType>) {
+		let { children, ...context } = props;
+		let value = useMemo(
+			() => context,
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+			Object.values(context),
+		) as ContextValueType;
+		return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+	}
 
-  function useValidatedContext(callerComponentName: string) {
-    let context = useContext(Ctx);
-    if (context) {
-      return context;
-    }
-    if (defaultContext) {
-      return defaultContext;
-    }
-    throw Error(
-      `${callerComponentName} must be rendered inside of a ${rootComponentName} component.`,
-    );
-  }
+	function useValidatedContext(callerComponentName: string) {
+		let context = useContext(Ctx);
+		if (context) {
+			return context;
+		}
+		if (defaultContext) {
+			return defaultContext;
+		}
+		throw Error(`${callerComponentName} must be rendered inside of a ${rootComponentName} component.`);
+	}
 
-  Ctx.displayName = `${rootComponentName}Context`;
-  Provider.displayName = `${rootComponentName}Provider`;
-  return [Provider, useValidatedContext];
+	Ctx.displayName = `${rootComponentName}Context`;
+	Provider.displayName = `${rootComponentName}Provider`;
+	return [Provider, useValidatedContext];
 }
 
 export function slugify(string: string) {
-  return string
-    .toLowerCase()
-    .replace(/[ .':]/g, " ")
-    .split(" ")
-    .filter(Boolean)
-    .join("-");
+	return string
+		.toLowerCase()
+		.replace(/[ .':]/g, " ")
+		.split(" ")
+		.filter(Boolean)
+		.join("-");
 }

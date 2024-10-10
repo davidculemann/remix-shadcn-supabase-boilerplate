@@ -1,8 +1,8 @@
-import { docConfig } from "@/config/doc";
-import followRedirects from "follow-redirects";
 import fs from "node:fs";
 import path from "node:path";
-import tar from "tar";
+import { docConfig } from "@/config/doc";
+import followRedirects from "follow-redirects";
+import { c } from "tar";
 import invariant from "tiny-invariant";
 import { env } from "../env.server";
 
@@ -43,7 +43,7 @@ export async function getRepoTarballStream(repo: string, ref: string): Promise<N
 export async function getLocalTarballStream(): Promise<NodeJS.ReadableStream> {
 	invariant(env.LOCAL_REPO_RELATIVE_PATH, "LOCAL_REPO_RELATIVE_PATH is not set");
 	let localDocsPath = path.join(process.cwd(), env.LOCAL_REPO_RELATIVE_PATH, `${docConfig.pathToDocs}`);
-	await tar.c({ gzip: true, file: ".local.tgz" }, [localDocsPath]);
+	await c({ gzip: true, file: ".local.tgz" }, [localDocsPath]);
 	return fs.createReadStream(".local.tgz");
 }
 
