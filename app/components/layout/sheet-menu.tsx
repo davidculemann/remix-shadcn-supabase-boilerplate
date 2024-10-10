@@ -1,8 +1,10 @@
-import { MenuIcon, PanelsTopLeft } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { siteConfig } from "@/lib/config/site";
 import { Link } from "@remix-run/react";
+import { Icons } from "../icons";
 import { Menu } from "./menu";
 
 export function SheetMenu() {
@@ -17,8 +19,8 @@ export function SheetMenu() {
 				<SheetHeader>
 					<Button className="flex justify-center items-center pb-2 pt-1" variant="link" asChild>
 						<Link to="/dashboard" className="flex items-center gap-2">
-							<PanelsTopLeft className="w-6 h-6 mr-1" />
-							<SheetTitle className="font-bold text-lg">Brand</SheetTitle>
+							<Icons.logo />
+							<SheetTitle className="font-bold text-lg">{siteConfig.name}</SheetTitle>
 						</Link>
 					</Button>
 				</SheetHeader>
