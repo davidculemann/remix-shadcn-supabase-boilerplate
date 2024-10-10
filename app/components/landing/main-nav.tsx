@@ -24,19 +24,21 @@ export default function MainNav({ items, children }: MainNavProps) {
 			</Link>
 			{items?.length ? (
 				<nav className="hidden gap-6 md:flex">
-					{items?.map((item) => (
-						<Link
-							key={item.href}
-							to={item.disabled ? "#" : item.href}
-							className={cn(
-								"flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
-								item.href.startsWith(`/${pathname}`) ? "text-foreground" : "text-foreground/60",
-								item.disabled && "cursor-not-allowed opacity-80",
-							)}
-						>
-							{item.title}
-						</Link>
-					))}
+					{items?.map((item) => {
+						return (
+							<Link
+								key={item.href}
+								to={item.disabled ? "#" : item.href}
+								className={cn(
+									"flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
+									item.href.startsWith(`${pathname}`) ? "text-foreground" : "text-foreground/60",
+									item.disabled && "cursor-not-allowed opacity-80",
+								)}
+							>
+								{item.title}
+							</Link>
+						);
+					})}
 				</nav>
 			) : null}
 			<button

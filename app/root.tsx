@@ -4,7 +4,6 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	isRouteErrorResponse,
 	json,
 	useFetcher,
 	useLoaderData,
@@ -25,7 +24,6 @@ import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { isProductionHost, removeTrailingSlashes } from "./utils/http.server";
-import { canUseDOM } from "./utils/ui-utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { session, headers } = await getSupabaseWithSessionHeaders({
@@ -61,9 +59,6 @@ export default function App() {
 	const { supabase, isLoading, user } = useSupabase({ env, session });
 	const fetcher = useFetcher();
 
-	const theme = useTheme();
-	const nonce = useNonce();
-
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.shiftKey && event.metaKey && event.key === "s") {
@@ -78,6 +73,17 @@ export default function App() {
 	}, [fetcher]);
 
 	return (
+		<Document>
+			<Outlet context={{ supabase, isLoading, user }} />
+		</Document>
+	);
+}
+
+export function Document({ children }: { children: React.ReactNode }) {
+	const theme = useTheme();
+	const nonce = useNonce();
+
+	return (
 		<html lang="en" className={clsx(theme)}>
 			<head>
 				<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
@@ -89,7 +95,7 @@ export default function App() {
 			</head>
 			<body className="flex min-h-screen h-screen w-full flex-col">
 				<QueryClientProvider client={queryClient}>
-					<Outlet context={{ supabase, isLoading, user }} />
+					{children}
 					<Toaster />
 					<ReactQueryDevtools buttonPosition="bottom-left" />
 				</QueryClientProvider>
@@ -100,26 +106,14 @@ export default function App() {
 	);
 }
 
-export function ErrorBoundary() {
-	let error = useRouteError();
-	if (!canUseDOM) {
-		console.error(error);
-	}
+import { ErrorBoundaryContent } from "@/components/layout/error-boundary";
 
-	if (isRouteErrorResponse(error)) {
-		return (
-			<div className="bg-black flex flex-1 flex-col justify-center text-white h-screen">
-				<div className="text-center leading-none">
-					<a
-						className="inline-block text-[8vw] underline:none"
-						href={`https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`}
-						target="_blank"
-						rel="noreferrer"
-					>
-						<h1 className="font-mono text-[25vw]">{error.status}</h1>
-					</a>
-				</div>
-			</div>
-		);
-	}
+export function ErrorBoundary() {
+	const error = useRouteError() as Error;
+
+	return (
+		<Document>
+			<ErrorBoundaryContent error={error} />
+		</Document>
+	);
 }
