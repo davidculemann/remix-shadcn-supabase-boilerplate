@@ -89,3 +89,4 @@ Now you'll need to pick a host to deploy it to.
 -   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
 -   [Biome](https://biomejs.dev)
 -   [zustand](https://zustand.surge.sh)
+-   [Logoipsum](https://logoipsum.com)
