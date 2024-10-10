@@ -58,7 +58,7 @@ export default function App() {
 	return (
 		<html lang="en" className={clsx(theme)}>
 			<head>
-				<link rel="icon" type="image/svg+xml" href="/assets/logo2.svg" />
+				<link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
