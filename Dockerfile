@@ -27,7 +27,7 @@ FROM base as build
 WORKDIR /remixapp
 
 COPY --from=deps /remixapp/node_modules /remixapp/node_modules
-ADD package.json package-lock.json postcss.config.js tailwind.config.cjs tsconfig.json vite.config.ts ./
+ADD package.json package-lock.json postcss.config.js tailwind.config.js tsconfig.json vite.config.ts ./
 ADD app/ app/
 ADD public/ public/
 
