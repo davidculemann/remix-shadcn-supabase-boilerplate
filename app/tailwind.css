@@ -67,5 +67,5 @@ html body[data-scroll-locked] {
 } 
 
 .font-heading {
-  font-family: "Cal Sans";
+  font-family: "Cal Sans", "sans-serif";
 }
