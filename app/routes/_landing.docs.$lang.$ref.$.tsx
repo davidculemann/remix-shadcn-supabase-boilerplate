@@ -3,7 +3,7 @@ import { docConfig } from "@/config/doc";
 import { siteConfig } from "@/config/site";
 import iconsHref from "@/icons.svg";
 import type { loader as rootLoader } from "@/root";
-import { type loader as docsLayoutLoader, useGitHubRef } from "@/routes/docs.$lang.$ref";
+import { type loader as docsLayoutLoader, useGitHubRef } from "@/routes/_landing.docs.$lang.$ref";
 import type { Doc } from "@/utils/github";
 import { getRepoDoc } from "@/utils/github";
 import { CACHE_CONTROL, handleRedirects } from "@/utils/http.server";
@@ -75,12 +75,12 @@ export const meta: MetaFunction<Loader, MatchLoaders> = (args) => {
 
 	let { doc } = data;
 
-	let { latestVersion, releaseBranch, branches, currentRef } = parentData as SerializeFrom<typeof docsLayoutLoader>;
+	let { latestVersion, releaseBranch, branches, currentRef } = parentData || {};
 
 	let titleAppend =
 		currentRef === releaseBranch || currentRef === latestVersion
 			? ""
-			: branches.includes(currentRef)
+			: branches?.includes(currentRef!)
 				? ` (${currentRef} branch)`
 				: ` (${currentRef})`;
 

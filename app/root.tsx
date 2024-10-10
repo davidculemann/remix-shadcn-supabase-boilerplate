@@ -1,4 +1,15 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, json, useFetcher, useLoaderData } from "@remix-run/react";
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+	isRouteErrorResponse,
+	json,
+	useFetcher,
+	useLoaderData,
+	useRouteError,
+} from "@remix-run/react";
 
 import { Toaster } from "@/components/ui/toaster";
 import { ClientHintCheck, getHints, useNonce, useTheme } from "@/lib/client-hints";
@@ -14,6 +25,7 @@ import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { isProductionHost, removeTrailingSlashes } from "./utils/http.server";
+import { canUseDOM } from "./utils/ui-utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { session, headers } = await getSupabaseWithSessionHeaders({
@@ -86,4 +98,28 @@ export default function App() {
 			</body>
 		</html>
 	);
+}
+
+export function ErrorBoundary() {
+	let error = useRouteError();
+	if (!canUseDOM) {
+		console.error(error);
+	}
+
+	if (isRouteErrorResponse(error)) {
+		return (
+			<div className="bg-black flex flex-1 flex-col justify-center text-white h-screen">
+				<div className="text-center leading-none">
+					<a
+						className="inline-block text-[8vw] underline:none"
+						href={`https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/${error.status}`}
+						target="_blank"
+						rel="noreferrer"
+					>
+						<h1 className="font-mono text-[25vw]">{error.status}</h1>
+					</a>
+				</div>
+			</div>
+		);
+	}
 }

@@ -135,40 +135,9 @@ export default function DocsLayout() {
 							)}
 						>
 							<Outlet />
-							<div className="pt-8 sm:pt-10 lg:pt-12">
-								<Footer />
-							</div>
 						</div>
 					</div>
 				</InnerContainer>
-			</div>
-		</div>
-	);
-}
-
-function Footer() {
-	let { repoUrl } = useLoaderData<typeof loader>();
-	return (
-		<div className="place-content-center flex justify-between gap-4 border-t border-t-gray-50 py-4 text-sm text-gray-400 dark:border-gray-800">
-			<div className="sm:flex sm:items-center sm:gap-2 lg:gap-4">
-				<div>
-					&copy; 2024{" "}
-					<a className="hover:underline" href={siteConfig.url}>
-						{siteConfig.project}
-					</a>
-					. All rights reserved.
-				</div>
-				<div className="hidden sm:block">•</div>
-				<div>
-					Docs and examples licensed under{" "}
-					<a className="hover:underline" href={siteConfig.license.url}>
-						{siteConfig.license.name}
-					</a>
-				</div>
-				<div className="hidden sm:block">•</div>
-				<div>
-					<EditLink repoUrl={repoUrl} />
-				</div>
 			</div>
 		</div>
 	);
