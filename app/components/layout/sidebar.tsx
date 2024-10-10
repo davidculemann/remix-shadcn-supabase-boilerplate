@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { useStore } from "@/hooks/use-store";
+import { siteConfig } from "@/lib/config/site";
 import { cn } from "@/lib/utils";
 import { Link } from "@remix-run/react";
 import { Icons } from "../icons";
@@ -39,7 +40,7 @@ export function Sidebar() {
 									: "translate-x-0 opacity-100",
 							)}
 						>
-							easycv
+							{siteConfig.name}
 						</h1>
 					</Link>
 				</Button>
