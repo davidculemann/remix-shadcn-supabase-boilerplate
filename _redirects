@@ -1,11 +1,3 @@
-/login          https://remix-run.web.app/login       302
-/dashboard      https://remix-run.web.app/dashboard   302
-/support        https://remix-run.web.app/support     302
-/features       /                                     302
-/api            /api/conventions                      302
-/podcast        https://remix.transistor.fm/          302
-/stacks         https://remix.run/pages/stacks        302
-
 # V2 docs reorganization
 /docs/file-conventions/route-files-v2 /docs/file-conventions/routes        302
 /docs/file-conventions/routes-files   /docs/file-conventions/routes        302
