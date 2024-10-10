@@ -77,7 +77,7 @@ npm start
 
 Now you'll need to pick a host to deploy it to.
 
-## Credits
+## Stack
 
 -   [Remix](https://remix.run)
 -   [Vite](https://vitejs.dev)
@@ -86,7 +86,16 @@ Now you'll need to pick a host to deploy it to.
 -   [React Query](https://react-query.tanstack.com)
 -   [Framer Motion](https://www.framer.com/motion)
 -   [Resend](https://resend.io)
--   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
--   [Biome](https://biomejs.dev)
 -   [zustand](https://zustand.surge.sh)
 -   [Logoipsum](https://logoipsum.com)
+
+## Credits
+
+-   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next.js to Remix
+-   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful template for Remix documentation sites
+
+## Tooling
+
+-   [Biome](https://biomejs.dev)
+-   [pnpm](https://pnpm.io)
+-   [Vite](https://vitejs.dev)
