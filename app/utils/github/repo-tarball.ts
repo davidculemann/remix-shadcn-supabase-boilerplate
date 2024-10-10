@@ -19,13 +19,13 @@ export async function getRepoTarballStream(repo: string, ref: string): Promise<N
 		return getLocalTarballStream();
 	}
 
-	let agent = new followRedirects.https.Agent({ keepAlive: true });
-	let tarballURL = `https://github.com/${repo}/archive/${ref}.tar.gz`;
-	let { hostname, pathname } = new URL(tarballURL);
-	let options = { agent: agent, hostname: hostname, path: pathname };
+	const agent = new followRedirects.https.Agent({ keepAlive: true });
+	const tarballURL = `https://github.com/${repo}/archive/${ref}.tar.gz`;
+	const { hostname, pathname } = new URL(tarballURL);
+	const options = { agent: agent, hostname: hostname, path: pathname };
 
 	try {
-		let res = await get(options);
+		const res = await get(options);
 		if (res.statusCode === 200) {
 			return res;
 		}
@@ -42,7 +42,7 @@ export async function getRepoTarballStream(repo: string, ref: string): Promise<N
  */
 export async function getLocalTarballStream(): Promise<NodeJS.ReadableStream> {
 	invariant(env.LOCAL_REPO_RELATIVE_PATH, "LOCAL_REPO_RELATIVE_PATH is not set");
-	let localDocsPath = path.join(process.cwd(), env.LOCAL_REPO_RELATIVE_PATH, `${docConfig.pathToDocs}`);
+	const localDocsPath = path.join(process.cwd(), env.LOCAL_REPO_RELATIVE_PATH, `${docConfig.pathToDocs}`);
 	await c({ gzip: true, file: ".local.tgz" }, [localDocsPath]);
 	return fs.createReadStream(".local.tgz");
 }

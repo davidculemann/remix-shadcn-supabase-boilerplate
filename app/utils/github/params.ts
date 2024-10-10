@@ -9,10 +9,10 @@ export function validateParams(
 	params: { lang: string; ref?: string; "*"?: string },
 	lang = "en",
 ): string | null {
-	let { lang: first, ref: second, "*": splat } = params;
+	const { lang: first, ref: second, "*": splat } = params;
 
-	let firstIsLang = CODES.includes(first as LanguageCode);
-	let secondIsRef = second && (tags.includes(second) || branches.includes(second));
+	const firstIsLang = CODES.includes(first as LanguageCode);
+	const secondIsRef = second && (tags.includes(second) || branches.includes(second));
 
 	if (firstIsLang) {
 		if (!second) {
@@ -22,11 +22,11 @@ export function validateParams(
 		}
 
 		if (!secondIsRef) {
-			let expandedRef = semver.maxSatisfying(tags, second, {
+			const expandedRef = semver.maxSatisfying(tags, second, {
 				includePrerelease: false,
 			});
-			let latest = semver.maxSatisfying(tags, "*");
-			let path = [first];
+			const latest = semver.maxSatisfying(tags, "*");
+			const path = [first];
 
 			if (expandedRef) {
 				path.push(expandedRef);
@@ -47,12 +47,12 @@ export function validateParams(
 		}
 	}
 
-	let ref =
+	const ref =
 		tags.includes(first) || branches.includes(first)
 			? first
 			: semver.maxSatisfying(tags, first, { includePrerelease: false });
 	if (ref) {
-		let path = [lang, ref];
+		const path = [lang, ref];
 		if (second) path.push(second);
 		if (splat) path.push(splat);
 		return path.join("/");
@@ -64,7 +64,7 @@ export function validateParams(
 	// can't safely process a slug 404 redirect in docs/$lang.$ref/$.tsx since we
 	// don't know that they weren't looking for something in a specific version
 	if (!firstIsLang && !ref) {
-		let path = [lang, "main", first];
+		const path = [lang, "main", first];
 		if (second) path.push(second);
 		if (splat) path.push(splat);
 		return path.join("/");

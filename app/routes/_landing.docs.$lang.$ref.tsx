@@ -33,10 +33,10 @@ import cx from "clsx";
 import * as React from "react";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-	let { lang = "en", ref = "main", "*": splat } = params;
+	const { lang = "en", ref = "main", "*": splat } = params;
 
-	let branchesInMenu = docConfig.branches;
-	let [tags, branches] = await Promise.all([
+	const branchesInMenu = docConfig.branches;
+	const [tags, branches] = await Promise.all([
 		getRepoTags({ octokit, releasePrefix: docConfig.versions.prefix }),
 		getRepoBranches({ octokit }),
 	]);
@@ -51,7 +51,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		branchesInMenu.push("local");
 	}
 
-	let betterUrl = validateParams(tags, branches, {
+	const betterUrl = validateParams(tags, branches, {
 		lang,
 		ref,
 		"*": splat,
@@ -61,12 +61,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		throw redirect(`/docs/${betterUrl}`);
 	}
 
-	let latestVersion = getLatestVersion(tags);
-	let versions = getLatestVersionHeads(tags);
+	const latestVersion = getLatestVersion(tags);
+	const versions = getLatestVersionHeads(tags);
 
-	let menu = await getRepoDocsMenu(useGitHubRef(ref), lang);
-	let releaseBranch = docConfig.releaseBranch;
-	let isLatest = ref === releaseBranch || ref === latestVersion;
+	const menu = await getRepoDocsMenu(useGitHubRef(ref), lang);
+	const releaseBranch = docConfig.releaseBranch;
+	const isLatest = ref === releaseBranch || ref === latestVersion;
 
 	return json({
 		menu,
@@ -89,26 +89,26 @@ export const headers: HeadersFunction = () => {
 };
 
 export default function DocsLayout() {
-	let params = useParams();
-	let navigation = useNavigation();
-	let navigating = navigation.state === "loading" && navigation.formData == null;
-	let changingVersions =
+	const params = useParams();
+	const navigation = useNavigation();
+	const navigating = navigation.state === "loading" && navigation.formData == null;
+	const changingVersions =
 		navigating &&
 		params.ref &&
 		// TODO: we should have `transition.params`
 		!navigation.location!.pathname.match(params.ref);
 
-	let location = useLocation();
-	let detailsRef = React.useRef<HTMLDetailsElement>(null);
+	const location = useLocation();
+	const detailsRef = React.useRef<HTMLDetailsElement>(null);
 
 	React.useEffect(() => {
-		let details = detailsRef.current;
+		const details = detailsRef.current;
 		if (details?.hasAttribute("open")) {
 			details.removeAttribute("open");
 		}
 	}, [location]);
 
-	let docsContainer = React.useRef<HTMLDivElement>(null);
+	const docsContainer = React.useRef<HTMLDivElement>(null);
 
 	//let versionData = useLoaderData<typeof loader>();
 
@@ -144,9 +144,9 @@ export default function DocsLayout() {
 }
 
 function VersionWarning() {
-	let { isLatest, branches, currentRef } = useLoaderData<typeof loader>();
+	const { isLatest, branches, currentRef } = useLoaderData<typeof loader>();
 	if (isLatest) return null;
-	let { "*": splat } = useParams();
+	const { "*": splat } = useParams();
 
 	return (
 		<div className="text-center">
@@ -158,7 +158,7 @@ function VersionWarning() {
 }
 
 function NavMenuMobile() {
-	let doc = useDoc();
+	const doc = useDoc();
 	return (
 		<div className="lg:hidden">
 			<DetailsMenu className="group relative flex h-full flex-col">
@@ -201,7 +201,7 @@ function NavMenuDesktop() {
 }
 
 function Menu() {
-	let { menu } = useLoaderData<typeof loader>();
+	const { menu } = useLoaderData<typeof loader>();
 
 	return menu ? (
 		<nav>
@@ -346,7 +346,7 @@ function MenuCategoryLink({
 	to: string;
 	children: React.ReactNode;
 }) {
-	let isActive = useIsActivePath(to);
+	const isActive = useIsActivePath(to);
 
 	return (
 		<Link
@@ -363,7 +363,7 @@ function MenuCategoryLink({
 }
 
 function MenuLink({ to, children }: { to: string; children: React.ReactNode }) {
-	let isActive = useIsActivePath(to);
+	const isActive = useIsActivePath(to);
 	return (
 		<Link
 			prefetch="intent"
@@ -383,9 +383,9 @@ function MenuLink({ to, children }: { to: string; children: React.ReactNode }) {
  * Generates a link to GitHub in the footer. View for tags. Edit for branches.
  */
 function EditLink({ repoUrl }: { repoUrl: string }) {
-	let doc = useDoc();
-	let params = useParams();
-	let isEditableRef = docConfig.branches.includes(params.ref || "");
+	const doc = useDoc();
+	const params = useParams();
+	const isEditableRef = docConfig.branches.includes(params.ref || "");
 	let text = "Edit on GitHub";
 	// TODO: deal with translations when we add them with params.lang
 	if (doc) {
@@ -417,23 +417,23 @@ function hasDoc(data: unknown): data is { doc: Doc } {
 }
 
 function useDoc(): Doc | null {
-	let data = useMatches().at(-1)?.data;
+	const data = useMatches().at(-1)?.data;
 	if (!hasDoc(data)) return null;
 	return data.doc;
 }
 
 function useIsActivePath(to: string) {
-	let { pathname } = useResolvedPath(to);
-	let navigation = useNavigation();
-	let currentLocation = useLocation();
-	let navigating = navigation.state === "loading" && navigation.formData == null;
-	let location = navigating ? navigation.location! : currentLocation;
-	let match = matchPath(`${pathname}/*`, location.pathname);
+	const { pathname } = useResolvedPath(to);
+	const navigation = useNavigation();
+	const currentLocation = useLocation();
+	const navigating = navigation.state === "loading" && navigation.formData == null;
+	const location = navigating ? navigation.location! : currentLocation;
+	const match = matchPath(`${pathname}/*`, location.pathname);
 	return Boolean(match);
 }
 
 export function useGitHubRef(ref: string): string {
-	let branches = docConfig.branches;
+	const branches = docConfig.branches;
 	let githubRef = ref;
 	if (docConfig.versions.prefix && !branches.includes(ref)) {
 		githubRef = docConfig.versions.prefix + ref;

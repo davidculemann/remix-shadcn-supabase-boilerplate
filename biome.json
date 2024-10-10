@@ -18,7 +18,7 @@
 			"style": {
 				"noNonNullAssertion": "off",
 				"useNumberNamespace": "off",
-				"useConst": "off",
+				"useConst": "error",
 				"noParameterAssign": "off"
 			},
 			"suspicious": {

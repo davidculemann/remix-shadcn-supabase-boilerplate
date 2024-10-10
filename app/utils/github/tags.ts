@@ -26,13 +26,13 @@ export function getLatestVersion(tags: string[]) {
  * Returns the latest version of each major version
  */
 export function getLatestVersionHeads(tags: string[]) {
-	let heads = new Map<string, string>();
-	for (let tag of tags) {
+	const heads = new Map<string, string>();
+	for (const tag of tags) {
 		let prefix = String(semver.major(tag));
 		if (docConfig.versions.includeMinor) {
 			prefix += `.${semver.minor(tag)}`;
 		}
-		let head = heads.get(prefix);
+		const head = heads.get(prefix);
 		if (!head || semver.gt(tag, head)) {
 			heads.set(prefix, tag);
 		}
@@ -49,7 +49,7 @@ global.tagsCache ??= new LRUCache<string, string[], CacheContext>({
 	noDeleteOnFetchRejection: true,
 	fetchMethod: async (key, _, { context }) => {
 		console.log("Fetching fresh tags (releases)");
-		let [owner, repo] = key.split("/");
+		const [owner, repo] = key.split("/");
 		return getAllReleases(owner, repo, context.releasePrefix, context);
 	},
 });
@@ -72,7 +72,7 @@ export async function getAllReleases(
 	},
 ): Promise<string[]> {
 	console.log("Fetching fresh releases, page", page);
-	let { data, headers, status } = await octokit.rest.repos.listReleases({
+	const { data, headers, status } = await octokit.rest.repos.listReleases({
 		mediaType: { format: "json" },
 		owner,
 		repo,
@@ -85,7 +85,7 @@ export async function getAllReleases(
 	}
 
 	//Define regex with optional prefix (i.e. v or flow@)
-	let regex = new RegExp(`^${releasePrefix}[0-9]`);
+	const regex = new RegExp(`^${releasePrefix}[0-9]`);
 
 	releases.push(
 		...data
@@ -101,7 +101,7 @@ export async function getAllReleases(
 			}),
 	);
 
-	let parsed = parseLinkHeader(headers.link);
+	const parsed = parseLinkHeader(headers.link);
 	if (parsed?.next) {
 		return await getAllReleases(owner, repo, releasePrefix, {
 			page: page + 1,

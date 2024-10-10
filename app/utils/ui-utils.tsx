@@ -14,7 +14,7 @@ export const useLayoutEffect = canUseDOM ? React_useLayoutEffect : useEffect;
 
 let hydrating = true;
 export function useHydrated() {
-	let [hydrated, setHydrated] = useState(() => !hydrating);
+	const [hydrated, setHydrated] = useState(() => !hydrating);
 	useEffect(() => {
 		hydrating = false;
 		setHydrated(true);
@@ -23,7 +23,7 @@ export function useHydrated() {
 }
 
 export function useForceUpdate() {
-	let [, dispatch] = useState(() => Object.create(null));
+	const [, dispatch] = useState(() => Object.create(null));
 	return useCallback(() => {
 		dispatch(Object.create(null));
 	}, []);
@@ -83,7 +83,7 @@ export function assignRef<RefValueType = any>(ref: AssignableRef<RefValueType> |
  */
 export function useComposedRefs<RefValueType = any>(...refs: (AssignableRef<RefValueType> | null | undefined)[]) {
 	return useCallback((node: any) => {
-		for (let ref of refs) {
+		for (const ref of refs) {
 			assignRef(ref, node);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +120,7 @@ export function getOwnerDocument<T extends Element>(element: T | null | undefine
 }
 
 export function getOwnerWindow<T extends Element>(element: T | null | undefined) {
-	let ownerDocument = getOwnerDocument(element);
+	const ownerDocument = getOwnerDocument(element);
 	return ownerDocument.defaultView || window;
 }
 
@@ -159,7 +159,7 @@ export function isRightClick(nativeEvent: MouseEvent | PointerEvent | TouchEvent
  * @param element
  */
 export function getComputedStyles(element: Element): CSSStyleDeclaration | null {
-	let ownerWindow = getOwnerWindow(element);
+	const ownerWindow = getOwnerWindow(element);
 	if (ownerWindow) {
 		return ownerWindow.getComputedStyle(element, null);
 	}
@@ -182,11 +182,11 @@ export function createContext<ContextValueType extends object | null>(
 	rootComponentName: string,
 	defaultContext?: ContextValueType,
 ): [ContextProvider<ContextValueType>, (callerComponentName: string) => ContextValueType] {
-	let Ctx = React_createContext<ContextValueType | undefined>(defaultContext);
+	const Ctx = React_createContext<ContextValueType | undefined>(defaultContext);
 
 	function Provider(props: React.PropsWithChildren<ContextValueType>) {
-		let { children, ...context } = props;
-		let value = useMemo(
+		const { children, ...context } = props;
+		const value = useMemo(
 			() => context,
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 			Object.values(context),
@@ -195,7 +195,7 @@ export function createContext<ContextValueType extends object | null>(
 	}
 
 	function useValidatedContext(callerComponentName: string) {
-		let context = useContext(Ctx);
+		const context = useContext(Ctx);
 		if (context) {
 			return context;
 		}

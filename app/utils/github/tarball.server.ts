@@ -33,16 +33,16 @@ async function processFilesFromRepoTarball(
 				"entry",
 				async (header: { type: string; name: string }, stream: NodeJS.ReadableStream, next: () => void) => {
 					// Make sure the file matches the ones we want to process
-					let isMatch = header.type === "file" && pattern.test(header.name);
+					const isMatch = header.type === "file" && pattern.test(header.name);
 					if (isMatch) {
 						console.log("Processing file", header.name);
 						// header.name will include the name of the <repo>-<ref:branch/tag>
 						// remove "docs-main" or "docs-v1.0.0" from the full name
 						// that's something like "docs-main/docs/index.md"
-						let filename = removeRepoRefName(header.name);
+						const filename = removeRepoRefName(header.name);
 						// buffer the contents of this file stream so we can send the entire
 						// string to be processed by the caller
-						let content = await bufferStream(stream);
+						const content = await bufferStream(stream);
 						await processFile({ filename, content });
 						next();
 					} else {
@@ -63,7 +63,7 @@ function removeRepoRefName(headerName: string): string {
 
 async function bufferStream(stream: NodeJS.ReadableStream): Promise<string> {
 	return new Promise((accept, reject) => {
-		let chunks: Uint8Array[] = [];
+		const chunks: Uint8Array[] = [];
 		stream
 			.on("error", reject)
 			.on("data", (chunk) => chunks.push(chunk))

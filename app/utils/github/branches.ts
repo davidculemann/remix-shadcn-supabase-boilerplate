@@ -27,8 +27,8 @@ async function fetchBranches(
 	{ context }: LRUCache.FetchOptionsWithContext<string, string[], CacheContext>,
 ) {
 	console.log("Fetching fresh branches", key);
-	let [owner, repo] = key.split("/");
-	let { data } = await context.octokit.rest.repos.listBranches({
+	const [owner, repo] = key.split("/");
+	const { data } = await context.octokit.rest.repos.listBranches({
 		mediaType: { format: "json" },
 		owner,
 		repo,

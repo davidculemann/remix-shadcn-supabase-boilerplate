@@ -39,12 +39,12 @@ export function handleRedirects(pathname: string) {
 			if (!line || line.startsWith("#")) {
 				continue;
 			}
-			let [from, to, maybeCode] = line.split(/\s+/);
+			const [from, to, maybeCode] = line.split(/\s+/);
 			redirects.push([from, to, getValidRedirectCode(maybeCode)]);
 		}
 	}
 
-	let foundRedirect = redirects.find(([from]) => pathname === from);
+	const foundRedirect = redirects.find(([from]) => pathname === from);
 	if (foundRedirect) {
 		throw redirect(foundRedirect[1], { status: foundRedirect[2] });
 	}
@@ -60,7 +60,7 @@ export function safeRedirect(to: FormDataEntryValue | string | null | undefined,
 }
 
 export function removeTrailingSlashes(request: Request) {
-	let url = new URL(request.url);
+	const url = new URL(request.url);
 	if (url.pathname.endsWith("/") && url.pathname !== "/") {
 		throw redirect(url.pathname.slice(0, -1) + url.search);
 	}
@@ -71,7 +71,7 @@ export function isProductionHost(request: Request) {
 }
 
 function getValidRedirectCode(code: string | number | undefined) {
-	let defaultCode = 302;
+	const defaultCode = 302;
 	if (!code) return defaultCode;
 	if (typeof code === "string") {
 		try {

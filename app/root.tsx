@@ -34,8 +34,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	removeTrailingSlashes(request);
 
-	let isDevHost = !isProductionHost(request);
-	let url = new URL(request.url);
+	const isDevHost = !isProductionHost(request);
+	const url = new URL(request.url);
 
 	return json(
 		{

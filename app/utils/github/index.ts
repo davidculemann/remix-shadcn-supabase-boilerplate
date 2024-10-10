@@ -38,7 +38,7 @@ export async function getLatestRepoTag({
 	octokit: Octokit;
 	releasePrefix: string;
 }): Promise<string> {
-	let tags = await getTags(REPO, { octokit, releasePrefix });
+	const tags = await getTags(REPO, { octokit, releasePrefix });
 	invariant(tags, "Expected tags in getLatestRepoTag");
 	return getLatestVersion(tags);
 }

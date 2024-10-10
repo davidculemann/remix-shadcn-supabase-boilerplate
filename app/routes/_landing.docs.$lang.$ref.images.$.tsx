@@ -7,9 +7,9 @@ import invariant from "tiny-invariant";
 export async function loader({ params, request }: LoaderFunctionArgs) {
 	invariant(params.ref, "expected `ref` params");
 	try {
-		let pathPrefix = docConfig.pathToDocs ? `${docConfig.pathToDocs}/` : "";
-		let slug = `${pathPrefix}${params["*"]}`;
-		let image = await getRepoImage(params.ref, slug);
+		const pathPrefix = docConfig.pathToDocs ? `${docConfig.pathToDocs}/` : "";
+		const slug = `${pathPrefix}${params["*"]}`;
+		const image = await getRepoImage(params.ref, slug);
 		if (!image) throw null;
 		return new Response(image, {
 			headers: {

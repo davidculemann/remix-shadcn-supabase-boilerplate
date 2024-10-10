@@ -16,11 +16,11 @@ import * as React from "react";
 import invariant from "tiny-invariant";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
-	let url = new URL(request.url);
-	let baseUrl = `${url.protocol}//${url.host}`;
-	let siteUrl = baseUrl + url.pathname;
+	const url = new URL(request.url);
+	const baseUrl = `${url.protocol}//${url.host}`;
+	const siteUrl = baseUrl + url.pathname;
 	//TODO - figure out og.1.jpg
-	let ogImageUrl = `${baseUrl}/img/og.1.jpg`;
+	const ogImageUrl = `${baseUrl}/img/og.1.jpg`;
 	invariant(params.ref, "expected `ref` params");
 	//Handle Images
 	if (params["*"]?.endsWith(".png") || params["*"]?.endsWith(".svg")) {
@@ -28,9 +28,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 	}
 	//Continue processing docs
 	try {
-		let pathPrefix = docConfig.pathToDocs ? `${docConfig.pathToDocs}/` : "";
-		let slug = params["*"]?.endsWith("/changelog") ? "CHANGELOG" : `${pathPrefix}${params["*"] || "index"}`;
-		let doc = await getRepoDoc(useGitHubRef(params.ref), slug);
+		const pathPrefix = docConfig.pathToDocs ? `${docConfig.pathToDocs}/` : "";
+		const slug = params["*"]?.endsWith("/changelog") ? "CHANGELOG" : `${pathPrefix}${params["*"] || "index"}`;
+		const doc = await getRepoDoc(useGitHubRef(params.ref), slug);
 		if (!doc) throw null;
 		return json({ doc, siteUrl, ogImageUrl }, { headers: { "Cache-Control": CACHE_CONTROL.DEFAULT } });
 	} catch (_) {
@@ -46,7 +46,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
 	// Inherit the caching headers from the loader so we don't cache 404s
-	let headers = new Headers(loaderHeaders);
+	const headers = new Headers(loaderHeaders);
 	headers.set("Vary", "Cookie");
 	return headers;
 };
@@ -60,10 +60,10 @@ type MatchLoaders = {
 };
 
 export const meta: MetaFunction<Loader, MatchLoaders> = (args) => {
-	let { data } = args;
+	const { data } = args;
 
-	let parentData = args.matches.find((match) => match.id === LAYOUT_LOADER_KEY)?.data;
-	let rootData = args.matches.find((match) => match.id === "root")?.data;
+	const parentData = args.matches.find((match) => match.id === LAYOUT_LOADER_KEY)?.data;
+	const rootData = args.matches.find((match) => match.id === "root")?.data;
 	if (process.env.NODE_ENV !== "development") {
 		invariant(parentData && "latestVersion" in parentData, "No parent data found");
 	}
@@ -73,26 +73,26 @@ export const meta: MetaFunction<Loader, MatchLoaders> = (args) => {
 		return [{ title: "Not Found" }];
 	}
 
-	let { doc } = data;
+	const { doc } = data;
 
-	let { latestVersion, releaseBranch, branches, currentRef } = parentData || {};
+	const { latestVersion, releaseBranch, branches, currentRef } = parentData || {};
 
-	let titleAppend =
+	const titleAppend =
 		currentRef === releaseBranch || currentRef === latestVersion
 			? ""
 			: branches?.includes(currentRef!)
 				? ` (${currentRef} branch)`
 				: ` (${currentRef})`;
 
-	let title = doc.attrs.title + titleAppend;
-	let description = doc.attrs.description ?? siteConfig.description;
+	const title = doc.attrs.title + titleAppend;
+	const description = doc.attrs.description ?? siteConfig.description;
 
 	// seo: only want to index the main branch
-	let isMainBranch = currentRef === releaseBranch;
+	const isMainBranch = currentRef === releaseBranch;
 
-	let robots = rootData.isProductionHost && isMainBranch ? "index,follow" : "noindex,nofollow";
+	const robots = rootData.isProductionHost && isMainBranch ? "index,follow" : "noindex,nofollow";
 
-	let { siteUrl, ogImageUrl } = data;
+	const { siteUrl, ogImageUrl } = data;
 
 	return getMeta({
 		title: `${title} | ${siteConfig.name}`,
@@ -111,10 +111,10 @@ export const meta: MetaFunction<Loader, MatchLoaders> = (args) => {
 };
 
 export default function DocPage() {
-	let { doc } = useLoaderData<typeof loader>();
-	let ref = React.useRef<HTMLDivElement>(null);
+	const { doc } = useLoaderData<typeof loader>();
+	const ref = React.useRef<HTMLDivElement>(null);
 	useDelegatedReactRouterLinks(ref);
-	let showTOC = doc.attrs.toc !== false;
+	const showTOC = doc.attrs.toc !== false;
 
 	return (
 		<div className="xl:flex xl:w-full xl:justify-between xl:gap-8">
@@ -188,8 +188,8 @@ function SmallOnThisPage({ doc }: { doc: SerializeFrom<Doc> }) {
 }
 
 export function ErrorBoundary() {
-	let error = useRouteError();
-	let params = useParams();
+	const error = useRouteError();
+	const params = useParams();
 	if (isRouteErrorResponse(error)) {
 		return (
 			<div className="flex h-[50vh] flex-col items-center justify-center">
