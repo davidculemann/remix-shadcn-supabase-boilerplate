@@ -10,11 +10,11 @@ This file contains the configuration for the documentation and versioning integr
 */
 
 export const docConfig = {
-	pathToDocs: "flow",
+	pathToDocs: "docs",
 	branches: ["main"],
 	releaseBranch: "main",
 	versions: {
-		prefix: "flow@",
+		prefix: "v",
 		includeMinor: true,
 	},
 };

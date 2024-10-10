@@ -77,7 +77,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		currentRef: ref,
 		lang,
 		isLatest,
-		repoUrl: siteConfig.github.repoUrl,
+		repoUrl: siteConfig.github!.repoUrl,
 	});
 };
 

@@ -11,6 +11,6 @@ export const siteConfig: SiteConfig = {
 		github: "https://github.com/davidculemann",
 	},
 	github: {
-		repoUrl: "https://github.com/boomerang-io/remix-docs-template",
+		repoUrl: "https://github.com/davidculemann/remix-shadcn-supabase-boilerplate",
 	},
 };
