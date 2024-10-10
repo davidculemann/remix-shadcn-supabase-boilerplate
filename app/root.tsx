@@ -1,3 +1,12 @@
+import { ErrorBoundaryContent } from "@/components/layout/error-boundary";
+import { Toaster } from "@/components/ui/toaster";
+import { ClientHintCheck, getHints, useNonce, useTheme } from "@/lib/client-hints";
+import { queryClient } from "@/lib/react-query/query-client";
+import { useSupabase } from "@/lib/supabase/supabase";
+import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "@/lib/supabase/supabase.server";
+import { getTheme } from "@/lib/theme.server";
+import "@/styles/tailwind.css";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
 	Links,
 	Meta,
@@ -9,20 +18,12 @@ import {
 	useLoaderData,
 	useRouteError,
 } from "@remix-run/react";
-
-import { Toaster } from "@/components/ui/toaster";
-import { ClientHintCheck, getHints, useNonce, useTheme } from "@/lib/client-hints";
-import { queryClient } from "@/lib/react-query/query-client";
-import { useSupabase } from "@/lib/supabase/supabase";
-import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "@/lib/supabase/supabase.server";
-import { getTheme } from "@/lib/theme.server";
-import "@/styles/tailwind.css";
-import type { LoaderFunctionArgs } from "@remix-run/node";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
+import { GlobalPendingIndicator } from "./components/layout/global-pending-indicator";
 import { isProductionHost, removeTrailingSlashes } from "./utils/http.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -94,6 +95,7 @@ export function Document({ children }: { children: React.ReactNode }) {
 				<ClientHintCheck nonce={nonce} />
 			</head>
 			<body className="flex min-h-screen h-screen w-full flex-col">
+				<GlobalPendingIndicator />
 				<QueryClientProvider client={queryClient}>
 					{children}
 					<Toaster />
@@ -105,8 +107,6 @@ export function Document({ children }: { children: React.ReactNode }) {
 		</html>
 	);
 }
-
-import { ErrorBoundaryContent } from "@/components/layout/error-boundary";
 
 export function ErrorBoundary() {
 	const error = useRouteError() as Error;

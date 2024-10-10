@@ -1,6 +1,5 @@
 import AdminPanelLayout from "@/components/layout/admin-panel-layout";
 import { ContentLayout } from "@/components/layout/content-layout";
-import { GlobalPendingIndicator } from "@/components/layout/global-pending-indicator";
 import PageLoading from "@/components/shared/page-loading";
 import {
 	Breadcrumb,
@@ -22,7 +21,6 @@ export default function AuthLayout() {
 
 	return (
 		<>
-			<GlobalPendingIndicator />
 			<AdminPanelLayout>
 				<ContentLayout title="Dashboard">
 					<Breadcrumb>
