@@ -14,5 +14,6 @@ jobs:
               uses: biomejs/setup-biome@v2
               with:
                   version: latest
+                  fetch-depth: 0
             - name: Run Biome
               run: biome ci .
