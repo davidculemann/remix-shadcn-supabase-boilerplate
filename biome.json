@@ -16,7 +16,9 @@
 		"rules": {
 			"recommended": true,
 			"style": {
-				"noNonNullAssertion": "off"
+				"noNonNullAssertion": "off",
+				"useNumberNamespace": "off",
+				"useConst": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",

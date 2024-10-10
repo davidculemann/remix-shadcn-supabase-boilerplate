@@ -46,6 +46,18 @@ module.exports = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				aqua: {
+					50: "#effefc",
+					100: "#cafdf8",
+					200: "#94fbf4",
+					300: "#3defe9",
+					400: "#24dddc",
+					500: "#0cbdc0",
+					600: "#06969b",
+					700: "#0a767b",
+					800: "#0d5e62",
+					900: "#104d51",
+				},
 			},
 			borderRadius: {
 				lg: "var(--radius)",

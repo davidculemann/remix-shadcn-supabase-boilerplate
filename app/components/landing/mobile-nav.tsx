@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons";
+import { siteConfig } from "@/config/site";
 import { useLockBody } from "@/hooks/use-lock-body";
-import { siteConfig } from "@/lib/config/site";
 import type { MainNavItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Link } from "@remix-run/react";

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
 import { useStore } from "@/hooks/use-store";
-import { siteConfig } from "@/lib/config/site";
 import { cn } from "@/lib/utils";
 import { Link } from "@remix-run/react";
 import { Icons } from "../icons";

@@ -6,7 +6,7 @@ import { queryClient } from "@/lib/react-query/query-client";
 import { useSupabase } from "@/lib/supabase/supabase";
 import { getSupabaseEnv, getSupabaseWithSessionHeaders } from "@/lib/supabase/supabase.server";
 import { getTheme } from "@/lib/theme.server";
-import "@/tailwind.css";
+import "@/styles/tailwind.css";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

@@ -1,5 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
-import { marketingConfig } from "@/lib/config/marketing";
+import { marketingConfig } from "@/config/marketing";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/routes/resources.theme-toggle";
 import { Link } from "@remix-run/react";
