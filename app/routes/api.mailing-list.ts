@@ -1,14 +1,14 @@
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import { validateEmail } from "@/lib/utils";
 import { type ActionFunctionArgs, json } from "@remix-run/node";
 
 export async function action({ request }: ActionFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
 	const formData = await request.formData();
 	const email = formData.get("email")?.toString();
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	const isEmailValid = validateEmail(email);
 
-	if (!email || !emailRegex.test(email))
-		return json({ error: "Invalid email address.", code: "INVALID_EMAIL" }, { status: 400 });
+	if (!isEmailValid) return json({ error: "Invalid email address.", code: "INVALID_EMAIL" }, { status: 400 });
 
 	const { error } = await supabase.from("emails").insert({ email });
 
