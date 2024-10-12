@@ -41,7 +41,6 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		getRepoBranches({ octokit }),
 	]);
 
-	console.log("Tags: ", tags);
 	if (!tags || !branches) {
 		throw new Response("Cannot reach GitHub", { status: 503 });
 	}

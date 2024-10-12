@@ -1,7 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
 import { docConfig } from "@/config/doc";
 import followRedirects from "follow-redirects";
+import fs from "node:fs";
+import path from "node:path";
 import { c } from "tar";
 import invariant from "tiny-invariant";
 import { env } from "../env.server";
@@ -47,7 +47,6 @@ export async function getLocalTarballStream(): Promise<NodeJS.ReadableStream> {
 	return fs.createReadStream(".local.tgz");
 }
 
-// FIXME: I don't know the types here
 function get(options: any): any {
 	return new Promise((accept, reject) => {
 		followRedirects.https.get(options, accept).on("error", reject);
