@@ -17,7 +17,7 @@ export default function ConfirmOTP({
 					Enter the OTP sent to your email.
 				</p>
 			</div>
-			<Form className="space-y-6" method="POST" action={path}>
+			<Form className="space-y-6 flex-col content-center" method="POST" action={path}>
 				<div>
 					<Label htmlFor="otp" className="sr-only">
 						OTP
