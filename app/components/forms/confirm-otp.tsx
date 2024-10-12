@@ -1,5 +1,4 @@
 import { Form } from "@remix-run/react";
-import { Button } from "../ui/button";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Label } from "../ui/label";
 
@@ -28,12 +27,22 @@ export default function ConfirmOTP({
 				action={path}
 				navigate={false}
 				onSubmit={onSubmit}
+				id="otp-confirmation-form"
 			>
 				<div>
 					<Label htmlFor="otp" className="sr-only">
 						OTP
 					</Label>
-					<InputOTP maxLength={6} type="otp" name="otp">
+					<InputOTP
+						maxLength={6}
+						type="otp"
+						name="otp"
+						onComplete={() => {
+							const form = document.getElementById("otp-confirmation-form") as HTMLFormElement;
+							const event = new Event("submit", { bubbles: true, cancelable: true });
+							form.dispatchEvent(event);
+						}}
+					>
 						<InputOTPGroup>
 							<InputOTPSlot index={0} />
 							<InputOTPSlot index={1} />
@@ -47,9 +56,6 @@ export default function ConfirmOTP({
 				{Object.entries(additionalFormData).map(([key, value]) => (
 					<input key={key} type="hidden" name={key} value={value} />
 				))}
-				<Button type="submit" className="w-full">
-					Confirm
-				</Button>
 			</Form>
 		</div>
 	);
