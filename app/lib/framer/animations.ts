@@ -5,6 +5,13 @@ export const enterAnimation = {
 	viewport: { once: true },
 };
 
+export const enterLeftAnimation = {
+	initial: { opacity: 0, x: -30 },
+	whileInView: { opacity: 1, x: 0 },
+	transition: { duration: 0.2 },
+	viewport: { once: true },
+};
+
 export const enterAnimationFast = {
 	initial: { opacity: 0, y: -30, scale: 0.8 },
 	whileInView: { opacity: 1, y: 0, scale: 1 },
