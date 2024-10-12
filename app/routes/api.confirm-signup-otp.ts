@@ -1,8 +1,8 @@
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
-import { type LoaderFunctionArgs, json, redirect } from "@remix-run/node";
+import { type LoaderFunctionArgs, json } from "@remix-run/node";
 
 export async function action({ request }: LoaderFunctionArgs) {
-	const { supabase, headers } = getSupabaseWithHeaders({ request });
+	const { supabase } = getSupabaseWithHeaders({ request });
 	const formData = await request.formData();
 	const otp = formData.get("otp") as string;
 	const email = formData.get("email") as string;
@@ -17,5 +17,5 @@ export async function action({ request }: LoaderFunctionArgs) {
 		return json({ message: error.message }, { status: 400 });
 	}
 
-	return redirect("/dashboard", { headers });
+	return json({ message: "Success!" }, { status: 200 });
 }

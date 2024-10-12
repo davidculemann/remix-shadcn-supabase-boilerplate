@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import { forbidUser, getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail, validatePassword } from "@/lib/utils";
 import { type ActionFunctionArgs, type LoaderFunctionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigate, useNavigation } from "@remix-run/react";
+import axios from "axios";
 import { useEffect } from "react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -62,6 +63,7 @@ export default function Signup() {
 	const actionData = useActionData<ActionStatus | undefined>(); // Hook to retrieve action response
 	const isSignupComplete = actionData?.success && actionData?.email;
 	const { toast } = useToast();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (actionData)
@@ -71,11 +73,34 @@ export default function Signup() {
 			});
 	}, [actionData]);
 
+	async function handleSubmitOTP(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const form = event.currentTarget;
+		const formData = new FormData(form);
+		try {
+			await axios.post("api/confirm-signup-otp", formData);
+			toast({ title: "Success!", description: "Successfully signed up." });
+			navigate("/dashboard");
+		} catch (error) {
+			if (axios.isAxiosError(error) && error.response) {
+				const { message: errorMessage = "An unexpected error occurred. Please try again." } =
+					error.response.data;
+				toast({
+					title: "Error",
+					variant: "destructive",
+					description: errorMessage,
+				});
+			} else if (error instanceof Error) {
+				toast({ title: "Error", description: error.message });
+			} else toast({ title: "Error", description: "An unexpected error occurred. Please try again." });
+		}
+	}
+
 	if (isSignupComplete)
 		return (
 			<div className="mx-auto grid w-[350px] gap-6">
 				<Icons.logo className="lg:hidden h-12 mx-auto" />
-				<ConfirmOTP path="/api/confirm-signup-otp" additionalFormData={{ email: actionData.email }} />
+				<ConfirmOTP onSubmit={handleSubmitOTP} additionalFormData={{ email: actionData.email }} />
 			</div>
 		);
 

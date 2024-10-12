@@ -6,7 +6,12 @@ import { Label } from "../ui/label";
 export default function ConfirmOTP({
 	path,
 	additionalFormData = {},
-}: { path: string; additionalFormData: Record<string, string> }) {
+	onSubmit,
+}: {
+	path?: string;
+	additionalFormData?: Record<string, string>;
+	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+}) {
 	return (
 		<div className="mx-auto grid w-[350px] gap-6">
 			<div>
@@ -17,7 +22,13 @@ export default function ConfirmOTP({
 					Enter the OTP sent to your email.
 				</p>
 			</div>
-			<Form className="space-y-6 flex-col content-center" method="POST" action={path}>
+			<Form
+				className="space-y-6 flex flex-col items-center"
+				method="POST"
+				action={path}
+				navigate={false}
+				onSubmit={onSubmit}
+			>
 				<div>
 					<Label htmlFor="otp" className="sr-only">
 						OTP

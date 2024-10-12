@@ -31,6 +31,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		request,
 	});
 	const env = getSupabaseEnv();
+	const completeEnv = process.env;
 
 	removeTrailingSlashes(request);
 
@@ -40,6 +41,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return json(
 		{
 			env,
+			completeEnv,
 			session,
 			requestInfo: {
 				hints: getHints(request),
@@ -81,6 +83,7 @@ export default function App() {
 }
 
 export function Document({ children }: { children: React.ReactNode }) {
+	const { completeEnv } = useLoaderData<typeof loader>();
 	const theme = useTheme();
 	const nonce = useNonce();
 
@@ -99,7 +102,7 @@ export function Document({ children }: { children: React.ReactNode }) {
 				<QueryClientProvider client={queryClient}>
 					{children}
 					<Toaster />
-					<ReactQueryDevtools buttonPosition="bottom-left" />
+					{completeEnv.SHOW_REACT_QUERY_DEVTOOLS && <ReactQueryDevtools buttonPosition="bottom-left" />}
 				</QueryClientProvider>
 				<ScrollRestoration />
 				<Scripts />
