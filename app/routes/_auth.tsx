@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
-import { fadeInAnimation } from "@/lib/framer/animations";
+import { enterLeftAnimation } from "@/lib/framer/animations";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { cn } from "@/lib/utils";
 import { Link, Outlet, useOutletContext } from "@remix-run/react";
@@ -20,7 +20,7 @@ export default function AuthLayout() {
 				</>
 			</Link>
 			<div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
-				<motion.div {...fadeInAnimation} className="flex items-center justify-center py-12 h-full">
+				<motion.div {...enterLeftAnimation} className="flex items-center justify-center py-12 h-full">
 					<Outlet context={{ supabase }} />
 				</motion.div>
 				<div className="hidden bg-muted lg:grid lg:place-items-center">
