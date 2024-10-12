@@ -125,6 +125,9 @@ importers:
       gunzip-maybe:
         specifier: ^1.4.2
         version: 1.4.2
+      input-otp:
+        specifier: ^1.2.4
+        version: 1.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       isbot:
         specifier: 5.1.0
         version: 5.1.0
@@ -2970,6 +2973,12 @@ packages:
 
   inline-style-parser@0.1.1:
     resolution: {integrity: sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==}
+
+  input-otp@1.2.4:
+    resolution: {integrity: sha512-md6rhmD+zmMnUh5crQNSQxq3keBRYvE3odbr4Qb9g2NWzQv9azi+t1a3X4TBTbh98fsGHgEEJlzbe1q860uGCA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
 
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -7736,6 +7745,11 @@ snapshots:
   inherits@2.0.4: {}
 
   inline-style-parser@0.1.1: {}
+
+  input-otp@1.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   invariant@2.2.4:
     dependencies:

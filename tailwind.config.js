@@ -82,11 +82,16 @@ module.exports = {
 					"50%": { backgroundPosition: "100% 50%" },
 					"100%": { backgroundPosition: "0% 50%" },
 				},
+				"caret-blink": {
+					"0%,70%,100%": { opacity: "1" },
+					"20%,50%": { opacity: "0" },
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				gradient: "animatedgradient 6s ease infinite alternate",
+				"caret-blink": "caret-blink 1.25s ease-out infinite",
 			},
 			backgroundSize: {
 				"300%": "300%",

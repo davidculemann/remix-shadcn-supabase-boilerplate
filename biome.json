@@ -19,7 +19,8 @@
 				"noNonNullAssertion": "off",
 				"useNumberNamespace": "off",
 				"useConst": "error",
-				"noParameterAssign": "off"
+				"noParameterAssign": "off",
+				"useImportType": "warn"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",
@@ -28,7 +29,8 @@
 			},
 			"a11y": {
 				"useButtonType": "off",
-				"noSvgWithoutTitle": "off"
+				"noSvgWithoutTitle": "off",
+				"useAriaPropsForRole": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off",

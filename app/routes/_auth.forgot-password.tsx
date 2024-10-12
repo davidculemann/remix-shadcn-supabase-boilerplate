@@ -1,9 +1,54 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Form, Link } from "@remix-run/react";
+import { useToast } from "@/hooks/use-toast";
+import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import { validateEmail } from "@/lib/utils";
+import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/node";
+import { Form, Link, useActionData } from "@remix-run/react";
+import { useEffect } from "react";
+
+export const meta: MetaFunction = () => {
+	return [{ title: "Forgot password" }];
+};
+
+export async function action({ request }: LoaderFunctionArgs) {
+	const { supabase } = getSupabaseWithHeaders({ request });
+	const formData = await request.formData();
+	const email = formData.get("email") as string;
+
+	if (!validateEmail(email)) {
+		return json({ message: "Invalid email address." }, { status: 400 });
+	}
+
+	const { error } = await supabase.auth.resetPasswordForEmail(email, {
+		redirectTo: `${request.headers.get("origin")}/profile/update-password`,
+	});
+
+	if (error) {
+		return json({ message: error.message }, { status: 400 });
+	}
+
+	return json({ success: true, message: "Check your email for the reset link." });
+}
+
+type ActionStatus = {
+	success: boolean;
+	message: string;
+};
 
 export default function ForgotPassword() {
+	const actionData = useActionData<ActionStatus | undefined>();
+	const { toast } = useToast();
+
+	useEffect(() => {
+		if (actionData)
+			toast({
+				variant: actionData?.success ? "default" : "destructive",
+				description: actionData.message,
+			});
+	}, [actionData]);
+
 	return (
 		<div className="mx-auto grid w-[350px] gap-6">
 			<div>
