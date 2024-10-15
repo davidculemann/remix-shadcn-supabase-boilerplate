@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { enterLeftAnimation } from "@/lib/framer/animations";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail } from "@/lib/utils";
 import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/node";
 import { Form, Link, useActionData } from "@remix-run/react";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
@@ -50,7 +52,7 @@ export default function ForgotPassword() {
 	}, [actionData]);
 
 	return (
-		<div className="mx-auto grid w-[350px] gap-6">
+		<motion.div {...enterLeftAnimation} className="mx-auto grid w-[350px] gap-6">
 			<div>
 				<h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
 					Forgot your password?
@@ -83,6 +85,6 @@ export default function ForgotPassword() {
 					Back to sign in
 				</Link>
 			</div>
-		</div>
+		</motion.div>
 	);
 }

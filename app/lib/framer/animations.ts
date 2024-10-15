@@ -6,10 +6,9 @@ export const enterAnimation = {
 };
 
 export const enterLeftAnimation = {
-	initial: { opacity: 0, x: -30 },
-	whileInView: { opacity: 1, x: 0 },
+	initial: { opacity: 0, x: -40 },
+	animate: { opacity: 1, x: 0 },
 	transition: { duration: 0.2 },
-	viewport: { once: true },
 };
 
 export const enterAnimationFast = {

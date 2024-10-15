@@ -18,7 +18,7 @@ export default function ConfirmOTP({
 					Confirm OTP
 				</h2>
 				<p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-					Enter the OTP sent to your email.
+					Enter the code sent to your email.
 				</p>
 			</div>
 			<Form
