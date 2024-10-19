@@ -57,19 +57,35 @@ npm run dev
 
 ## Deployment
 
-First, build your app for production:
+### With Vercel
+
+1. First, install the Vercel CLI:
+
+```sh
+npm install -g vercel
+```
+
+2. Then deploy your app:
+
+```sh
+vercel
+```
+
+### Manual Deployment
+
+1. First, build your app for production:
 
 ```sh
 npm run build
 ```
 
-Setup your environment:
+2. Setup your environment:
 
 ```sh
 NODE_ENV='production'
 ```
 
-Then run the app in production mode:
+3. Then run the app in production mode:
 
 ```sh
 npm start
@@ -89,13 +105,14 @@ Now you'll need to pick a host to deploy it to.
 -   [zustand](https://zustand.surge.sh)
 -   [Logoipsum](https://logoipsum.com)
 
-## Credits
-
--   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next.js to Remix
--   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful template for Remix documentation sites
-
 ## Tooling
 
 -   [Biome](https://biomejs.dev)
 -   [pnpm](https://pnpm.io)
 -   [Vite](https://vitejs.dev)
+-   [Vercel](https://vercel.com)
+
+## Credits
+
+-   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next.js to Remix
+-   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful template for Remix documentation sites

@@ -1,5 +1,6 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
+import { vercelPreset } from "@vercel/remix/vite";
 import { defineConfig } from "vite";
 import envOnly from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -11,6 +12,7 @@ export default defineConfig({
 		envOnly(),
 		tsconfigPaths(),
 		remix({
+			presets: [vercelPreset()],
 			future: {
 				v3_fetcherPersist: true,
 				v3_relativeSplatPath: true,
