@@ -19,7 +19,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 	const url = new URL(request.url);
 	const baseUrl = `${url.protocol}//${url.host}`;
 	const siteUrl = baseUrl + url.pathname;
-	//TODO - figure out og.1.jpg
 	const ogImageUrl = `${baseUrl}/img/og.1.jpg`;
 	invariant(params.ref, "expected `ref` params");
 	//Handle Images
@@ -51,7 +50,7 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 	return headers;
 };
 
-const LAYOUT_LOADER_KEY = "routes/docs.$lang.$ref";
+const LAYOUT_LOADER_KEY = "routes/_landing.docs.$lang.$ref";
 
 type Loader = typeof loader;
 type MatchLoaders = {
