@@ -1,5 +1,9 @@
 # Boilerplate for Remix + Vite + shadcn/ui + Supabase
 
+## Demo
+
+Live app: [remix-shadcn-boilerplate.vercel.app](https://remix-shadcn-boilerplate.vercel.app)
+
 ## What's inside?
 
 -   A fullstack app with [Remix](https://remix.run), [Vite](https://vitejs.dev), [shadcn/ui](https://shadcn/ui), and [Supabase](https://supabase.io)
