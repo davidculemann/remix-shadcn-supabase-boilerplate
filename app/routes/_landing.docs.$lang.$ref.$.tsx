@@ -63,9 +63,10 @@ export const meta: MetaFunction<Loader, MatchLoaders> = (args) => {
 
 	const parentData = args.matches.find((match) => match.id === LAYOUT_LOADER_KEY)?.data;
 	const rootData = args.matches.find((match) => match.id === "root")?.data;
-	if (process.env.NODE_ENV !== "development") {
-		invariant(parentData && "latestVersion" in parentData, "No parent data found");
-	}
+	// console.log(args, parentData, LAYOUT_LOADER_KEY);
+	// if (process.env.NODE_ENV !== "development") {
+	// 	invariant(parentData && "latestVersion" in parentData, "No parent data found");
+	// }
 	invariant(rootData && "isProductionHost" in rootData, "No root data found");
 
 	if (!data) {
