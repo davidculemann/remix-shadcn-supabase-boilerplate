@@ -25,6 +25,7 @@ export type SidebarNavItem = {
 );
 
 export type SiteConfig = {
+	author: string;
 	name: string;
 	project: string;
 	description: string;

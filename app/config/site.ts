@@ -1,6 +1,7 @@
 import type { SiteConfig } from "../lib/types";
 
 export const siteConfig: SiteConfig = {
+	author: "David Culemann",
 	name: "easycv",
 	project: "Easycv",
 	description: "Supercharge your career with AI.",
