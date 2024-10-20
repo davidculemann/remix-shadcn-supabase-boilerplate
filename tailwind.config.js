@@ -5,7 +5,7 @@ module.exports = {
 	prefix: "",
 	theme: {
 		container: {
-			center: true,
+			center: "true",
 			padding: "2rem",
 			screens: {
 				sm: "640px",
@@ -69,29 +69,47 @@ module.exports = {
 				sm: "calc(var(--radius) - 4px)",
 			},
 			keyframes: {
-				"accordion-down": {
-					from: { height: "0" },
-					to: { height: "var(--radix-accordion-content-height)" },
-				},
-				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: "0" },
-				},
 				animatedgradient: {
-					"0%": { backgroundPosition: "0% 50%" },
-					"50%": { backgroundPosition: "100% 50%" },
-					"100%": { backgroundPosition: "0% 50%" },
+					"0%": {
+						backgroundPosition: "0% 50%",
+					},
+					"50%": {
+						backgroundPosition: "100% 50%",
+					},
+					"100%": {
+						backgroundPosition: "0% 50%",
+					},
 				},
 				"caret-blink": {
-					"0%,70%,100%": { opacity: "1" },
-					"20%,50%": { opacity: "0" },
+					"0%,70%,100%": {
+						opacity: "1",
+					},
+					"20%,50%": {
+						opacity: "0",
+					},
+				},
+				"accordion-down": {
+					from: {
+						height: "0",
+					},
+					to: {
+						height: "var(--radix-accordion-content-height)",
+					},
+				},
+				"accordion-up": {
+					from: {
+						height: "var(--radix-accordion-content-height)",
+					},
+					to: {
+						height: "0",
+					},
 				},
 			},
 			animation: {
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
 				gradient: "animatedgradient 6s ease infinite alternate",
 				"caret-blink": "caret-blink 1.25s ease-out infinite",
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 			backgroundSize: {
 				"300%": "300%",
