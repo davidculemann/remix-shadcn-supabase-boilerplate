@@ -46,7 +46,6 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 			} else if (event === "SIGNED_OUT") {
 				setUser(null);
 			}
-			console.log("EVENT", event, session);
 			if (!session?.user && PROTECTED_ROUTES.includes(pathname)) {
 				navigate("/signin");
 				toast({
