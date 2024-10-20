@@ -5,6 +5,7 @@ export const siteConfig: SiteConfig = {
 	project: "Easycv",
 	description: "Supercharge your career with AI.",
 	url: "https://www.davidculemann.com",
+	contactEmail: "davidculemann@gmail.com",
 	ogImage: "https://www.davidculemann.com/og.png",
 	links: {
 		twitter: "https://twitter.com/easycv",

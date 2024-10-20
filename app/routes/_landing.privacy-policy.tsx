@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config/site";
+
 export default function Component() {
 	return (
 		<div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -87,12 +89,12 @@ export default function Component() {
 					<li>
 						<strong>Website</strong> refers to remix-shadcn-supabase-boilerplate, accessible from{" "}
 						<a
-							href="https://remix-shadcn-boilerplate.vercel.app/"
+							href={siteConfig.url}
 							rel="external nofollow noopener noreferrer"
 							target="_blank"
 							className="text-blue-600 hover:underline"
 						>
-							https://remix-shadcn-boilerplate.vercel.app/
+							{siteConfig.url}
 						</a>
 					</li>
 					<li>
@@ -206,7 +208,7 @@ export default function Component() {
 				<h2 className="text-2xl font-semibold">Contact Us</h2>
 				<p>If you have any questions about this Privacy Policy, You can contact us:</p>
 				<ul className="list-disc pl-6">
-					<li>By email: davidculemann@gmail.com</li>
+					<li>By email: {siteConfig.contactEmail}</li>
 				</ul>
 			</section>
 		</div>

@@ -30,6 +30,7 @@ export type SiteConfig = {
 	description: string;
 	url: string;
 	ogImage?: string;
+	contactEmail?: string;
 	links?: {
 		twitter: string;
 		github: string;
