@@ -6,11 +6,12 @@ import ProviderLoginButton from "@/components/shared/provider-login-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { enterLeftAnimation } from "@/lib/framer/animations";
+import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 
 import { forbidUser, getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail, validatePassword } from "@/lib/utils";
 import { type ActionFunctionArgs, type LoaderFunctionArgs, json } from "@remix-run/node";
-import { Form, Link, useActionData, useNavigate, useNavigation } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigation, useOutletContext } from "@remix-run/react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
@@ -51,21 +52,22 @@ export async function action({ request }: ActionFunctionArgs) {
 		return json({ message: error.message }, { status: 400 });
 	}
 
-	return json({ success: true, message: "Check your email for the confirmation code.", email });
+	return json({ success: true, message: "Check your email for the confirmation code.", email, password });
 }
 
 type ActionStatus = {
 	success: boolean;
 	message: string;
 	email: string;
+	password: string;
 };
 
 export default function Signup() {
 	const navigation = useNavigation();
-	const actionData = useActionData<ActionStatus | undefined>(); // Hook to retrieve action response
-	const isSignupComplete = actionData?.success && actionData?.email;
+	const actionData = useActionData<ActionStatus | undefined>();
+	const isSignupComplete = actionData?.success && actionData?.email && actionData?.password;
 	const { toast } = useToast();
-	const navigate = useNavigate();
+	const { supabase } = useOutletContext<SupabaseOutletContext>();
 
 	useEffect(() => {
 		if (actionData)
@@ -80,9 +82,13 @@ export default function Signup() {
 		const form = event.currentTarget;
 		const formData = new FormData(form);
 		try {
-			const { data } = await axios.post("api/confirm-signup-otp", formData);
+			await axios.post("api/confirm-signup-otp", formData);
 			toast({ title: "Success!", description: "Successfully signed up." });
-			navigate("/dashboard");
+			if (actionData)
+				supabase.auth.signInWithPassword({
+					email: actionData.email,
+					password: actionData.password,
+				});
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response) {
 				const { message: errorMessage = "An unexpected error occurred. Please try again." } =
@@ -94,7 +100,9 @@ export default function Signup() {
 				});
 			} else if (error instanceof Error) {
 				toast({ title: "Error", description: error.message });
-			} else toast({ title: "Error", description: "An unexpected error occurred. Please try again." });
+			} else {
+				toast({ title: "Error", description: "An unexpected error occurred. Please try again." });
+			}
 		}
 	}
 
