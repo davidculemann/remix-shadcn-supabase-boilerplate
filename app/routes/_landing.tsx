@@ -1,5 +1,5 @@
-import SiteFooter from "@/components/landing/site-footer";
 import SiteHeader from "@/components/landing/site-header";
+import { Footer } from "@/components/layout/footer";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { Outlet, useOutletContext } from "@remix-run/react";
 
@@ -9,7 +9,7 @@ export default function MarketingLayout() {
 		<div className="flex min-h-screen flex-col">
 			<SiteHeader />
 			<Outlet context={{ supabase }} />
-			<SiteFooter />
+			<Footer />
 		</div>
 	);
 }
