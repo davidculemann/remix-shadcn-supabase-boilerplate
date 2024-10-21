@@ -14,6 +14,8 @@ Live app: [remix-shadcn-boilerplate.vercel.app](https://remix-shadcn-boilerplate
     -   Logout
 -   Protected routes
 -   A beautiful and professional dashboard layout, credit to [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
+-   A documentation page, configurable to point to your own markdown files in a GitHub repo.
+-   A customisable pricing page with Stripe integration.
 -   Easily configurable for your own project
 
 ## Setup
@@ -118,5 +120,6 @@ Now you'll need to pick a host to deploy it to.
 
 ## Credits
 
--   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next.js to Remix
--   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful template for Remix documentation sites
+-   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next/js
+-   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites
+-   [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next.js
