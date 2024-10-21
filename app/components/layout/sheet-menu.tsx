@@ -20,7 +20,7 @@ export function SheetMenu() {
 					<Button className="flex justify-center items-center pb-2 pt-1" variant="link" asChild>
 						<Link to="/" className="flex items-center gap-2">
 							<Icons.logo />
-							<SheetTitle className="font-bold text-lg">{siteConfig.name}</SheetTitle>
+							<SheetTitle className="font-bold text-lg text-logo">{siteConfig.name}</SheetTitle>
 						</Link>
 					</Button>
 				</SheetHeader>
