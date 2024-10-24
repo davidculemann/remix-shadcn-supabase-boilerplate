@@ -1,9 +1,11 @@
 import { DetailsMenu } from "@/components/docs/details-menu";
 import { VersionWarningMessage } from "@/components/docs/version-warning-message";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { docConfig } from "@/config/doc";
 import { siteConfig } from "@/config/site";
 import iconsHref from "@/icons.svg";
+import { cn } from "@/lib/utils";
 import "@/styles/docs.css";
 import type { Doc } from "@/utils/github";
 import {
@@ -351,9 +353,9 @@ function MenuCategoryLink({
 		<Link
 			prefetch="intent"
 			to={to}
-			className={cx(
-				"outline-none focus-visible:text-blue-brand dark:focus-visible:text-blue-400",
-				isActive ? "text-blue-brand dark:text-blue-brand" : "hover:text-blue-500",
+			className={cn(
+				"outline-none focus-visible:text-foreground my-1",
+				isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
 			)}
 		>
 			{children}
@@ -364,17 +366,11 @@ function MenuCategoryLink({
 function MenuLink({ to, children }: { to: string; children: React.ReactNode }) {
 	const isActive = useIsActivePath(to);
 	return (
-		<Link
-			prefetch="intent"
-			to={to}
-			className={cx(
-				"group relative my-px flex min-h-[2.25rem] items-center justify-between rounded-md border-transparent px-3 py-2 text-sm",
-				"outline-none transition-colors duration-100 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-800  dark:focus-visible:ring-gray-100",
-				isActive ? ["text-black", "bg-accent"] : ["text-gray-700 hover:text-black", "hover:bg-accent"],
-			)}
-		>
-			{children}
-		</Link>
+		<Button asChild variant={isActive ? "secondary" : "ghost"} className="w-full justify-start my-1">
+			<Link prefetch="intent" to={to}>
+				{children}
+			</Link>
+		</Button>
 	);
 }
 
