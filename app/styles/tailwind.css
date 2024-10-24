@@ -51,6 +51,7 @@
     --destructive: 3 89% 54%;
     --destructive-foreground: 0 0% 100%;
     --ring: 210, 100%, 49%;
+    color-scheme: dark;
   }
 }
 
