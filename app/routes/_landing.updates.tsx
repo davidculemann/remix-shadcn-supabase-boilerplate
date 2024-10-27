@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
 	Timeline,
 	TimelineContent,
@@ -11,12 +9,15 @@ import {
 
 export default function Updates() {
 	return (
-		<Timeline className="m-auto px-4 sm:px-6 lg:px-8 xl:max-w-[90rem]">
+		<Timeline positions="center" className="m-auto px-4 sm:px-6 lg:px-8 xl:max-w-[90rem]">
 			<TimelineItem status="done">
-				<TimelineHeading>Plan!</TimelineHeading>
+				<TimelineHeading side="left">Plan!</TimelineHeading>
+				<TimelineHeading side="right" variant="secondary">
+					Done (05/04/2024)
+				</TimelineHeading>
 				<TimelineDot status="done" />
 				<TimelineLine done />
-				<TimelineContent>
+				<TimelineContent side="left">
 					Before diving into coding, it is crucial to plan your software project thoroughly. This involves
 					defining the project scope, setting clear objectives, and identifying the target audience.
 					Additionally, creating a timeline and allocating resources appropriately will contribute to a
@@ -27,6 +28,9 @@ export default function Updates() {
 				<TimelineHeading side="right" className="text-destructive">
 					Design
 				</TimelineHeading>
+				<TimelineHeading side="left" variant="secondary">
+					Failed (05/04/2024)
+				</TimelineHeading>
 				<TimelineDot status="error" />
 				<TimelineLine done />
 				<TimelineContent>
@@ -36,10 +40,13 @@ export default function Updates() {
 				</TimelineContent>
 			</TimelineItem>
 			<TimelineItem status="done">
-				<TimelineHeading>Code</TimelineHeading>
+				<TimelineHeading side="left">Code</TimelineHeading>
+				<TimelineHeading side="right" variant="secondary">
+					Current step
+				</TimelineHeading>
 				<TimelineDot status="current" />
 				<TimelineLine />
-				<TimelineContent>
+				<TimelineContent side="left">
 					The coding phase involves translating your design into actual code. Choose a programming language
 					and framework that aligns with your project requirements. Follow best practices, such as modular and
 					reusable code, to enhance maintainability and scalability. Regularly test your code to identify and
@@ -48,6 +55,9 @@ export default function Updates() {
 			</TimelineItem>
 			<TimelineItem>
 				<TimelineHeading>Test</TimelineHeading>
+				<TimelineHeading side="left" variant="secondary">
+					Next step
+				</TimelineHeading>
 				<TimelineDot />
 				<TimelineLine />
 				<TimelineContent>
@@ -57,18 +67,24 @@ export default function Updates() {
 				</TimelineContent>
 			</TimelineItem>
 			<TimelineItem>
-				<TimelineHeading>Deploy</TimelineHeading>
+				<TimelineHeading side="left">Deploy</TimelineHeading>
+				<TimelineHeading side="right" variant="secondary">
+					Deadline (05/10/2024)
+				</TimelineHeading>
 				<TimelineDot />
 				<TimelineLine />
-				<TimelineContent>
+				<TimelineContent side="left">
 					Once your software has passed rigorous testing, it's time to deploy it. Consider the deployment
 					environment, whether it's on-premises or in the cloud. Ensure proper documentation and provide clear
 					instructions for installation and configuration.
 				</TimelineContent>
 			</TimelineItem>
 			<TimelineItem>
-				<TimelineHeading>Done!</TimelineHeading>
 				<TimelineDot />
+				<TimelineHeading>Done!</TimelineHeading>
+				<TimelineHeading side="left" variant="secondary">
+					Here everything ends
+				</TimelineHeading>
 			</TimelineItem>
 		</Timeline>
 	);
