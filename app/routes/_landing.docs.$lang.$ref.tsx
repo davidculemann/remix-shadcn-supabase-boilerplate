@@ -347,7 +347,11 @@ function MenuCategoryLink({
 function MenuLink({ to, children }: { to: string; children: React.ReactNode }) {
 	const isActive = useIsActivePath(to);
 	return (
-		<Button asChild variant={isActive ? "secondary" : "ghost"} className="w-full justify-start my-1">
+		<Button
+			asChild
+			variant={isActive ? "secondary" : "ghost"}
+			className={cn("w-full justify-start my-1", isActive ? "bg-accent hover:bg-accent" : "")}
+		>
 			<Link prefetch="intent" to={to}>
 				{children}
 			</Link>
