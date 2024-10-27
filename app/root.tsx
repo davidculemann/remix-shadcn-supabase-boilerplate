@@ -17,6 +17,7 @@ import {
 	useFetcher,
 	useLoaderData,
 	useRouteError,
+	useRouteLoaderData,
 } from "@remix-run/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -83,7 +84,8 @@ export default function App() {
 }
 
 export function Document({ children }: { children: React.ReactNode }) {
-	const { completeEnv } = useLoaderData<typeof loader>();
+	const loaderData = useRouteLoaderData<typeof loader>("root");
+	const completeEnv = loaderData?.completeEnv;
 	const theme = useTheme();
 	const nonce = useNonce();
 
@@ -102,7 +104,7 @@ export function Document({ children }: { children: React.ReactNode }) {
 				<QueryClientProvider client={queryClient}>
 					{children}
 					<Toaster />
-					{completeEnv.SHOW_REACT_QUERY_DEVTOOLS && <ReactQueryDevtools buttonPosition="bottom-left" />}
+					{completeEnv?.SHOW_REACT_QUERY_DEVTOOLS && <ReactQueryDevtools buttonPosition="bottom-left" />}
 				</QueryClientProvider>
 				<ScrollRestoration />
 				<Scripts />
