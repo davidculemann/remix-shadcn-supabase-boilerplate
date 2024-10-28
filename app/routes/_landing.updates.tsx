@@ -6,7 +6,7 @@ import {
 	TimelineItem,
 	TimelineLine,
 } from "@/components/ui/timeline";
-import { timelineItems, Update } from "@/lib/updates";
+import { timelineItems, type Update } from "@/lib/updates";
 
 export default function Updates() {
 	return (

@@ -15,62 +15,50 @@ export const timelineItems: Update[] = [
 	{
 		status: "done",
 		headings: [
-			{ side: "left", text: "Plan!" },
-			{ side: "right", text: "Done (05/04/2024)", variant: "secondary" },
+			{ side: "left", text: "Work Begins!" },
+			{ side: "right", text: "Started (09/09/2024)", variant: "secondary" },
 		],
 		dotStatus: "done",
 		lineDone: true,
 		content: {
 			side: "left",
-			text: "Before diving into coding, it is crucial to plan your software project thoroughly. This involves defining the project scope, setting clear objectives, and identifying the target audience. Additionally, creating a timeline and allocating resources appropriately will contribute to a successful development process.",
+			text: "First version of the boilerplate launched, at this point still without any real functionality. The stack of supabase, shadcn and remix was initialised and deployed to vercel. Tooling was set up with Biome for linting and formatting, Vite for bundling and Typescript as the language of choice.",
 		},
 	},
 	{
 		status: "done",
 		headings: [
-			{ side: "right", text: "Design", className: "text-destructive" },
-			{ side: "left", text: "Failed (05/04/2024)", variant: "secondary" },
+			{ side: "left", text: "Auth Flow Implemented" },
+			{ side: "right", text: "Completed (25/09/2024)", variant: "secondary" },
 		],
-		dotStatus: "error",
+		dotStatus: "done",
 		lineDone: true,
 		content: {
-			text: "Designing your software involves creating a blueprint that outlines the structure, user interface, and functionality of your application. Consider user experience (UX) principles, wireframing, and prototyping to ensure an intuitive and visually appealing design.",
+			text: "Implementing a robust and low friction user authentication system can be the most tedious stage of setting up any project. The boilerplate supports email and password login with supabase, with an initial signup confirmation through OTP (to get around supabase redirect issues with multiple deployments and dev environments). Additionally, GitHub and Google OAuth are supported through Supabase. I set up my own SMTP server with Resend hosted on my own domain (davidculemann.com) to send out the OTP emails, because Supabase aggressively rate-limits email sending on the free plan.",
 		},
 	},
 	{
 		status: "done",
 		headings: [
-			{ side: "left", text: "Code" },
-			{ side: "right", text: "Current step", variant: "secondary" },
+			{ side: "left", text: "Documentation Support" },
+			{ side: "right", text: "Completed (10/10/2024)", variant: "secondary" },
+		],
+		dotStatus: "done",
+		lineDone: true,
+		content: {
+			side: "left",
+			text: "Documentation can be a nice feature to have for applications with intricate workflows and complex features, I forked boomerang.io's docs template for remix https://github.com/boomerang-io/remix-docs-template, which includes a system for fetching markdown files from a GitHub repository and rendering them in react.",
+		},
+	},
+	{
+		headings: [
+			{ side: "left", text: "Add Features" },
+			{ side: "right", text: "In Progress", variant: "secondary" },
 		],
 		dotStatus: "current",
 		lineDone: false,
 		content: {
-			side: "left",
-			text: "The coding phase involves translating your design into actual code. Choose a programming language and framework that aligns with your project requirements. Follow best practices, such as modular and reusable code, to enhance maintainability and scalability. Regularly test your code to identify and fix any bugs or errors.",
+			text: "The current focus is on adding new features to the website, such as integrating Stripe for payment processing, and making the protected dashboard route more configurable. I also have plans for boilerplate AI support with the vercel AI sdk, potentially with a configurable chat bot.",
 		},
-	},
-	{
-		headings: [{ text: "Test" }, { side: "left", text: "Next step", variant: "secondary" }],
-		lineDone: false,
-		content: {
-			text: "Thorough testing is essential to ensure the quality and reliability of your software. Implement different testing methodologies, including unit testing, integration testing, and user acceptance testing. This helps identify and rectify any issues before deploying the software.",
-		},
-	},
-	{
-		headings: [
-			{ side: "left", text: "Deploy" },
-			{ side: "right", text: "Deadline (05/10/2024)", variant: "secondary" },
-		],
-		lineDone: false,
-		content: {
-			side: "left",
-			text: "Once your software has passed rigorous testing, it's time to deploy it. Consider the deployment environment, whether it's on-premises or in the cloud. Ensure proper documentation and provide clear instructions for installation and configuration.",
-		},
-	},
-	{
-		headings: [{ text: "Done!" }, { side: "left", text: "Here everything ends", variant: "secondary" }],
-		lineDone: false,
-		content: {},
 	},
 ];
