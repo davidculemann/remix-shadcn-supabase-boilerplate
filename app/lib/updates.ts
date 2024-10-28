@@ -58,7 +58,7 @@ export const timelineItems: Update[] = [
 		dotStatus: "current",
 		lineDone: false,
 		content: {
-			text: "The current focus is on adding new features to the website, such as integrating Stripe for payment processing, and making the protected dashboard route more configurable. I also have plans for boilerplate AI support with the vercel AI sdk, potentially with a configurable chat bot.",
+			text: "The current focus is on adding new features to the website, such as integrating Stripe for payment processing, and making the protected dashboard route more configurable. I also have plans for boilerplate AI support with the vercel AI sdk, potentially with a configurable chat bot. I also plan to add some nice to have features such as a keep-alive route with polling to prevent Supabase from disabling the project due to inactivity.",
 		},
 	},
 ];
