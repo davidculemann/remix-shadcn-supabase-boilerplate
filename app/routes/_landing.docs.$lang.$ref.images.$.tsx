@@ -1,6 +1,6 @@
 import { docConfig } from "@/config/doc";
-import { getRepoImage } from "@/utils/github";
-import { handleRedirects } from "@/utils/http.server";
+import { getRepoImage } from "@/lib/docs-utils/github";
+import { handleRedirects } from "@/lib/docs-utils/http.server";
 import { type LoaderFunctionArgs, json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 

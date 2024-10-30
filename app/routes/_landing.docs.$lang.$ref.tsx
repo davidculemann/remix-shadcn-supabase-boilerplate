@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 import iconsHref from "@/icons.svg";
 import { cn } from "@/lib/utils";
 import "@/styles/docs.css";
-import type { Doc } from "@/utils/github";
+import type { Doc } from "@/lib/docs-utils/github";
 import {
 	getLatestVersion,
 	getLatestVersionHeads,
@@ -16,9 +16,9 @@ import {
 	getRepoDocsMenu,
 	getRepoTags,
 	validateParams,
-} from "@/utils/github";
-import { octokit } from "@/utils/github.server";
-import { CACHE_CONTROL } from "@/utils/http.server";
+} from "@/lib/docs-utils/github";
+import { octokit } from "@/lib/docs-utils/github.server";
+import { CACHE_CONTROL } from "@/lib/docs-utils/http.server";
 import type { HeadersFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import {

@@ -1,5 +1,5 @@
 import { redirect } from "@remix-run/node";
-import redirectsFileContents from "../../_redirects?raw";
+import redirectsFileContents from "../../../_redirects?raw";
 
 export const CACHE_CONTROL = {
 	/**
