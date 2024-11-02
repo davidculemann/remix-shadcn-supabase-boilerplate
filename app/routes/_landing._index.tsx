@@ -11,6 +11,7 @@ import { Form } from "@remix-run/react";
 import axios from "axios";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import StackIcons from "@/components/landing/stack-icons";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -82,6 +83,15 @@ export default function Index() {
 								Learn More
 							</Button>
 						</div>
+					</div>
+				</motion.section>
+
+				<motion.section>
+					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+						<h1 className="font-heading text-xl sm:text-3xl md:text-4xl lg:text-5xl">
+							Built with the latest technologies for the best developer and user experience.
+						</h1>
+						<StackIcons />
 					</div>
 				</motion.section>
 
