@@ -6,17 +6,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { cn } from "@/lib/utils";
 import { Link, useFetcher, useLocation } from "@remix-run/react";
 import { CollapseMenuButton } from "./collapse-menu-button";
-import { getMenuList } from "@/config.shared";
+import { useCurrentPage } from "@/hooks/use-current-page";
 
 interface MenuProps {
 	isOpen: boolean | undefined;
 }
 
 export function Menu({ isOpen }: MenuProps) {
-	const { pathname } = useLocation();
 	const fetcher = useFetcher();
-	const menuList = getMenuList(pathname);
-
+	const { menuList } = useCurrentPage();
 	function handleSignOut() {
 		fetcher.submit(null, { method: "post", action: "/signout" });
 	}
