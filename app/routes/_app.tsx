@@ -24,7 +24,7 @@ export default function AuthLayout() {
 
 	return (
 		<AdminPanelLayout>
-			<ContentLayout title="Dashboard">
+			<ContentLayout title={activePage!.label}>
 				<Breadcrumb>
 					<BreadcrumbList>
 						<BreadcrumbItem>
@@ -36,7 +36,7 @@ export default function AuthLayout() {
 							<Fragment key={label}>
 								<BreadcrumbSeparator />
 								<BreadcrumbItem>
-									{label !== activePage?.label ? (
+									{label !== activePage!.label ? (
 										<BreadcrumbLink asChild>
 											<Link to={href}>{label}</Link>
 										</BreadcrumbLink>
