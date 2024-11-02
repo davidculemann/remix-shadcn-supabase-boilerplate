@@ -66,7 +66,7 @@ export default function Index() {
 	return (
 		<div className="flex flex-col">
 			<main className="flex-1">
-				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32" {...enterAnimation}>
+				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16" {...enterAnimation}>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
 						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
 							Disrupt Your Industry with Our All-in-One Generic Platform
@@ -86,10 +86,10 @@ export default function Index() {
 					</div>
 				</motion.section>
 
-				<motion.section>
+				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16" {...enterAnimation}>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-						<h1 className="font-heading text-xl sm:text-3xl md:text-4xl lg:text-5xl">
-							Built with the latest technologies for the best developer and user experience.
+						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+							Using the latest technologies.
 						</h1>
 						<StackIcons />
 					</div>
