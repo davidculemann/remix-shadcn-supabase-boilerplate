@@ -110,6 +110,7 @@ Now you'll need to pick a host to deploy it to.
 -   [Resend](https://resend.io)
 -   [zustand](https://zustand.surge.sh)
 -   [Logoipsum](https://logoipsum.com)
+-   [Stripe](https://stripe.com)
 
 ## Tooling
 
@@ -120,6 +121,8 @@ Now you'll need to pick a host to deploy it to.
 
 ## Credits
 
--   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next/js
--   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites
--   [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next.js
+-   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next-js.
+-   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites.
+-   [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next-js.
+-   [shadcn-admin](https://github.com/satnaing/shadcn-admin): Very useful layouts for settings screens.
+-   [remix-saas](https://remix-saas.fly.dev/): The best Remix starter I've seen so far, took some inspiration from the landing page.
