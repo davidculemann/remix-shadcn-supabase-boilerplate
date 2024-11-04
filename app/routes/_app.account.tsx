@@ -51,6 +51,6 @@ const sidebarNavItems = [
 	{
 		title: "Billing",
 		icon: <IconPalette size={18} />,
-		href: "/settings/billing",
+		href: "/account/billing",
 	},
 ];

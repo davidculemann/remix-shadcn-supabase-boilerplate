@@ -3,10 +3,10 @@ import { Ellipsis, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { Link, useFetcher, useLocation } from "@remix-run/react";
-import { CollapseMenuButton } from "./collapse-menu-button";
 import { useCurrentPage } from "@/hooks/use-current-page";
+import { cn } from "@/lib/utils";
+import { Link, useFetcher } from "@remix-run/react";
+import { CollapseMenuButton } from "./collapse-menu-button";
 
 interface MenuProps {
 	isOpen: boolean | undefined;

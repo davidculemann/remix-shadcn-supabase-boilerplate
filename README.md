@@ -125,4 +125,4 @@ Now you'll need to pick a host to deploy it to.
 -   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites.
 -   [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next-js.
 -   [shadcn-admin](https://github.com/satnaing/shadcn-admin): Very useful layouts for settings screens.
--   [remix-saas](https://remix-saas.fly.dev/): The best Remix starter I've seen so far, took some inspiration from the landing page.
+-   [remix-saas](https://remix-saas.fly.dev/): The best Remix starter I've seen so far, took some inspiration from the landing page and stripe implementation, adapated from Prisma to Supabase.

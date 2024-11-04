@@ -3,6 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 import { useToast } from "@/components/hooks/use-toast";
+import StackIcons from "@/components/landing/stack-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,7 +12,6 @@ import { Form } from "@remix-run/react";
 import axios from "axios";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import StackIcons from "@/components/landing/stack-icons";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -89,7 +89,7 @@ export default function Index() {
 				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16" {...enterAnimation}>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
 						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
-							Using the latest technologies.
+							Using the latest technologies
 						</h1>
 						<StackIcons />
 					</div>
