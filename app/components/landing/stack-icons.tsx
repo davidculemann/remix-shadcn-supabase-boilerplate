@@ -136,7 +136,7 @@ export default function StackIcons() {
 				rel="noreferrer"
 				aria-label="Vercel"
 				className="flex items-center text-primary opacity-80 grayscale transition hover:opacity-100"
-				href="https://vercel."
+				href="https://vercel.com"
 			>
 				<svg aria-label="Vercel logotype" role="img" viewBox="0 0 283 64" className="h-8">
 					<path
