@@ -84,6 +84,18 @@ export function getMenuList(pathname: string): Group[] {
 					label: "Account",
 					active: pathname.includes("/account"),
 					icon: Settings,
+					submenus: [
+						{
+							href: "/account/settings",
+							label: "Settings",
+							active: pathname === "/account/settings",
+						},
+						{
+							href: "/account/billing",
+							label: "Billing",
+							active: pathname.includes("/account/billing"),
+						},
+					],
 				},
 			],
 		},
