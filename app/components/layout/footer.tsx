@@ -8,7 +8,7 @@ export function Footer() {
 				<div className="flex gap-4">
 					<p className="text-xs text-muted-foreground">© 2024 David Culemann.</p>
 					<a
-						href="https://linkedin.com/in/davidculemann"
+						href="https://linkedin.com/in/david-culemann"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="text-muted-foreground hover:text-foreground"
