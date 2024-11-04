@@ -46,7 +46,7 @@ export function Menu({ isOpen }: MenuProps) {
 								<p className="pb-2" />
 							)}
 							{menus.map(({ href, label, icon: Icon, active, submenus }, index) =>
-								!submenus || submenus.length === 0 ? (
+								href || !submenus || submenus.length === 0 ? (
 									<div className="w-full" key={index}>
 										<TooltipProvider disableHoverableContent>
 											<Tooltip delayDuration={100}>
