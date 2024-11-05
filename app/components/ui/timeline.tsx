@@ -1,6 +1,6 @@
-import React from "react";
 import { type VariantProps, cva } from "class-variance-authority";
 import { Check, Circle, X } from "lucide-react";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 

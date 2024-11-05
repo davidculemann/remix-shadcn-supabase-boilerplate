@@ -1,7 +1,7 @@
-import { docConfig } from "@/config/doc";
-import followRedirects from "follow-redirects";
 import fs from "node:fs";
 import path from "node:path";
+import { docConfig } from "@/config/doc";
+import followRedirects from "follow-redirects";
 import { c } from "tar";
 import invariant from "tiny-invariant";
 import { env } from "../env.server";

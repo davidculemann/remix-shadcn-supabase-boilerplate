@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
 	Timeline,
 	TimelineContent,
@@ -7,8 +6,9 @@ import {
 	TimelineItem,
 	TimelineLine,
 } from "@/components/ui/timeline";
-import { timelineItems, type Update } from "@/lib/updates";
+import { type Update, timelineItems } from "@/lib/updates";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 export default function Updates() {
 	const [isMobile, setIsMobile] = useState(false);
