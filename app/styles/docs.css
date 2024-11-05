@@ -1,5 +1,6 @@
 /*****************************************************************************/
 /* syntax highlighting */
+
 :root {
   --base00: theme("colors.gray.50");
   --base01: theme("colors.gray.200");
