@@ -2,23 +2,37 @@ import Stripe from "stripe";
 import { CURRENCIES } from "./plans";
 
 export type Locales = string[] | undefined;
+
 /**
  * Get the client's locales from the Accept-Language header.
  * If the header is not defined returns null.
  * If the header is defined return an array of locales, sorted by the quality
  * value.
- *
- * @example
- * export async function loader({ request }: LoaderArgs) {
- *   let locales = getClientLocales(request)
- *   let date = new Date().toLocaleDateString(locales, {
- *     "day": "numeric",
- *   });
- *   return json({ date })
- * }
  */
-declare function getClientLocales(headers: Headers): Locales;
-declare function getClientLocales(request: Request): Locales;
+function getClientLocales(input: Headers | Request): Locales {
+	let acceptLanguage: string | null;
+
+	if (input instanceof Request) {
+		acceptLanguage = input.headers.get("accept-language");
+	} else {
+		acceptLanguage = input.get("accept-language");
+	}
+
+	if (!acceptLanguage) return undefined;
+
+	// Parse the Accept-Language header
+	return acceptLanguage
+		.split(",")
+		.map((lang) => {
+			const [locale, quality = "1"] = lang.trim().split(";q=");
+			return {
+				locale: locale.trim(),
+				quality: parseFloat(quality),
+			};
+		})
+		.sort((a, b) => b.quality - a.quality)
+		.map((item) => item.locale);
+}
 
 if (!process.env.STRIPE_SECRET_KEY) {
 	throw new Error("Stripe - Environment variables not initialized.");

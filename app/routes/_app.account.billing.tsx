@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { siteConfig } from "@/config/site";
 import { INTENTS } from "@/lib/constants";
-import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
-import { requireSessionUser } from "@/services/auth.server";
+import { getSupabaseWithHeaders, requireUser } from "@/lib/supabase/supabase.server";
 import { CURRENCIES, INTERVALS, type Interval, PLANS, PRICING_PLANS, type Plan } from "@/services/stripe/plans";
 import { createCustomerPortal, createSubscriptionCheckout } from "@/services/stripe/queries.server";
 import { getLocaleCurrency } from "@/services/stripe/stripe.server";
@@ -12,33 +11,39 @@ import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 
-//TODO - add subscription to supabase
-
 export const ROUTE_PATH = "/dashboard/settings/billing" as const;
 
 export const meta: MetaFunction = () => {
-	return [{ title: "Remix SaaS - Billing" }];
+	return [{ title: `${siteConfig.name} - Billing` }];
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
-	const { supabase } = getSupabaseWithHeaders({ request });
+	const { supabase, headers } = getSupabaseWithHeaders({ request });
 
-	const sessionUser = await requireSessionUser(request, {
-		redirectTo: "/signin",
-	});
+	const user = await requireUser({ supabase, headers });
 
-	const subscription = await supabase.subscription.findUnique({
-		where: { userId: sessionUser.id },
-	});
+	if (!user) {
+		throw redirect("/signin", { headers });
+	}
+
+	const { data: subscription } = await supabase.from("subscriptions").select("*").eq("user_id", user.id).single();
+
 	const currency = getLocaleCurrency(request);
 
 	return json({ subscription, currency } as const);
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-	const sessionUser = await requireSessionUser(request, {
-		redirectTo: "signin",
-	});
+	const { supabase, headers } = getSupabaseWithHeaders({ request });
+
+	const {
+		data: { user },
+		error: userError,
+	} = await supabase.auth.getUser();
+
+	if (!user || userError) {
+		throw redirect("/signin", { headers });
+	}
 
 	const formData = await request.formData();
 	const intent = formData.get("intent");
@@ -47,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
 		const planId = String(formData.get("planId"));
 		const planInterval = String(formData.get("planInterval"));
 		const checkoutUrl = await createSubscriptionCheckout({
-			userId: sessionUser.id,
+			userId: user.id,
 			planId,
 			planInterval,
 			request,
@@ -57,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
 	}
 	if (intent === INTENTS.SUBSCRIPTION_CREATE_CUSTOMER_PORTAL) {
 		const customerPortalUrl = await createCustomerPortal({
-			userId: sessionUser.id,
+			userId: user.id,
 			request,
 		});
 		if (!customerPortalUrl) return json({ success: false } as const);
@@ -73,18 +78,20 @@ export default function Billing() {
 	const [selectedPlanId, setSelectedPlanId] = useState<Plan>((subscription?.planId as Plan) ?? PLANS.FREE);
 	const [selectedPlanInterval, setSelectedPlanInterval] = useState<Interval>(INTERVALS.MONTH);
 
+	const isFreePlan = subscription?.planId === PLANS.FREE || !subscription;
+
 	return (
 		<div className="flex h-full w-full flex-col gap-6">
 			<div className="flex w-full flex-col gap-2 p-6 py-2">
-				<h2 className="text-xl font-medium text-primary">This is a demo app.</h2>
-				<p className="text-sm font-normal text-primary/60">
+				<h2 className="text-xl font-medium">This is a demo app.</h2>
+				<p className="text-sm font-normal text-muted-foreground">
 					{siteConfig.name} is a demo app that uses Stripe test environment. You can find a list of test card
 					numbers on the{" "}
 					<a
 						href="https://stripe.com/docs/testing#cards"
 						target="_blank"
 						rel="noreferrer"
-						className="font-medium text-primary/80 underline"
+						className="font-medium underline"
 					>
 						Stripe docs
 					</a>
@@ -95,10 +102,10 @@ export default function Billing() {
 			{/* Plans */}
 			<div className="flex w-full flex-col items-start rounded-lg border border-border bg-card">
 				<div className="flex flex-col gap-2 p-6">
-					<h2 className="text-xl font-medium text-primary">Plan</h2>
-					<p className="flex items-start gap-1 text-sm font-normal text-primary/60">
+					<h2 className="text-xl font-medium">Plan</h2>
+					<p className="flex items-start gap-1 text-sm font-normal text-muted-foreground">
 						You are currently on the{" "}
-						<span className="flex h-[18px] items-center rounded-md bg-primary/10 px-1.5 text-sm font-medium text-primary/80">
+						<span className="flex h-[18px] items-center rounded-md bg-secondary px-1.5 text-sm font-medium">
 							{subscription
 								? subscription.planId?.charAt(0).toUpperCase() + subscription.planId.slice(1)
 								: "Free"}
@@ -107,7 +114,7 @@ export default function Billing() {
 					</p>
 				</div>
 
-				{subscription?.planId === PLANS.FREE && (
+				{isFreePlan && (
 					<div className="flex w-full flex-col items-center justify-evenly gap-2 border-border p-6 pt-0">
 						{Object.values(PRICING_PLANS).map((plan) => (
 							<div
@@ -124,7 +131,7 @@ export default function Billing() {
 							>
 								<div className="flex w-full flex-col items-start p-4">
 									<div className="flex items-center gap-2">
-										<span className="text-base font-medium text-primary">{plan.name}</span>
+										<span className="text-base font-medium">{plan.name}</span>
 										{plan.id !== PLANS.FREE && (
 											<span className="flex items-center rounded-md bg-primary/10 px-1.5 text-sm font-medium text-primary/80">
 												{currency === CURRENCIES.USD ? "$" : "€"}{" "}
@@ -135,13 +142,18 @@ export default function Billing() {
 											</span>
 										)}
 									</div>
-									<p className="text-start text-sm font-normal text-primary/60">{plan.description}</p>
+									<p className="text-start text-sm font-normal text-muted-foreground">
+										{plan.description}
+									</p>
 								</div>
 
 								{/* Billing Switch */}
 								{plan.id !== PLANS.FREE && (
 									<div className="flex items-center gap-2 px-4">
-										<label htmlFor="interval-switch" className="text-start text-sm text-primary/60">
+										<label
+											htmlFor="interval-switch"
+											className="text-start text-sm text-muted-foreground"
+										>
 											{selectedPlanInterval === INTERVALS.MONTH ? "Monthly" : "Yearly"}
 										</label>
 										<Switch
@@ -165,10 +177,10 @@ export default function Billing() {
 						<div className="flex w-full items-center overflow-hidden rounded-md border border-primary/60">
 							<div className="flex w-full flex-col items-start p-4">
 								<div className="flex items-end gap-2">
-									<span className="text-base font-medium text-primary">
+									<span className="text-base font-medium">
 										{subscription.planId.charAt(0).toUpperCase() + subscription.planId.slice(1)}
 									</span>
-									<p className="flex items-start gap-1 text-sm font-normal text-primary/60">
+									<p className="flex items-start gap-1 text-sm font-normal text-muted-foreground">
 										{subscription.cancelAtPeriodEnd === true ? (
 											<span className="flex h-[18px] items-center text-sm font-medium text-red-500">
 												Expires
@@ -182,7 +194,7 @@ export default function Billing() {
 										.
 									</p>
 								</div>
-								<p className="text-start text-sm font-normal text-primary/60">
+								<p className="text-start text-sm font-normal text-muted-foreground">
 									{PRICING_PLANS[PLANS.PRO].description}
 								</p>
 							</div>
@@ -191,7 +203,7 @@ export default function Billing() {
 				)}
 
 				<div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3 dark:bg-card">
-					<p className="text-sm font-normal text-primary/60">
+					<p className="text-sm font-normal text-muted-foreground">
 						You will not be charged for testing the subscription upgrade.
 					</p>
 					{subscription?.planId === PLANS.FREE && (
@@ -215,14 +227,14 @@ export default function Billing() {
 			{/* Manage Subscription */}
 			<div className="flex w-full flex-col items-start rounded-lg border border-border bg-card">
 				<div className="flex flex-col gap-2 p-6">
-					<h2 className="text-xl font-medium text-primary">Manage Subscription</h2>
-					<p className="flex items-start gap-1 text-sm font-normal text-primary/60">
+					<h2 className="text-xl font-medium">Manage Subscription</h2>
+					<p className="flex items-start gap-1 text-sm font-normal text-muted-foreground">
 						Update your payment method, billing address, and more.
 					</p>
 				</div>
 
 				<div className="flex min-h-14 w-full items-center justify-between rounded-lg rounded-t-none border-t border-border bg-secondary px-6 py-3 dark:bg-card">
-					<p className="text-sm font-normal text-primary/60">
+					<p className="text-sm font-normal text-muted-foreground">
 						You will be redirected to the Stripe Customer Portal.
 					</p>
 					<Form method="POST">
