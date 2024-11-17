@@ -124,6 +124,7 @@
 		"icons-react": "link:@types/tabler/icons-react",
 		"postcss": "8.4.38",
 		"postcss-nesting": "^13.0.0",
+		"supabase": "^1.219.2",
 		"tailwindcss": "3.4.3",
 		"typescript": "5.3.3",
 		"vite": "5.1.3",
