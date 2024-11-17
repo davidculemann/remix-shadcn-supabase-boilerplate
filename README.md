@@ -6,27 +6,27 @@ Live app: [remix-shadcn-boilerplate.vercel.app](https://remix-shadcn-boilerplate
 
 ## What's inside?
 
--   A fullstack app with [Remix](https://remix.run), [Vite](https://vitejs.dev), [shadcn/ui](https://shadcn/ui), and [Supabase](https://supabase.io)
--   Complete authentication flow with Supabase
-    -   Signup with email, Google, Github
-    -   Login with email, Google, Github
-    -   Forgot password flow
-    -   Logout
--   Protected routes
--   A beautiful and professional dashboard layout, credit to [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
--   A documentation page, configurable to point to your own markdown files in a GitHub repo.
--   A customisable pricing page with Stripe integration.
--   Easily configurable for your own project
+- A fullstack app with [Remix](https://remix.run), [Vite](https://vitejs.dev), [shadcn/ui](https://shadcn/ui), and [Supabase](https://supabase.io)
+- Complete authentication flow with Supabase
+  - Signup with email, Google, Github
+  - Login with email, Google, Github
+  - Forgot password flow
+  - Logout
+- Protected routes
+- A beautiful and professional dashboard layout, credit to [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar)
+- A documentation page, configurable to point to your own markdown files in a GitHub repo.
+- A customisable pricing page with Stripe integration.
+- Easily configurable for your own project
 
 ## Setup
 
--   Clone the repo:
+- Clone the repo:
 
 ```sh
 git clone git@github.com:davidculemann/remix-shadcn-boilerplate.git
 ```
 
--   Install dependencies:
+- Install dependencies:
 
 ```sh
 pnpm install
@@ -34,16 +34,16 @@ pnpm install
 
 ### Supabase
 
--   Create a new project on [Supabase](https://supabase.io)
+- Create a new project on [Supabase](https://supabase.io)
 
--   enter your Supabase URL and key in `.env`:
+- enter your Supabase URL and key in `.env`:
 
 ```sh
 VITE_SUPABASE_URL=https://<your_supabase_url>.supabase.co
 VITE_SUPABASE_KEY=<your_supabase_key>
 ```
 
--   generate typescript types for your Supabase tables:
+- generate typescript types for your Supabase tables:
 
 ```sh
 supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
@@ -51,7 +51,7 @@ supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
 
 ### Email
 
--   Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
+- Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
 
 ## Development
 
@@ -101,28 +101,28 @@ Now you'll need to pick a host to deploy it to.
 
 ## Stack
 
--   [Remix](https://remix.run)
--   [Vite](https://vitejs.dev)
--   [shadcn/ui](https://shadcn/ui)
--   [Supabase](https://supabase.io)
--   [React Query](https://react-query.tanstack.com)
--   [Framer Motion](https://www.framer.com/motion)
--   [Resend](https://resend.io)
--   [zustand](https://zustand.surge.sh)
--   [Logoipsum](https://logoipsum.com)
--   [Stripe](https://stripe.com)
+- [Remix](https://remix.run)
+- [Vite](https://vitejs.dev)
+- [shadcn/ui](https://shadcn/ui)
+- [Supabase](https://supabase.io)
+- [React Query](https://react-query.tanstack.com)
+- [Framer Motion](https://www.framer.com/motion)
+- [Resend](https://resend.io)
+- [zustand](https://zustand.surge.sh)
+- [Logoipsum](https://logoipsum.com)
+- [Stripe](https://stripe.com)
 
 ## Tooling
 
--   [Biome](https://biomejs.dev)
--   [pnpm](https://pnpm.io)
--   [Vite](https://vitejs.dev)
--   [Vercel](https://vercel.com)
+- [Biome](https://biomejs.dev)
+- [pnpm](https://pnpm.io)
+- [Vite](https://vitejs.dev)
+- [Vercel](https://vercel.com)
 
 ## Credits
 
--   [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next-js.
--   [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites.
--   [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next-js.
--   [shadcn-admin](https://github.com/satnaing/shadcn-admin): Very useful layouts for settings screens.
--   [remix-saas](https://remix-saas.fly.dev/): The best Remix starter I've seen so far, took some inspiration from the landing page and stripe implementation, adapated from Prisma to Supabase.
+- [shadcn-ui-sidebar](https://github.com/salimi-my/shadcn-ui-sidebar): Professional yet beautiful dashboard layout built with shadcn, adapted from Next-js.
+- [remix-docs-template](https://github.com/boomerang-io/remix-docs-template): A powerful and customisable template for Remix documentation sites.
+- [pricing-page-shadcn](https://github.com/m4nute/pricing-page-shadcn): A pricing page built with shadcn, adapted from Next-js.
+- [shadcn-admin](https://github.com/satnaing/shadcn-admin): Very useful layouts for settings screens.
+- [remix-saas](https://remix-saas.fly.dev/): The best Remix starter I've seen so far, took some inspiration from the landing page and stripe implementation, adapated from Prisma to Supabase.

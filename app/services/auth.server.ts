@@ -18,7 +18,7 @@ export const authenticator = new Authenticator<User>(sessionStorage);
 export async function requireSessionUser(request: Request, { redirectTo }: { redirectTo?: string | null } = {}) {
 	const sessionUser = await authenticator.isAuthenticated(request);
 	if (!sessionUser) {
-		if (!redirectTo) throw redirect("sigout");
+		if (!redirectTo) throw redirect("signout");
 		throw redirect(redirectTo);
 	}
 	return sessionUser;

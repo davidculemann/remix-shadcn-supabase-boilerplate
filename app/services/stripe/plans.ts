@@ -40,15 +40,6 @@ export const CURRENCIES = {
 
 export type Currency = (typeof CURRENCIES)[keyof typeof CURRENCIES];
 
-/**
- * Defines the structure for each subscription plan.
- *
- * Note:
- * - Running the Prisma seed will create these plans in your Stripe Dashboard and populate the database.
- * - Each plan includes pricing details for each interval and currency.
- * - Plan IDs correspond to the Stripe plan IDs for easy identification.
- * - 'name' and 'description' fields are used in Stripe Checkout and client UI.
- */
 export const PRICING_PLANS = {
 	[PLANS.FREE]: {
 		id: PLANS.FREE,
