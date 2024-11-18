@@ -36,14 +36,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
 
-	const {
-		data: { user },
-		error: userError,
-	} = await supabase.auth.getUser();
-
-	if (!user || userError) {
-		throw redirect("/signin", { headers });
-	}
+	const user = await requireUser({ supabase, headers });
 
 	const formData = await request.formData();
 	const intent = formData.get("intent");
@@ -206,17 +199,12 @@ export default function Billing() {
 					<p className="text-sm font-normal text-muted-foreground">
 						You will not be charged for testing the subscription upgrade.
 					</p>
-					{subscription?.planId === PLANS.FREE && (
+					{isFreePlan && (
 						<Form method="POST">
+							<input type="hidden" name="intent" value={INTENTS.SUBSCRIPTION_CREATE_CHECKOUT} />
 							<input type="hidden" name="planId" value={selectedPlanId} />
 							<input type="hidden" name="planInterval" value={selectedPlanInterval} />
-							<Button
-								type="submit"
-								size="sm"
-								name={INTENTS.INTENT}
-								value={INTENTS.SUBSCRIPTION_CREATE_CHECKOUT}
-								disabled={selectedPlanId === PLANS.FREE}
-							>
+							<Button type="submit" size="sm" disabled={selectedPlanId === PLANS.FREE}>
 								Upgrade to PRO
 							</Button>
 						</Form>
