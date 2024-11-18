@@ -1,8 +1,9 @@
 import { ERRORS } from "@/lib/constants";
-import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import { getSupabaseWithHeaders, requireUser } from "@/lib/supabase/supabase.server";
 import { HOST_URL } from "../misc.server";
 import { PLANS } from "./plans";
 import { getLocaleCurrency, stripe } from "./stripe.server";
+import type Stripe from "stripe";
 
 //TODO - update supabase with user
 
@@ -104,50 +105,73 @@ export async function createSubscriptionCheckout({
 }) {
 	const { supabase } = getSupabaseWithHeaders({ request });
 
-	const { data: user, error: userError } = await supabase.from("profiles").select("*").eq("id", userId).single();
-
-	if (userError || !user || !user.customer_id) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
-
-	const { data: subscription, error: subError } = await supabase
-		.from("subscriptions")
-		.select("*")
-		.eq("user_id", user.id)
+	const { data: profile } = await supabase
+		.from("profiles")
+		.select("email, username, customer_id")
+		.eq("id", userId)
 		.single();
 
-	if (subError || subscription?.plan_id !== PLANS.FREE) return;
+	if (!profile) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
+
+	const { data: subscription } = await supabase.from("subscriptions").select("*").eq("user_id", userId).single();
+
+	if (subscription && subscription?.plan_id !== PLANS.FREE) return;
 
 	const currency = getLocaleCurrency(request);
 
-	const { data: price, error: priceError } = await supabase
-		.from("prices")
-		.select("*")
-		.eq("id", subscription.price_id)
+	const { data: plan } = await supabase
+		.from("plans")
+		.select(`
+			*,
+			prices (*)
+		`)
+		.eq("id", planId)
 		.single();
 
-	if (priceError || !price) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
+	const price = plan?.prices?.find(
+		(price: { interval: string; currency: string }) =>
+			price.interval === planInterval && price.currency === currency,
+	);
+
+	if (!price) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
+
+	let customer: Stripe.Customer | Stripe.DeletedCustomer;
+	if (profile.customer_id) {
+		customer = await stripe.customers.retrieve(profile.customer_id);
+	} else {
+		customer = await stripe.customers.create({
+			email: profile.email,
+			name: profile.username,
+		});
+
+		await supabase.from("profiles").update({ customer_id: customer.id }).eq("id", userId);
+	}
 
 	const checkout = await stripe.checkout.sessions.create({
-		customer: user.customer_id,
+		customer: customer.id,
 		line_items: [{ price: price.id, quantity: 1 }],
 		mode: "subscription",
 		payment_method_types: ["card"],
-		success_url: `${HOST_URL}/dashboard/checkout`,
-		cancel_url: `${HOST_URL}/dashboard/settings/billing`,
+		success_url: `${HOST_URL}/checkout`,
+		cancel_url: `${HOST_URL}/account/billing`,
 	});
+
 	if (!checkout) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
 	return checkout.url;
 }
 
 export async function createCustomerPortal({ userId, request }: { userId: string; request: Request }) {
+	if (!userId) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
+
 	const { supabase } = getSupabaseWithHeaders({ request });
 
-	const { data: user, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
+	const { data: profile } = await supabase.from("profiles").select("customer_id").eq("id", userId).single();
 
-	if (error || !user || !user.customer_id) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
+	if (!profile?.customer_id) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
 
 	const customerPortal = await stripe.billingPortal.sessions.create({
-		customer: user.customer_id,
-		return_url: `${HOST_URL}/dashboard/settings/billing`,
+		customer: profile.customer_id,
+		return_url: `${HOST_URL}/account/billing`,
 	});
 
 	if (!customerPortal) throw new Error(ERRORS.STRIPE_SOMETHING_WENT_WRONG);
