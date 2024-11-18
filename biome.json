@@ -30,7 +30,8 @@
 			"a11y": {
 				"useButtonType": "off",
 				"noSvgWithoutTitle": "off",
-				"useAriaPropsForRole": "off"
+				"useAriaPropsForRole": "off",
+				"useSemanticElements": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off",
