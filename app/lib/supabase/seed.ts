@@ -4,7 +4,7 @@ import { getSupabaseWithHeaders } from "./supabase.server";
 
 async function seedProfiles(supabase: any) {
 	const { data: existingProfiles } = await supabase.from("profiles").select("*");
-
+	const testUserId = crypto.randomUUID();
 	if (existingProfiles?.length) {
 		console.info("🏃‍♂️ Skipping profiles seeding - profiles already exist");
 		return;
@@ -12,7 +12,7 @@ async function seedProfiles(supabase: any) {
 
 	const { error } = await supabase.from("profiles").insert([
 		{
-			id: "test-user-id",
+			id: testUserId,
 			email: "test@example.com",
 			username: "Test User",
 			avatar_url: null,
@@ -23,48 +23,6 @@ async function seedProfiles(supabase: any) {
 
 	if (error) {
 		console.error("Error seeding profiles:", error);
-		throw error;
-	}
-}
-
-async function seedSubscriptions(supabase: any) {
-	const { data: existingSubscriptions } = await supabase.from("subscriptions").select("*");
-
-	if (existingSubscriptions?.length) {
-		console.info("🏃‍♂️ Skipping subscriptions seeding - subscriptions already exist");
-		return;
-	}
-
-	// Get the free plan and its yearly price
-	const { data: freePlan } = await supabase.from("plans").select("*, prices(*)").eq("id", PLANS.FREE).single();
-
-	const yearlyPrice = freePlan?.prices?.find(
-		(price: { interval: string; currency: string }) => price.interval === "year" && price.currency === "usd",
-	);
-
-	if (!yearlyPrice) {
-		console.info("Skipping subscription seed - no free plan price found");
-		return;
-	}
-
-	const { error } = await supabase.from("subscriptions").insert([
-		{
-			id: "test-subscription-id",
-			user_id: "test-user-id",
-			plan_id: PLANS.FREE,
-			price_id: yearlyPrice.id,
-			interval: "year",
-			status: "active",
-			current_period_start: new Date().toISOString(),
-			current_period_end: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-			cancel_at_period_end: false,
-			created_at: new Date().toISOString(),
-			updated_at: new Date().toISOString(),
-		},
-	]);
-
-	if (error) {
-		console.error("Error seeding subscriptions:", error);
 		throw error;
 	}
 }
@@ -188,9 +146,6 @@ async function seed() {
 
 	await seedProfiles(supabase);
 	console.info("👤 Profiles seeded successfully");
-
-	await seedSubscriptions(supabase);
-	console.info("📅 Subscriptions seeded successfully");
 }
 
 seed()
