@@ -55,10 +55,43 @@ supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
 
 ## Development
 
-Run the Vite dev server:
+1. Seed the database:
+
+```sh
+pnpm run seed
+```
+
+2. Run the Vite dev server:
 
 ```sh
 npm run dev
+```
+
+## Stripe
+
+In order to use Stripe Subscriptions and seed the database, you'll need to create a [Stripe Account](https://dashboard.stripe.com/login) and get the secret key from the Stripe Dashboard.
+
+1. Create a [Stripe Account](https://dashboard.stripe.com/login) or use an existing one.
+2. Visit [API Keys](https://dashboard.stripe.com/test/apikeys) section and copy the `Secret` key.
+3. Paste your secret key into `.env` file as `STRIPE_SECRET_KEY`.
+
+## Stripe Webhook
+
+1. In order to start receiving Stripe Events to our Webhook Endpoint, you need to install the [Stripe CLI.](https://stripe.com/docs/stripe-cli) Once installed run the following command in your console. _(Make sure you're in the root of your project)_:
+
+```sh
+stripe listen --forward-to localhost:3000/api/webhook
+```
+
+This should give you a Webhook Secret Key. Copy and paste it into your `.env` file as `STRIPE_WEBHOOK_ENDPOINT`.
+
+> [!IMPORTANT]
+> This command should be running in your console while developing, especially when testing or handling Stripe Events.
+
+2. Then, you should run the seed command to populate your stripe store with products and prices:
+
+```sh
+pnpm run seed
 ```
 
 ## Deployment
