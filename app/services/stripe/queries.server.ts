@@ -152,7 +152,7 @@ export async function createSubscriptionCheckout({
 		line_items: [{ price: price.id, quantity: 1 }],
 		mode: "subscription",
 		payment_method_types: ["card"],
-		success_url: `${HOST_URL}/checkout`,
+		success_url: `${HOST_URL}/account/billing`,
 		cancel_url: `${HOST_URL}/account/billing`,
 	});
 

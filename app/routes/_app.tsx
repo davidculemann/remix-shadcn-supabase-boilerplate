@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useCurrentPage } from "@/hooks/use-current-page";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
-import { Link, Outlet, useNavigate, useOutletContext } from "@remix-run/react";
+import { Link, Outlet, useOutletContext } from "@remix-run/react";
 import { Fragment } from "react";
 
 export default function AuthLayout() {
