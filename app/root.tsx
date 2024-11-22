@@ -25,7 +25,7 @@ import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { GlobalPendingIndicator } from "./components/layout/global-pending-indicator";
-import { isProductionHost, removeTrailingSlashes } from "./utils/http.server";
+import { isProductionHost, removeTrailingSlashes } from "./lib/docs-utils/http.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { session, headers } = await getSupabaseWithSessionHeaders({

@@ -10,5 +10,8 @@
 	},
 	"[toml]": {
 		"editor.defaultFormatter": "tamasfe.even-better-toml"
-	}
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true
 }

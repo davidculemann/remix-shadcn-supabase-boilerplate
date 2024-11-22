@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"files": {
-		"ignore": ["build/**"]
+		"ignore": ["build/**", "app/styles/docs.css"]
 	},
 	"organizeImports": {
 		"enabled": true
@@ -30,7 +30,8 @@
 			"a11y": {
 				"useButtonType": "off",
 				"noSvgWithoutTitle": "off",
-				"useAriaPropsForRole": "off"
+				"useAriaPropsForRole": "off",
+				"useSemanticElements": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off",

@@ -3,9 +3,9 @@ import { Ellipsis, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getMenuList } from "@/lib/menu-list";
+import { useCurrentPage } from "@/hooks/use-current-page";
 import { cn } from "@/lib/utils";
-import { Link, useFetcher, useLocation } from "@remix-run/react";
+import { Link, useFetcher } from "@remix-run/react";
 import { CollapseMenuButton } from "./collapse-menu-button";
 
 interface MenuProps {
@@ -13,10 +13,8 @@ interface MenuProps {
 }
 
 export function Menu({ isOpen }: MenuProps) {
-	const { pathname } = useLocation();
 	const fetcher = useFetcher();
-	const menuList = getMenuList(pathname);
-
+	const { menuList } = useCurrentPage();
 	function handleSignOut() {
 		fetcher.submit(null, { method: "post", action: "/signout" });
 	}
@@ -48,7 +46,7 @@ export function Menu({ isOpen }: MenuProps) {
 								<p className="pb-2" />
 							)}
 							{menus.map(({ href, label, icon: Icon, active, submenus }, index) =>
-								!submenus || submenus.length === 0 ? (
+								href || !submenus || submenus.length === 0 ? (
 									<div className="w-full" key={index}>
 										<TooltipProvider disableHoverableContent>
 											<Tooltip delayDuration={100}>

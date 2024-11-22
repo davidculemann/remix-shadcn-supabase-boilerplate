@@ -3,6 +3,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
 import { useToast } from "@/components/hooks/use-toast";
+import StackIcons from "@/components/landing/stack-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -65,7 +66,7 @@ export default function Index() {
 	return (
 		<div className="flex flex-col">
 			<main className="flex-1">
-				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32" {...enterAnimation}>
+				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-24" {...enterAnimation}>
 					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
 						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
 							Disrupt Your Industry with Our All-in-One Generic Platform
@@ -82,6 +83,15 @@ export default function Index() {
 								Learn More
 							</Button>
 						</div>
+					</div>
+				</motion.section>
+
+				<motion.section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16" {...enterAnimation}>
+					<div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
+						<h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+							Using the latest technologies
+						</h1>
+						<StackIcons />
 					</div>
 				</motion.section>
 

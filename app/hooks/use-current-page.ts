@@ -1,9 +1,11 @@
+import { useLocation } from "@remix-run/react";
 import { Bookmark, LayoutGrid, type LucideIcon, Settings, SquarePen, Tag, Users } from "lucide-react";
+import { useMemo } from "react";
 
 type Submenu = {
 	href: string;
 	label: string;
-	active?: boolean;
+	active: boolean;
 };
 
 type Menu = {
@@ -45,10 +47,12 @@ export function getMenuList(pathname: string): Group[] {
 						{
 							href: "/posts",
 							label: "All Posts",
+							active: pathname === "/posts",
 						},
 						{
 							href: "/posts/new",
 							label: "New Post",
+							active: pathname.includes("/posts/new"),
 						},
 					],
 				},
@@ -80,8 +84,51 @@ export function getMenuList(pathname: string): Group[] {
 					label: "Account",
 					active: pathname.includes("/account"),
 					icon: Settings,
+					submenus: [
+						{
+							href: "/account/settings",
+							label: "Settings",
+							active: pathname === "/account/settings",
+						},
+						{
+							href: "/account/billing",
+							label: "Billing",
+							active: pathname.includes("/account/billing"),
+						},
+					],
 				},
 			],
 		},
 	];
+}
+
+export function useCurrentPage() {
+	const pathname = useLocation().pathname;
+	const menuList = useMemo(() => getMenuList(pathname), [pathname]);
+
+	const { activePage, breadcrumbs } = useMemo(() => {
+		let activePage = null;
+		const breadcrumbs = [];
+
+		for (const group of menuList) {
+			for (const menu of group.menus) {
+				if (menu.active && menu.href) {
+					activePage = menu;
+					breadcrumbs.push(menu);
+				}
+				if (menu.submenus) {
+					for (const submenu of menu.submenus) {
+						if (pathname === submenu.href) {
+							activePage = submenu;
+							breadcrumbs.push(submenu);
+						}
+					}
+				}
+			}
+		}
+
+		return { activePage, breadcrumbs };
+	}, [menuList, pathname]);
+
+	return { activePage, menuList, breadcrumbs };
 }

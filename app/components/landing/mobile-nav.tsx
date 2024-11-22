@@ -8,9 +8,10 @@ import { Link } from "@remix-run/react";
 interface MobileNavProps {
 	items: MainNavItem[];
 	children?: React.ReactNode;
+	setShowMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function MobileNav({ items, children }: MobileNavProps) {
+export function MobileNav({ items, children, setShowMobileMenu }: MobileNavProps) {
 	useLockBody();
 
 	return (
@@ -29,6 +30,7 @@ export function MobileNav({ items, children }: MobileNavProps) {
 						<Link
 							key={item.href}
 							to={item.disabled ? "#" : item.href}
+							onClick={() => setShowMobileMenu(false)}
 							className={cn(
 								"flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",
 								item.disabled && "cursor-not-allowed opacity-60",

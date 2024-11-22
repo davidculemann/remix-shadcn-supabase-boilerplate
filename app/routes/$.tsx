@@ -1,6 +1,6 @@
 import { docConfig } from "@/config/doc";
-import { getRepoDoc } from "@/utils/github";
-import { handleRedirects } from "@/utils/http.server";
+import { getRepoDoc } from "@/lib/docs-utils/github";
+import { handleRedirects } from "@/lib/docs-utils/http.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 
