@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { IconPalette, IconTool, IconUser } from "@tabler/icons-react";
+import {  IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
 import { Outlet } from "react-router-dom";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -50,7 +50,7 @@ const sidebarNavItems = [
 	},
 	{
 		title: "Billing",
-		icon: <IconPalette size={18} />,
+		icon: <IconReceipt size={18} />,
 		href: "/account/billing",
 	},
 ];
