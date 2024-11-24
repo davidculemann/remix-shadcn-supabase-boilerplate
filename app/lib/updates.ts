@@ -52,13 +52,24 @@ export const timelineItems: Update[] = [
 	},
 	{
 		headings: [
+			{ side: "left", text: "Stripe Integration" },
+			{ side: "right", text: "Completed (22/11/2024)", variant: "secondary" },
+		],
+		dotStatus: "done",
+		lineDone: true,
+		content: {
+			text: "Stripe integration has been added to the boilerplate, with a billing page allowing users to manage their subscription and update their payment method. A seeding script has been added to initialise Supabase and Stripe with some default subsciption plans.",
+		},
+	},
+	{
+		headings: [
 			{ side: "left", text: "Add Features" },
 			{ side: "right", text: "In Progress", variant: "secondary" },
 		],
 		dotStatus: "current",
 		lineDone: false,
 		content: {
-			text: "The current focus is on adding new features to the website, such as integrating Stripe for payment processing, and making the protected dashboard route more configurable. I also have plans for boilerplate AI support with the vercel AI sdk, potentially with a configurable chat bot. I also plan to add some nice to have features such as a keep-alive route with polling to prevent Supabase from disabling the project due to inactivity.",
+			text: "The current focus is on adding new features to the website boilerplate AI support with the vercel AI sdk and a chatbot template. I also plan to add some nice to have features such as a keep-alive route with polling to prevent Supabase from disabling the project due to inactivity.",
 		},
 	},
 ];
