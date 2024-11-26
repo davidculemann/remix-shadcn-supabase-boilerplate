@@ -5,33 +5,17 @@ import { INTENTS } from "@/lib/constants";
 import { getSupabaseWithHeaders, requireUser } from "@/lib/supabase/supabase.server";
 import { CURRENCIES, INTERVALS, type Interval, PLANS, PRICING_PLANS, type Plan } from "@/services/stripe/plans";
 import { createCustomerPortal, createSubscriptionCheckout } from "@/services/stripe/queries.server";
-import { getLocaleCurrency } from "@/services/stripe/stripe.server";
-import type { ActionFunctionArgs, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useOutletContext } from "@remix-run/react";
 import { useState } from "react";
+import type { Currency, Subscription } from "types/stripe";
 
 export const ROUTE_PATH = "/dashboard/settings/billing" as const;
 
 export const meta: MetaFunction = () => {
 	return [{ title: `${siteConfig.name} - Billing` }];
 };
-
-export async function loader({ request }: LoaderFunctionArgs) {
-	const { supabase, headers } = getSupabaseWithHeaders({ request });
-
-	const user = await requireUser({ supabase, headers });
-
-	if (!user) {
-		throw redirect("/signin", { headers });
-	}
-
-	const { data: subscription } = await supabase.from("subscriptions").select("*").eq("user_id", user.id).single();
-
-	const currency = getLocaleCurrency(request);
-
-	return json({ subscription, currency } as const);
-}
 
 export async function action({ request }: ActionFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
@@ -66,7 +50,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Billing() {
-	const { subscription, currency } = useLoaderData<typeof loader>();
+	const { subscription, currency } = useOutletContext<{ subscription: Subscription; currency: Currency }>();
 
 	const [selectedPlanId, setSelectedPlanId] = useState<Plan>((subscription?.plan_id as Plan) ?? PLANS.FREE);
 	const [selectedPlanInterval, setSelectedPlanInterval] = useState<Interval>(INTERVALS.MONTH);
@@ -99,8 +83,8 @@ export default function Billing() {
 					<p className="flex items-start gap-1 text-sm font-normal text-muted-foreground">
 						You are currently on the{" "}
 						<span className="flex h-[18px] items-center rounded-md bg-secondary px-1.5 text-sm font-medium">
-							{subscription
-								? subscription.plan_id?.charAt(0).toUpperCase() + subscription.plan_id.slice(1)
+							{subscription?.plan_id
+								? subscription.plan_id.charAt(0).toUpperCase() + subscription.plan_id.slice(1)
 								: "Free"}
 						</span>
 						plan.
@@ -165,7 +149,7 @@ export default function Billing() {
 					</div>
 				)}
 
-				{subscription && subscription.plan_id !== PLANS.FREE && (
+				{subscription?.plan_id && subscription.plan_id !== PLANS.FREE && (
 					<div className="flex w-full flex-col items-center justify-evenly gap-2 border-border p-6 pt-0">
 						<div className="flex w-full items-center overflow-hidden rounded-md border border-primary/60">
 							<div className="flex w-full flex-col items-start p-4">
@@ -183,8 +167,8 @@ export default function Billing() {
 												Renews
 											</span>
 										)}
-										on: {new Date(subscription.current_period_end).toLocaleDateString("en-US")}
-										.
+										on:{" "}
+										{new Date(subscription?.current_period_end ?? "").toLocaleDateString("en-US")}.
 									</p>
 								</div>
 								<p className="text-start text-sm font-normal text-muted-foreground">

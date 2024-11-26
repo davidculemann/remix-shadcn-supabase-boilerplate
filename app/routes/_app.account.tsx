@@ -2,9 +2,9 @@ import SidebarNav from "@/components/account/sidebar-nav";
 import { Separator } from "@/components/ui/separator";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import {  IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
-import { Outlet } from "react-router-dom";
+import { useLoaderData, Outlet, useOutletContext } from "@remix-run/react";
+import { IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
+import type { Currency, Subscription } from "types/stripe";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
@@ -18,6 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function Account() {
 	const user = useLoaderData<typeof loader>();
+	const { subscription, currency } = useOutletContext<{ subscription: Subscription; currency: Currency }>();
 
 	return (
 		<div className="flex flex-col pt-4">
@@ -30,7 +31,7 @@ export default function Account() {
 					<SidebarNav items={sidebarNavItems} />
 				</aside>
 				<div className="flex w-full p-1 pr-4 md:overflow-y-hidden">
-					<Outlet />
+					<Outlet context={{ subscription, currency }} />
 				</div>
 			</div>
 		</div>
