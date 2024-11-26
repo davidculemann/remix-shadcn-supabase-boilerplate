@@ -5,6 +5,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData, Outlet, useOutletContext } from "@remix-run/react";
 import { IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
 import type { Currency, Subscription } from "types/stripe";
+import { cn } from "@/lib/utils";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
@@ -23,7 +24,19 @@ export default function Account() {
 	return (
 		<div className="flex flex-col pt-4">
 			<div className="space-y-0.5">
-				<p className="text-muted-foreground">Manage your account settings, profile and billing.</p>
+				<div className="flex items-center gap-2">
+					<p className="text-muted-foreground">Manage your account settings, profile and billing.</p>
+					<span
+						className={cn(
+							"rounded-full px-2 py-0.5 text-xs font-medium",
+							subscription?.interval === "month" || subscription?.interval === "year"
+								? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400"
+								: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400",
+						)}
+					>
+						{subscription?.interval === "month" || subscription?.interval === "year" ? "Pro" : "Free"}
+					</span>
+				</div>
 			</div>
 			<Separator className="my-4 lg:my-6" />
 			<div className="flex flex-1 flex-col space-y-8 md:space-y-2 md:overflow-hidden lg:flex-row lg:space-x-12 lg:space-y-0">

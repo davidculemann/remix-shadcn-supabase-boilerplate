@@ -28,6 +28,10 @@
 		--destructive-foreground: 3 0% 100%;
 		--ring: 210 100% 49%;
 		--radius: 0.5rem;
+		--subscription-free: 220 16% 96%;
+		--subscription-free-foreground: 215 19% 35%;
+		--subscription-pro: 214 100% 93%;
+		--subscription-pro-foreground: 221 83% 48%;
 	}
 
 	.dark {
@@ -52,6 +56,10 @@
 		--destructive-foreground: 0 0% 100%;
 		--ring: 210, 100%, 49%;
 		color-scheme: dark;
+		--subscription-free: 222 47% 17%;
+		--subscription-free-foreground: 220 9% 65%;
+		--subscription-pro: 221 39% 33%;
+		--subscription-pro-foreground: 217 91% 68%;
 	}
 }
 

@@ -63,6 +63,14 @@ module.exports = {
 					800: "#0d5e62",
 					900: "#104d51",
 				},
+				"subscription-free": {
+					DEFAULT: "hsl(var(--subscription-free))",
+					foreground: "hsl(var(--subscription-free-foreground))",
+				},
+				"subscription-pro": {
+					DEFAULT: "hsl(var(--subscription-pro))",
+					foreground: "hsl(var(--subscription-pro-foreground))",
+				},
 			},
 			borderRadius: {
 				lg: "var(--radius)",

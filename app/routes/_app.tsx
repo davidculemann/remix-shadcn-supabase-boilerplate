@@ -66,7 +66,7 @@ export default function AuthLayout() {
 
 	return (
 		<AdminPanelLayout>
-			<ContentLayout title={activePage!.label}>
+			<ContentLayout title={activePage!.label} {...{ subscription }}>
 				<Breadcrumb>
 					<BreadcrumbList>
 						<BreadcrumbItem>
