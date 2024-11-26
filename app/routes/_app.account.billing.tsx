@@ -1,3 +1,4 @@
+import SubscriptionPlanPill from "@/components/shared/subscription-plan-pill";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { siteConfig } from "@/config/site";
@@ -81,13 +82,7 @@ export default function Billing() {
 				<div className="flex flex-col gap-2 p-6">
 					<h2 className="text-xl font-medium">Plan</h2>
 					<p className="flex items-start gap-1 text-sm font-normal text-muted-foreground">
-						You are currently on the{" "}
-						<span className="flex h-[18px] items-center rounded-md bg-secondary px-1.5 text-sm font-medium">
-							{subscription?.plan_id
-								? subscription.plan_id.charAt(0).toUpperCase() + subscription.plan_id.slice(1)
-								: "Free"}
-						</span>
-						plan.
+						You are currently on the <SubscriptionPlanPill subscription={subscription} /> plan.
 					</p>
 				</div>
 
@@ -153,7 +148,7 @@ export default function Billing() {
 					<div className="flex w-full flex-col items-center justify-evenly gap-2 border-border p-6 pt-0">
 						<div className="flex w-full items-center overflow-hidden rounded-md border border-primary/60">
 							<div className="flex w-full flex-col items-start p-4">
-								<div className="flex items-end gap-2">
+								<div className="flex items-end gap-1">
 									<span className="text-base font-medium">
 										{subscription.plan_id.charAt(0).toUpperCase() + subscription.plan_id.slice(1)}
 									</span>

@@ -4,8 +4,7 @@ import { useOutletContext } from "@remix-run/react";
 import { SheetMenu } from "./sheet-menu";
 import { UserAccountNav } from "./user-account-nav";
 import type { Subscription } from "types/stripe";
-import { cn } from "@/lib/utils";
-import { PLANS } from "@/services/stripe/plans";
+import SubscriptionPlanPill from "../shared/subscription-plan-pill";
 
 interface NavbarProps {
 	title: string;
@@ -15,7 +14,6 @@ interface NavbarProps {
 export function Navbar({ title, subscription }: NavbarProps) {
 	const { user } = useOutletContext<SupabaseOutletContext>();
 	const userMetaData = user?.user_metadata;
-	const planId = subscription?.plan_id;
 
 	return (
 		<header className="sticky top-0 z-10 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:shadow-secondary">
@@ -28,16 +26,7 @@ export function Navbar({ title, subscription }: NavbarProps) {
 					<ThemeToggle />
 					<span className="gap-2 flex items-center">
 						{userMetaData && <UserAccountNav user={userMetaData} />}
-						<span
-							className={cn(
-								"flex h-5 items-center rounded-full px-2 text-xs font-medium",
-								subscription?.plan_id === PLANS.PRO
-									? "bg-subscription-pro text-subscription-pro-foreground"
-									: "bg-subscription-free text-subscription-free-foreground",
-							)}
-						>
-							{(planId && planId.charAt(0).toUpperCase() + planId.slice(1)) || "Free"}
-						</span>
+						<SubscriptionPlanPill subscription={subscription} />
 					</span>
 				</span>
 			</div>
