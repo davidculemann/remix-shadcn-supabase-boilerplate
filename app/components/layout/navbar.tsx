@@ -6,9 +6,10 @@ import { UserAccountNav } from "./user-account-nav";
 
 interface NavbarProps {
 	title: string;
+	planId?: string;
 }
 
-export function Navbar({ title }: NavbarProps) {
+export function Navbar({ title, planId }: NavbarProps) {
 	const { user } = useOutletContext<SupabaseOutletContext>();
 	const userMetaData = user?.user_metadata;
 
@@ -21,7 +22,12 @@ export function Navbar({ title }: NavbarProps) {
 				</div>
 				<span className="gap-4 flex flex-1 items-center justify-end">
 					<ThemeToggle />
-					{userMetaData && <UserAccountNav user={userMetaData} />}
+					<span className="gap-2 flex items-center">
+						{userMetaData && <UserAccountNav user={userMetaData} />}
+						<span className="flex h-5 items-center rounded-full bg-primary/10 px-2 text-xs font-medium text-primary/80">
+							{(planId && planId.charAt(0).toUpperCase() + planId.slice(1)) || "Free"}
+						</span>
+					</span>
 				</span>
 			</div>
 		</header>

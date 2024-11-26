@@ -2,13 +2,14 @@ import { Navbar } from "./navbar";
 
 interface ContentLayoutProps {
 	title: string;
+	planId?: string;
 	children: React.ReactNode;
 }
 
-export function ContentLayout({ title, children }: ContentLayoutProps) {
+export function ContentLayout({ title, planId, children }: ContentLayoutProps) {
 	return (
 		<div>
-			<Navbar title={title} />
+			<Navbar title={title} planId={planId} />
 			<div className="container pt-8 pb-8 px-4 sm:px-8">{children}</div>
 		</div>
 	);

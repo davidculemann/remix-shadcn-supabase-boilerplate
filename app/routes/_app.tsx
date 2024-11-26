@@ -16,7 +16,7 @@ import { Fragment } from "react";
 
 export default function AuthLayout() {
 	const { supabase, isLoading, user } = useOutletContext<SupabaseOutletContext>();
-
+	//NOTE: here we should be fetching the profile and planId from the database
 	const { breadcrumbs, activePage } = useCurrentPage();
 
 	if (isLoading || !user) {
