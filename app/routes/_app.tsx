@@ -26,6 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 		error,
 	} = await supabase.auth.getUser();
 
+	//TODO - this won't work, for some reason we dont have the session here
 	if (error || !user) throw redirect("/signin");
 
 	const { data: profile, error: profileError } = await supabase
