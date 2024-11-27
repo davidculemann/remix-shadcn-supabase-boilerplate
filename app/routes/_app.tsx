@@ -40,7 +40,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 	if (profileError || !profile)
 		return json({ message: profileError?.message || "Could not get profile" }, { status: 400 });
 
-	return { profile, subscription, currency };
+	return json({ profile, subscription, currency });
 }
 
 export default function AuthLayout() {
