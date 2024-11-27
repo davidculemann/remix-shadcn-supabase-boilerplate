@@ -1,5 +1,5 @@
 import { ERRORS } from "@/lib/constants";
-import { getSupabaseWithHeaders, requireUser } from "@/lib/supabase/supabase.server";
+import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { HOST_URL } from "../misc.server";
 import { PLANS } from "./plans";
 import { getLocaleCurrency, stripe } from "./stripe.server";
