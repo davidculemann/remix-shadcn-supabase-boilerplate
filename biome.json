@@ -40,7 +40,9 @@
 			"complexity": {
 				"noForEach": "off"
 			},
-			"security": { "noDangerouslySetInnerHtml": "off" }
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
+			}
 		}
 	},
 	"formatter": {
