@@ -1,8 +1,44 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { Check, Circle, X } from "lucide-react";
 import React from "react";
+import { Link } from "@remix-run/react";
 
 import { cn } from "@/lib/utils";
+import type { RichContent } from "@/lib/updates";
+
+function RichContentRenderer({ content }: { content: RichContent[] }) {
+	return (
+		<>
+			{content.map((item, index) => {
+				switch (item.type) {
+					case "paragraph":
+						return (
+							<p key={index} className="mb-4 last:mb-0">
+								{item.text}
+								{item.children && <RichContentRenderer content={item.children} />}
+							</p>
+						);
+					case "bold":
+						return <strong key={index}>{item.text}</strong>;
+					case "italic":
+						return <em key={index}>{item.text}</em>;
+					case "link":
+						return (
+							<Link
+								key={index}
+								to={item.href || "#"}
+								className="text-primary underline-offset-4 hover:underline"
+							>
+								{item.text}
+							</Link>
+						);
+					default:
+						return item.text;
+				}
+			})}
+		</>
+	);
+}
 
 const timelineVariants = cva("grid", {
 	variants: {
@@ -103,11 +139,18 @@ const timelineContentVariants = cva("row-start-2 row-end-2 pb-8 text-muted-foreg
 
 interface TimelineContentProps
 	extends React.HTMLAttributes<HTMLDivElement>,
-		VariantProps<typeof timelineContentVariants> {}
+		VariantProps<typeof timelineContentVariants> {
+	children?: React.ReactNode;
+	richContent?: RichContent[];
+}
 
-const TimelineContent = React.forwardRef<HTMLDivElement, TimelineContentProps>(({ className, side, ...props }, ref) => (
-	<div className={cn(timelineContentVariants({ side }), className)} ref={ref} {...props} />
-));
+const TimelineContent = React.forwardRef<HTMLDivElement, TimelineContentProps>(
+	({ className, side, children, richContent, ...props }, ref) => (
+		<div className={cn(timelineContentVariants({ side }), className)} ref={ref} {...props}>
+			{richContent ? <RichContentRenderer content={richContent} /> : children}
+		</div>
+	),
+);
 TimelineContent.displayName = "TimelineContent";
 
 const timelineHeadingVariants = cva("row-start-1 row-end-1 line-clamp-1 max-w-full truncate", {
@@ -152,7 +195,6 @@ const TimelineLine = React.forwardRef<HTMLHRElement, TimelineLineProps>(
 	({ className, done = false, ...props }, ref) => {
 		return (
 			<hr
-				role="separator"
 				aria-orientation="vertical"
 				className={cn(
 					"col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full",

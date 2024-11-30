@@ -42,7 +42,7 @@ export default function Updates() {
 					))}
 					<TimelineDot status={item.dotStatus} />
 					<TimelineLine done={item.lineDone} />
-					<TimelineContent side={isMobile ? "right" : item.content.side}>{item.content.text}</TimelineContent>
+					<TimelineContent side={isMobile ? "right" : item.content.side} richContent={item.content.content} />
 				</TimelineItem>
 			))}
 		</Timeline>
