@@ -14,13 +14,15 @@ export const meta: MetaFunction = () => {
 	return [{ title: "Forgot password" }];
 };
 
+type ActionResponse = { success: true; message: string } | { success: false; message: string };
+
 export async function action({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
 
 	if (!validateEmail(email)) {
-		return json({ message: "Invalid email address." }, { status: 400 });
+		return json<ActionResponse>({ success: false, message: "Invalid email address." }, { status: 400 });
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -28,19 +30,14 @@ export async function action({ request }: LoaderFunctionArgs) {
 	});
 
 	if (error) {
-		return json({ message: error.message }, { status: 400 });
+		return json<ActionResponse>({ success: false, message: error.message }, { status: 400 });
 	}
 
-	return json({ success: true, message: "Check your email for the reset link." });
+	return json<ActionResponse>({ success: true, message: "Check your email for the reset link." });
 }
 
-type ActionStatus = {
-	success: boolean;
-	message: string;
-};
-
 export default function ForgotPassword() {
-	const actionData = useActionData<ActionStatus | undefined>();
+	const actionData = useActionData<ActionResponse>();
 	const { toast } = useToast();
 
 	useEffect(() => {
