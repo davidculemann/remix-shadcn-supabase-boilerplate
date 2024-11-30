@@ -29,10 +29,10 @@ export function UserAccountNav({ user }: { user: UserMetadata }) {
 					<Link to="/dashboard">Dashboard</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
-					<Link to="/dashboard/billing">Billing</Link>
+					<Link to="/account/billing">Billing</Link>
 				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
-					<Link to="/dashboard/settings">Settings</Link>
+					<Link to="/account/settings">Settings</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
