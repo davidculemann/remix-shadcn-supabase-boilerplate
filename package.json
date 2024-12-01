@@ -108,7 +108,7 @@
 		"zustand": "5.0.0-rc.2"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.5-nightly.81fdedb",
+		"@biomejs/biome": "^1.9.4",
 		"@remix-run/dev": "^2.12.0",
 		"@tailwindcss/typography": "0.5.10",
 		"@tanstack/eslint-plugin-query": "^5.58.1",
@@ -121,9 +121,7 @@
 		"@types/semver": "^7.5.8",
 		"@types/unist": "^3.0.3",
 		"autoprefixer": "10.4.17",
-		"biome@1.9.3": "link:biomejs/biome@1.9.3",
 		"dotenv-cli": "7.3.0",
-		"icons-react": "link:@types/tabler/icons-react",
 		"postcss": "8.4.38",
 		"postcss-nesting": "^13.0.0",
 		"supabase": "^1.219.2",
