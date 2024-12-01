@@ -10,7 +10,7 @@ export default function SiteHeader() {
 		<header className="container z-40 bg-background">
 			<div className="flex h-20 items-center justify-between py-6">
 				<MainNav items={marketingConfig.mainNav} />
-				<span className="flex gap-4">
+				<span className="flex gap-4 items-center">
 					<ThemeToggle />
 					<nav>
 						<Link to="/signin" className={cn(buttonVariants({ variant: "secondary" }), "px-4")}>
