@@ -27,6 +27,21 @@ async function seedProfiles(supabase: any) {
 	}
 }
 
+async function seedKeepAlive(supabase: any) {
+	const { data: existingKeepAlive } = await supabase.from("keep-alive").select("*");
+	if (existingKeepAlive?.length) {
+		console.info("🏃‍♂️ Skipping keep-alive seeding - entries already exist");
+		return;
+	}
+
+	const { error } = await supabase.from("keep-alive").insert([{ name: "placeholder" }, { name: "example" }]);
+
+	if (error) {
+		console.error("Error seeding keep-alive:", error);
+		throw error;
+	}
+}
+
 async function seed() {
 	const { supabase } = getSupabaseWithHeaders({ request: new Request("http://localhost:3000") });
 
@@ -146,6 +161,9 @@ async function seed() {
 
 	await seedProfiles(supabase);
 	console.info("👤 Profiles seeded successfully");
+
+	await seedKeepAlive(supabase);
+	console.info("⚡ Keep-alive table seeded successfully");
 }
 
 seed()
