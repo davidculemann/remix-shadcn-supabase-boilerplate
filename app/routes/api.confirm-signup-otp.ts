@@ -7,12 +7,12 @@ export async function action({ request }: LoaderFunctionArgs) {
 	const otp = formData.get("otp") as string;
 	const email = formData.get("email") as string;
 
-	const { error, data } = await supabase.auth.verifyOtp({
+	const { error } = await supabase.auth.verifyOtp({
 		token: otp,
 		email,
 		type: "signup",
 	});
-	console.log(data);
+
 	if (error) {
 		return json({ message: error.message }, { status: 400 });
 	}
