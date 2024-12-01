@@ -26,16 +26,6 @@ export default function Account() {
 			<div className="space-y-0.5">
 				<div className="flex items-center gap-2">
 					<p className="text-muted-foreground">Manage your account settings, profile and billing.</p>
-					<span
-						className={cn(
-							"rounded-full px-2 py-0.5 text-xs font-medium",
-							subscription?.interval === "month" || subscription?.interval === "year"
-								? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-400"
-								: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400",
-						)}
-					>
-						{subscription?.interval === "month" || subscription?.interval === "year" ? "Pro" : "Free"}
-					</span>
 				</div>
 			</div>
 			<Separator className="my-4 lg:my-6" />
