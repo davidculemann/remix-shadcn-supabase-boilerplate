@@ -6,38 +6,81 @@ import { enterLeftAnimation } from "@/lib/framer/animations";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail } from "@/lib/utils";
 import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/node";
-import { Form, Link, useActionData } from "@remix-run/react";
+import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
-	return [{ title: "Forgot password" }];
+	return [{ title: "Update password" }];
 };
 
 type ActionResponse = { success: true; message: string } | { success: false; message: string };
 
 export async function action({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
+	const url = new URL(request.url);
+	const token = url.searchParams.get("token") || (url.searchParams.get("code") as string);
+	const type = url.searchParams.get("type") || "recovery";
+
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
+	const password = formData.get("password") as string;
+	const confirmPassword = formData.get("confirm-password") as string;
+
+	if (!password || !confirmPassword || typeof password !== "string" || typeof confirmPassword !== "string") {
+		return json<ActionResponse>(
+			{
+				success: false,
+				message: "Form not submitted correctly.",
+			},
+			{ status: 400 },
+		);
+	}
+	if (password !== confirmPassword) {
+		return json<ActionResponse>(
+			{
+				success: false,
+				message: "Passwords do not match.",
+			},
+			{ status: 400 },
+		);
+	}
+
+	const { error: verifyError } = await supabase.auth.verifyOtp({
+		token,
+		type: type as any,
+		email,
+	});
+
+	if (verifyError) {
+		return json<ActionResponse>({ success: false, message: verifyError.message }, { status: 400 });
+	}
 
 	if (!validateEmail(email)) {
 		return json<ActionResponse>({ success: false, message: "Invalid email address." }, { status: 400 });
 	}
 
-	const { error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: `${request.headers.get("origin")}/update-password?email=${encodeURIComponent(email)}`,
+	if (!password) {
+		return json<ActionResponse>({ success: false, message: "Password is required." }, { status: 400 });
+	}
+
+	const { error } = await supabase.auth.updateUser({
+		password,
+		email,
 	});
 
 	if (error) {
 		return json<ActionResponse>({ success: false, message: error.message }, { status: 400 });
 	}
 
-	return json<ActionResponse>({ success: true, message: "Check your email for the reset link." });
+	return json<ActionResponse>({ success: true, message: "Successfully updated password." });
 }
 
-export default function ForgotPassword() {
+export default function UpdatePassword() {
 	const actionData = useActionData<ActionResponse>();
+	const [searchParams] = useSearchParams();
+	const email = decodeURIComponent(searchParams.get("email") || "");
+
 	const { toast } = useToast();
 
 	useEffect(() => {
@@ -52,15 +95,11 @@ export default function ForgotPassword() {
 		<motion.div {...enterLeftAnimation} className="mx-auto grid w-[350px] gap-6">
 			<div>
 				<h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-					Forgot your password?
+					Update your password
 				</h2>
-				<p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-					Enter the email address associated with your account and we'll send you a link to reset your
-					password.
-				</p>
 			</div>
 			<Form className="space-y-6" method="POST">
-				<div>
+				<div className="flex flex-col gap-4">
 					<Label htmlFor="email" className="sr-only">
 						Email address
 					</Label>
@@ -71,6 +110,28 @@ export default function ForgotPassword() {
 						autoComplete="email"
 						required
 						placeholder="Email address"
+						defaultValue={email}
+					/>
+					<Label htmlFor="password" className="sr-only">
+						New password
+					</Label>
+					<Input
+						id="password"
+						name="password"
+						type="password"
+						autoComplete="new-password"
+						required
+						placeholder="New password"
+					/>
+					<Label htmlFor="confirm-password" className="sr-only">
+						Confirm password
+					</Label>
+					<Input
+						id="confirm-password"
+						name="confirm-password"
+						type="password"
+						required
+						placeholder="Confirm password"
 					/>
 				</div>
 				<Button type="submit" className="w-full">
