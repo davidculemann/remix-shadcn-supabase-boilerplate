@@ -21,6 +21,24 @@ export type Database = {
 				};
 				Relationships: [];
 			};
+			"keep-alive": {
+				Row: {
+					id: number;
+					name: string | null;
+					random: string | null;
+				};
+				Insert: {
+					id?: number;
+					name?: string | null;
+					random?: string | null;
+				};
+				Update: {
+					id?: number;
+					name?: string | null;
+					random?: string | null;
+				};
+				Relationships: [];
+			};
 			plans: {
 				Row: {
 					created_at: string | null;
