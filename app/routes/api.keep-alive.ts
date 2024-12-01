@@ -1,7 +1,8 @@
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { keepAliveConfig as config } from "./config";
-import { type QueryResponse, determineAction, generateRandomString } from "./helper";
+import { keepAliveConfig as config } from "../lib/supabase/keep-alive/config";
+import { type QueryResponse, determineAction, generateRandomString } from "../lib/supabase/keep-alive/helper";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +39,7 @@ const fetchOtherEndpoints = async () => {
 	return Promise.all(fetchPromises);
 };
 
-export async function GET({ request }: { request: Request }) {
+export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
 	let responseMessage = "";
 	let successfulResponses = true;

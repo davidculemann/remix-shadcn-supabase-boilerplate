@@ -1,6 +1,6 @@
 export const keepAliveConfig = {
-	table: "keep_alive",
-	column: "random_string",
+	table: "keep-alive",
+	column: "random",
 	sizeBeforeDeletions: 10,
 	consoleLogOnError: process.env.NODE_ENV === "development",
 	otherEndpoints: [
