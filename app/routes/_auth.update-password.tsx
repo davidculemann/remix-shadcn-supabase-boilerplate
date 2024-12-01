@@ -18,9 +18,6 @@ type ActionResponse = { success: true; message: string } | { success: false; mes
 
 export async function action({ request }: LoaderFunctionArgs) {
 	const { supabase } = getSupabaseWithHeaders({ request });
-	const url = new URL(request.url);
-	const token = url.searchParams.get("token") || (url.searchParams.get("code") as string);
-	const type = url.searchParams.get("type") || "recovery";
 
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
@@ -44,16 +41,6 @@ export async function action({ request }: LoaderFunctionArgs) {
 			},
 			{ status: 400 },
 		);
-	}
-
-	const { error: verifyError } = await supabase.auth.verifyOtp({
-		token,
-		type: type as any,
-		email,
-	});
-
-	if (verifyError) {
-		return json<ActionResponse>({ success: false, message: verifyError.message }, { status: 400 });
 	}
 
 	if (!validateEmail(email)) {

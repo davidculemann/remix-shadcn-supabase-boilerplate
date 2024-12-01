@@ -26,7 +26,7 @@ export async function action({ request }: LoaderFunctionArgs) {
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: `${request.headers.get("origin")}/update-password?email=${encodeURIComponent(email)}`,
+		redirectTo: `${request.headers.get("origin")}`,
 	});
 
 	if (error) {
