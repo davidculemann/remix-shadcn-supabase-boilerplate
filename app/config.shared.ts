@@ -6,5 +6,5 @@ export function title(pageTitle?: string) {
 	return `${pageTitle} | ${APP_NAME}`;
 }
 
-export const PROTECTED_ROUTES = ["/dashboard", "/account/billing", "/account/settings"];
+export const PROTECTED_ROUTES = ["/dashboard", "/account/billing", "/account/settings", "/update-password"];
 export const NO_AUTH_ROUTES = ["/signin", "/signup"];

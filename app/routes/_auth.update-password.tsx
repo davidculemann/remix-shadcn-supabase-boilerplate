@@ -1,7 +1,7 @@
+import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
 import { enterLeftAnimation } from "@/lib/framer/animations";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail } from "@/lib/utils";

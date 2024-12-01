@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { useOutletContext } from "@remix-run/react";
 import type { Provider } from "@supabase/supabase-js";
+import { useToast } from "@/components/hooks/use-toast";
 
 //type the below so that the key is always a prodiver type it should
 const providerLogos: Partial<Record<Provider, string>> = {
