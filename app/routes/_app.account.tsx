@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData, Outlet, useOutletContext } from "@remix-run/react";
-import { IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
+import { IconCreditCard, IconReceipt, IconTool, IconUser } from "@tabler/icons-react";
 import type { Currency, Subscription } from "types/stripe";
 import { cn } from "@/lib/utils";
 
@@ -54,7 +54,7 @@ const sidebarNavItems = [
 	},
 	{
 		title: "Billing",
-		icon: <IconReceipt size={18} />,
+		icon: <IconCreditCard size={18} />,
 		href: "/account/billing",
 	},
 ];
