@@ -79,9 +79,11 @@ export default function Index() {
 							<Link to="/signin">
 								<Button size="lg">Get Started</Button>
 							</Link>
-							<Button variant="outline" size="lg">
-								Learn More
-							</Button>
+							<Link to="/docs">
+								<Button variant="outline" size="lg">
+									Learn More
+								</Button>
+							</Link>
 						</div>
 					</div>
 				</motion.section>
