@@ -36,11 +36,12 @@ pnpm install
 
 - Create a new project on [Supabase](https://supabase.io)
 
-- enter your Supabase URL and key in `.env`:
+- enter your Supabase secrets in `.env`, the service role key is found in the API settings of your Supabase project
 
 ```sh
-VITE_SUPABASE_URL=https://<your_supabase_url>.supabase.co
-VITE_SUPABASE_KEY=<your_supabase_key>
+SUPABASE_URL=https://<your_supabase_url>.supabase.co
+SUPABASE_ANON_KEY=<your_supabase_anon_key>
+SUPABASE_SERVICE_ROLE_KEY=<your_supabase_service_role_key>
 ```
 
 - generate typescript types for your Supabase tables:
