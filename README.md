@@ -97,6 +97,19 @@ pnpm run seed
 supabase gen types typescript --project-id <your_supabase_project_id> > db_types.ts
 ```
 
+### Documentation
+
+This project includes a documentation page, which is configured to point to a markdown file in a GitHub repo. If you don't want to use this, simply remove all `_landing.docs.*` files from the `app/routes` directory, as well as `$.tsx`.
+
+To use this feature, you'll need to set the `SOURCE_REPO` environment variable in `.env` as a URL to the GitHub repo you want to use, and add the `GITHUB_TOKEN` environment variable to increase your rate limit (generate one [here](https://github.com/settings/tokens/new)).
+
+for example:
+
+```sh
+SOURCE_REPO=https://github.com/davidculemann/remix-shadcn-supabase-boilerplate-docs
+GITHUB_TOKEN=ghp_1234567890abcdef1234567890abcdef1234567890
+```
+
 ### Email
 
 - Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
