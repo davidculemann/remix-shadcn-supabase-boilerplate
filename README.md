@@ -44,7 +44,7 @@ SUPABASE_ANON_KEY=<your_supabase_anon_key>
 SUPABASE_SERVICE_ROLE_KEY=<your_supabase_service_role_key>
 ```
 
-- connect to the supabase project and run the migrations:
+- connect to the supabase project and run the initialisation migrations:
 
 ```sh
 pnpm supabase link   

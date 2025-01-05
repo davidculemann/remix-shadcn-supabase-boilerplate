@@ -4,15 +4,27 @@ import { getSupabaseWithHeaders } from "./supabase.server";
 
 async function seedProfiles(supabase: any) {
 	const { data: existingProfiles } = await supabase.from("profiles").select("*");
-	const testUserId = crypto.randomUUID();
 	if (existingProfiles?.length) {
 		console.info("🏃‍♂️ Skipping profiles seeding - profiles already exist");
 		return;
 	}
 
+	// First create the user in auth.users
+	const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
+		email: "test@example.com",
+		password: "password123",
+		email_confirm: true,
+	});
+
+	if (authError) {
+		console.error("Error creating auth user:", authError);
+		throw authError;
+	}
+
+	// Then create the profile using the auth user's ID
 	const { error } = await supabase.from("profiles").insert([
 		{
-			id: testUserId,
+			id: authUser.user.id,
 			email: "test@example.com",
 			username: "Test User",
 			avatar_url: null,
@@ -26,7 +38,6 @@ async function seedProfiles(supabase: any) {
 		throw error;
 	}
 }
-
 async function seedKeepAlive(supabase: any) {
 	const { data: existingKeepAlive } = await supabase.from("keep_alive").select("*");
 	if (existingKeepAlive?.length) {
@@ -37,7 +48,7 @@ async function seedKeepAlive(supabase: any) {
 	const { error } = await supabase.from("keep_alive").insert([{ name: "placeholder" }, { name: "example" }]);
 
 	if (error) {
-		console.error("Error seeding keep-alive:", error);
+		console.error("Error seeding keep_alive:", error);
 		throw error;
 	}
 }
