@@ -44,12 +44,20 @@ SUPABASE_ANON_KEY=<your_supabase_anon_key>
 SUPABASE_SERVICE_ROLE_KEY=<your_supabase_service_role_key>
 ```
 
+- connect to the supabase project and run the migrations:
 
+```sh
+pnpm supabase link   
+```
+
+```sh
+pnpm supabase db push
+```
 
 - generate typescript types for your Supabase tables:
 
 ```sh
-supabase gen types typescript --project-id opcoizjyzpdodlwaoppd > db_types.ts
+supabase gen types typescript --project-id <your_supabase_project_id> > db_types.ts
 ```
 
 ### Email
