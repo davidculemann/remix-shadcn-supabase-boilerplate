@@ -2,42 +2,43 @@ import { stripe } from "@/services/stripe/stripe.server";
 import { PRICING_PLANS, PLANS, type Interval } from "@/services/stripe/plans";
 import { getSupabaseWithHeaders } from "./supabase.server";
 
-async function seedProfiles(supabase: any) {
-	const { data: existingProfiles } = await supabase.from("profiles").select("*");
-	if (existingProfiles?.length) {
-		console.info("🏃‍♂️ Skipping profiles seeding - profiles already exist");
-		return;
-	}
+// async function seedProfiles(supabase: any) {
+// 	const { data: existingProfiles } = await supabase.from("profiles").select("*");
+// 	if (existingProfiles?.length) {
+// 		console.info("🏃‍♂️ Skipping profiles seeding - profiles already exist");
+// 		return;
+// 	}
 
-	// First create the user in auth.users
-	const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
-		email: "test@example.com",
-		password: "password123",
-		email_confirm: true,
-	});
+// 	// First create the user in auth.users
+// 	const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
+// 		email: "test@example.com",
+// 		password: "password123",
+// 		email_confirm: true,
+// 	});
 
-	if (authError) {
-		console.error("Error creating auth user:", authError);
-		throw authError;
-	}
+// 	if (authError) {
+// 		console.error("Error creating auth user:", authError);
+// 		throw authError;
+// 	}
 
-	// Then create the profile using the auth user's ID
-	const { error } = await supabase.from("profiles").insert([
-		{
-			id: authUser.user.id,
-			email: "test@example.com",
-			username: "Test User",
-			avatar_url: null,
-			customer_id: null,
-			created_at: new Date().toISOString(),
-		},
-	]);
+// 	// Then create the profile using the auth user's ID
+// 	const { error } = await supabase.from("profiles").insert([
+// 		{
+// 			id: authUser.user.id,
+// 			email: "test@example.com",
+// 			username: "Test User",
+// 			avatar_url: null,
+// 			customer_id: null,
+// 			created_at: new Date().toISOString(),
+// 		},
+// 	]);
 
-	if (error) {
-		console.error("Error seeding profiles:", error);
-		throw error;
-	}
-}
+// 	if (error) {
+// 		console.error("Error seeding profiles:", error);
+// 		throw error;
+// 	}
+// }
+
 async function seedKeepAlive(supabase: any) {
 	const { data: existingKeepAlive } = await supabase.from("keep_alive").select("*");
 	if (existingKeepAlive?.length) {
@@ -170,8 +171,8 @@ async function seed() {
 	console.info("👒 Stripe Customer Portal configured successfully");
 	console.info("🎉 Visit: https://dashboard.stripe.com/test/products to see your products");
 
-	await seedProfiles(supabase);
-	console.info("👤 Profiles seeded successfully");
+	// await seedProfiles(supabase);
+	// console.info("👤 Profiles seeded successfully");
 
 	await seedKeepAlive(supabase);
 	console.info("⚡ Keep-alive table seeded successfully");
