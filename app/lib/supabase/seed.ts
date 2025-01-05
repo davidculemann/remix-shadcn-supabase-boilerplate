@@ -28,13 +28,13 @@ async function seedProfiles(supabase: any) {
 }
 
 async function seedKeepAlive(supabase: any) {
-	const { data: existingKeepAlive } = await supabase.from("keep-alive").select("*");
+	const { data: existingKeepAlive } = await supabase.from("keep_alive").select("*");
 	if (existingKeepAlive?.length) {
-		console.info("🏃‍♂️ Skipping keep-alive seeding - entries already exist");
+		console.info("🏃‍♂️ Skipping keep_alive seeding - entries already exist");
 		return;
 	}
 
-	const { error } = await supabase.from("keep-alive").insert([{ name: "placeholder" }, { name: "example" }]);
+	const { error } = await supabase.from("keep_alive").insert([{ name: "placeholder" }, { name: "example" }]);
 
 	if (error) {
 		console.error("Error seeding keep-alive:", error);

@@ -1,5 +1,5 @@
 export const keepAliveConfig = {
-	table: "keep-alive",
+	table: "keep_alive",
 	column: "random",
 	sizeBeforeDeletions: 10,
 	consoleLogOnError: process.env.NODE_ENV === "development",
