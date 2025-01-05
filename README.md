@@ -54,6 +54,12 @@ pnpm supabase link
 pnpm supabase db push
 ```
 
+- seed the database:
+
+```sh
+pnpm run seed
+```
+
 - generate typescript types for your Supabase tables:
 
 ```sh
