@@ -114,6 +114,10 @@ GITHUB_TOKEN=ghp_1234567890abcdef1234567890abcdef1234567890
 
 - Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
 
+### Personalisation
+
+This project is configured to use your own project name, author name, and project description in the meta tags and header of the page. You can change these in the `app/config/site.ts` file.
+
 ## Development
 
 1. Seed the database:
