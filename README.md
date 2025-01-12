@@ -114,6 +114,25 @@ GITHUB_TOKEN=ghp_1234567890abcdef1234567890abcdef1234567890
 
 - Supabase aggressively rate limits your email sending on the free plan, so you'll need to use a third-party email service. I recommend [Resend](https://resend.com) for this. Add the supabase integration here: https://resend.com/settings/integrations.
 
+- The auth flow currently works with OTP emailed to the user. To configure this, you'll need to go to `/auth/templates` in your supabase dashboard and add the following templates:
+
+1. Confirm signup:
+
+```html
+<h2>Confirm Your Signup</h2>
+
+<p>Your verification code is: <strong>{{ .Token }}</strong></p>
+<p>This code will expire in 15 minutes. Please use it to complete your signup process.</p>
+```
+
+2. Reset Password:
+
+```html
+<h2>Reset Password</h2>
+<p>Follow this link to reset the password for your user:</p>
+<p><a href="{{ .RedirectTo }}/api/auth/confirm?token_hash={{ .TokenHash }}&type=email&email={{ .Email }}">Reset Password</a></p>
+```
+
 ### Personalisation
 
 This project is configured to use your own project name, author name, and project description in the meta tags and header of the page. You can change these in the `app/config/site.ts` file.
