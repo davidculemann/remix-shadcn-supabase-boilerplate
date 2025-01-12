@@ -14,7 +14,7 @@ import { useCurrentPage } from "@/hooks/use-current-page";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { Link, Outlet, useLoaderData, useNavigate, useOutletContext } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { getLocaleCurrency } from "@/services/stripe/stripe.server";
 import { Fragment } from "react";
@@ -35,6 +35,21 @@ type LoaderError =
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
+	const url = new URL(request.url);
+	const code = url.searchParams.get("code");
+
+	// If there's a code parameter, we're in an OAuth callback
+	if (code) {
+		try {
+			const { error } = await supabase.auth.exchangeCodeForSession(code);
+			if (error) throw error;
+			// Redirect to clean URL after successful exchange
+			return redirect("/dashboard", { headers });
+		} catch (error: any) {
+			return json<LoaderError>({ message: error?.message || "Authentication failed" }, { status: 400 });
+		}
+	}
+
 	const {
 		data: { user },
 		error,
@@ -58,7 +73,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 	const currency = getLocaleCurrency(request);
 
-	return json<LoaderSuccess>({ profile, subscription, currency });
+	return json<LoaderSuccess>({ profile, subscription, currency }, { headers });
 }
 
 export default function AuthLayout() {
