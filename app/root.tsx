@@ -99,7 +99,7 @@ export function Document({ children }: { children: React.ReactNode }) {
 				<Links />
 				<ClientHintCheck nonce={nonce} />
 			</head>
-			<body className="flex min-h-screen h-screen w-full flex-col">
+			<body className="flex min-h-screen h-screen w-full flex-col overflow-hidden">
 				<GlobalPendingIndicator />
 				<QueryClientProvider client={queryClient}>
 					{children}
