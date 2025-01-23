@@ -28,7 +28,7 @@ export function Footer() {
 				</div>
 				<nav className="flex items-center gap-4 sm:gap-6">
 					<Link className="text-xs hover:underline underline-offset-4" to="/terms-of-service">
-						Terms of Service
+						TOS
 					</Link>
 					<Link className="text-xs hover:underline underline-offset-4" to="/privacy-policy">
 						Privacy
