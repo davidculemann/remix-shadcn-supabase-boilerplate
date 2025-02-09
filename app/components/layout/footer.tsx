@@ -3,7 +3,7 @@ import { Github, Linkedin } from "lucide-react";
 
 export function Footer() {
 	return (
-		<div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-auto">
+		<footer className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-auto">
 			<div className="mx-4 md:mx-8 flex h-14 items-center justify-between">
 				<div className="flex gap-4">
 					<p className="text-xs text-muted-foreground">© 2024 David Culemann.</p>
@@ -35,6 +35,6 @@ export function Footer() {
 					</Link>
 				</nav>
 			</div>
-		</div>
+		</footer>
 	);
 }
