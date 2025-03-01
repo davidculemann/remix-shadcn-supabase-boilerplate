@@ -1,8 +1,8 @@
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { keepAliveConfig as config } from "../lib/supabase/keep-alive/config";
 import { type QueryResponse, determineAction, generateRandomString } from "../lib/supabase/keep-alive/helper";
-import type { LoaderFunctionArgs } from "@remix-run/node";
 
 export const dynamic = "force-dynamic";
 

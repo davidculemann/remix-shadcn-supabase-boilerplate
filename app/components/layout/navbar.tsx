@@ -1,10 +1,10 @@
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { ThemeToggle } from "@/routes/resources.theme-toggle";
 import { useOutletContext } from "@remix-run/react";
-import { SheetMenu } from "./sheet-menu";
-import { UserAccountNav } from "./user-account-nav";
 import type { Subscription } from "types/stripe";
 import SubscriptionPlanPill from "../shared/subscription-plan-pill";
+import { SheetMenu } from "./sheet-menu";
+import { UserAccountNav } from "./user-account-nav";
 
 interface NavbarProps {
 	title: string;

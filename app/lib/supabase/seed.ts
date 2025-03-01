@@ -1,5 +1,5 @@
+import { type Interval, PLANS, PRICING_PLANS } from "@/services/stripe/plans";
 import { stripe } from "@/services/stripe/stripe.server";
-import { PRICING_PLANS, PLANS, type Interval } from "@/services/stripe/plans";
 import { getSupabaseWithHeaders } from "./supabase.server";
 
 // async function seedProfiles(supabase: any) {

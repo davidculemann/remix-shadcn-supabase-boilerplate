@@ -1,10 +1,10 @@
+import { Link } from "@remix-run/react";
 import { type VariantProps, cva } from "class-variance-authority";
 import { Check, Circle, X } from "lucide-react";
 import React from "react";
-import { Link } from "@remix-run/react";
 
-import { cn } from "@/lib/utils";
 import type { RichContent } from "@/lib/updates";
+import { cn } from "@/lib/utils";
 
 function RichContentRenderer({ content }: { content: RichContent[] }) {
 	return (
@@ -209,4 +209,4 @@ const TimelineLine = React.forwardRef<HTMLHRElement, TimelineLineProps>(
 );
 TimelineLine.displayName = "TimelineLine";
 
-export { Timeline, TimelineDot, TimelineItem, TimelineContent, TimelineHeading, TimelineLine };
+export { Timeline, TimelineContent, TimelineDot, TimelineHeading, TimelineItem, TimelineLine };

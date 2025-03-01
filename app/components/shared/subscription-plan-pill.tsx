@@ -1,6 +1,6 @@
-import type { Subscription } from "types/stripe";
-import { PLANS } from "@/services/stripe/plans";
 import { cn } from "@/lib/utils";
+import { PLANS } from "@/services/stripe/plans";
+import type { Subscription } from "types/stripe";
 
 export default function SubscriptionPlanPill({ subscription }: { subscription?: Subscription }) {
 	const planId = subscription?.plan_id;

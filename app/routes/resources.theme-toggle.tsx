@@ -1,12 +1,11 @@
-import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useTheme } from "@/lib/client-hints";
 import { setTheme } from "@/lib/theme.server";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useFetcher, useFetchers } from "@remix-run/react";
-import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Tooltip } from "@/components/ui/tooltip";
-import { useTheme } from "@/lib/client-hints";
+import { MoonIcon, SunIcon } from "lucide-react";
 
 enum Theme {
 	DARK = "dark",
