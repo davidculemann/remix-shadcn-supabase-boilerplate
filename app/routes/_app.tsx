@@ -16,7 +16,7 @@ import { getLocaleCurrency } from "@/services/stripe/stripe.server";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, Outlet, useLoaderData, useNavigate, useOutletContext } from "@remix-run/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { toast } from "sonner";
 
 type LoaderSuccess = {
@@ -82,15 +82,17 @@ export default function AuthLayout() {
 	const { breadcrumbs, activePage } = useCurrentPage();
 	const navigate = useNavigate();
 
-	if ("sessionAvailable" in loaderData && !loaderData.sessionAvailable) {
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			if (!session) return navigate("/signin");
-		});
-	}
-	if ("message" in loaderData) {
-		toast.error(loaderData.message);
-		return navigate("/signin");
-	}
+	useEffect(() => {
+		if ("sessionAvailable" in loaderData && !loaderData.sessionAvailable) {
+			supabase.auth.getSession().then(({ data: { session } }) => {
+				if (!session) return navigate("/signin");
+			});
+		}
+		if ("message" in loaderData) {
+			toast.error(loaderData.message);
+			return navigate("/signin");
+		}
+	}, [loaderData, supabase, navigate]);
 
 	if (isLoading || !user) {
 		return <PageLoading />;
