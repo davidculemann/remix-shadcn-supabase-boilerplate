@@ -19,6 +19,7 @@ interface LoadingButtonProps {
 	loading?: boolean;
 	onClick?: () => void;
 	type?: "button" | "submit" | "reset";
+	disabled?: boolean;
 }
 
 export function LoadingButton({
@@ -28,13 +29,14 @@ export function LoadingButton({
 	className,
 	onClick = () => {},
 	variant,
+	disabled,
 	...props
 }: Readonly<LoadingButtonProps>) {
 	return (
 		<Button
 			type="submit"
 			aria-disabled={loading}
-			disabled={loading}
+			disabled={loading || disabled}
 			className={cn(className)}
 			onClick={onClick}
 			variant={variant}
