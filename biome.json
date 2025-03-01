@@ -31,7 +31,8 @@
 				"useButtonType": "off",
 				"noSvgWithoutTitle": "off",
 				"useAriaPropsForRole": "off",
-				"useSemanticElements": "off"
+				"useSemanticElements": "off",
+				"useFocusableInteractive": "off"
 			},
 			"correctness": {
 				"noEmptyPattern": "off",
