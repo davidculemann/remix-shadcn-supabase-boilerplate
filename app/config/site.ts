@@ -9,8 +9,9 @@ export const siteConfig: SiteConfig = {
 	contactEmail: "davidculemann@gmail.com",
 	ogImage: "https://www.davidculemann.com/og.png",
 	links: {
-		twitter: "https://twitter.com/corpify",
+		twitter: "",
 		github: "https://github.com/davidculemann",
+		linkedin: "https://linkedin.com/in/david-culemann",
 	},
 	github: {
 		repoUrl: "https://github.com/davidculemann/remix-shadcn-supabase-boilerplate",
