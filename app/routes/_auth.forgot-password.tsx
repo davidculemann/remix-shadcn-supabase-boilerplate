@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/hooks/use-toast";
 import { enterLeftAnimation } from "@/lib/framer/animations";
 import { getSupabaseWithHeaders } from "@/lib/supabase/supabase.server";
 import { validateEmail } from "@/lib/utils";
@@ -9,6 +8,7 @@ import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/nod
 import { Form, Link, useActionData } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export const meta: MetaFunction = () => {
 	return [{ title: "Forgot password" }];
@@ -38,14 +38,9 @@ export async function action({ request }: LoaderFunctionArgs) {
 
 export default function ForgotPassword() {
 	const actionData = useActionData<ActionResponse>();
-	const { toast } = useToast();
 
 	useEffect(() => {
-		if (actionData)
-			toast({
-				variant: actionData?.success ? "default" : "destructive",
-				description: actionData.message,
-			});
+		if (actionData) toast.success(actionData.message);
 	}, [actionData]);
 
 	return (

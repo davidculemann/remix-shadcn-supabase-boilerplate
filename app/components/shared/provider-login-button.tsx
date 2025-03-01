@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import type { SupabaseOutletContext } from "@/lib/supabase/supabase";
 import { useOutletContext } from "@remix-run/react";
 import type { Provider } from "@supabase/supabase-js";
-import { useToast } from "@/components/hooks/use-toast";
-
+import { toast } from "sonner";
 //type the below so that the key is always a prodiver type it should
 const providerLogos: Partial<Record<Provider, string>> = {
 	google: "https://www.svgrepo.com/show/475656/google-color.svg",
@@ -21,7 +20,6 @@ export default function ProviderLoginButton({
 	provider: Provider;
 }) {
 	const { supabase } = useOutletContext<SupabaseOutletContext>();
-	const { toast } = useToast();
 
 	const handleSignIn = async () => {
 		const { error, data } = await supabase.auth.signInWithOAuth({
@@ -31,10 +29,7 @@ export default function ProviderLoginButton({
 			},
 		});
 		if (error) {
-			toast({
-				variant: "destructive",
-				description: `Error occured: ${error}`,
-			});
+			toast.error(`Error occured: ${error}`);
 			return null;
 		}
 		return data;

@@ -1,4 +1,3 @@
-import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +8,7 @@ import { type LoaderFunctionArgs, type MetaFunction, json } from "@remix-run/nod
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export const meta: MetaFunction = () => {
 	return [{ title: "Update password" }];
@@ -68,14 +68,8 @@ export default function UpdatePassword() {
 	const [searchParams] = useSearchParams();
 	const email = decodeURIComponent(searchParams.get("email") || "");
 
-	const { toast } = useToast();
-
 	useEffect(() => {
-		if (actionData)
-			toast({
-				variant: actionData?.success ? "default" : "destructive",
-				description: actionData.message,
-			});
+		if (actionData) toast.success(actionData.message);
 	}, [actionData]);
 
 	return (

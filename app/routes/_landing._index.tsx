@@ -2,7 +2,6 @@ import { title } from "@/config.shared";
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 
-import { useToast } from "@/components/hooks/use-toast";
 import StackIcons from "@/components/landing/stack-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import { Form } from "@remix-run/react";
 import axios from "axios";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { toast } from "sonner";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -40,7 +40,6 @@ const STEPS = [
 ];
 
 export default function Index() {
-	const { toast } = useToast();
 	const howItWorksRef = useRef(null);
 	const isInView = useInView(howItWorksRef, { amount: 0.6, once: true });
 
@@ -50,16 +49,14 @@ export default function Index() {
 		const formData = new FormData(form);
 		try {
 			await axios.post("api/mailing-list", formData);
-			toast({ title: "Success!", description: "You've done it. You're on the list!" });
+			toast.success("You've done it. You're on the list!");
 		} catch (error) {
 			if (axios.isAxiosError(error) && error.response) {
 				const { error: errorMessage = "Something went wrong. Try again?" } = error.response.data;
-				toast({
-					title: "Error",
-					variant: "destructive",
-					description: errorMessage,
-				});
-			} else toast({ title: "Error", description: "An unexpected error occurred. Try again later." });
+				toast.error(errorMessage);
+			} else {
+				toast.error("An unexpected error occurred. Try again later.");
+			}
 		}
 	}
 

@@ -1,5 +1,4 @@
 import ConfirmOTP from "@/components/forms/confirm-otp";
-import { useToast } from "@/components/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { LoadingButton } from "@/components/shared/loading-button";
 import ProviderLoginButton from "@/components/shared/provider-login-button";
@@ -15,6 +14,7 @@ import { Form, Link, useActionData, useNavigation, useOutletContext } from "@rem
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
@@ -66,15 +66,10 @@ export default function Signup() {
 	const navigation = useNavigation();
 	const actionData = useActionData<ActionStatus | undefined>();
 	const isSignupComplete = actionData?.success && actionData?.email && actionData?.password;
-	const { toast } = useToast();
 	const { supabase } = useOutletContext<SupabaseOutletContext>();
 
 	useEffect(() => {
-		if (actionData)
-			toast({
-				variant: isSignupComplete ? "default" : "destructive",
-				description: actionData.message,
-			});
+		if (actionData) toast.success(actionData.message);
 	}, [actionData]);
 
 	async function handleSubmitOTP(event: React.FormEvent<HTMLFormElement>) {
@@ -83,7 +78,7 @@ export default function Signup() {
 		const formData = new FormData(form);
 		try {
 			await axios.post("api/confirm-signup-otp", formData);
-			toast({ title: "Success!", description: "Successfully signed up." });
+			toast.success("Successfully signed up.");
 			if (actionData)
 				supabase.auth.signInWithPassword({
 					email: actionData.email,
@@ -93,15 +88,11 @@ export default function Signup() {
 			if (axios.isAxiosError(error) && error.response) {
 				const { message: errorMessage = "An unexpected error occurred. Please try again." } =
 					error.response.data;
-				toast({
-					title: "Error",
-					variant: "destructive",
-					description: errorMessage,
-				});
+				toast.error(errorMessage);
 			} else if (error instanceof Error) {
-				toast({ title: "Error", description: error.message });
+				toast.error(error.message);
 			} else {
-				toast({ title: "Error", description: "An unexpected error occurred. Please try again." });
+				toast.error("An unexpected error occurred. Please try again.");
 			}
 		}
 	}

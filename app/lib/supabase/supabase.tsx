@@ -1,10 +1,12 @@
-import { useToast } from "@/components/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 import { PROTECTED_ROUTES } from "@/config.shared";
-import { useLocation, useNavigate, useRevalidator } from "@remix-run/react";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { Link, useLocation, useNavigate, useRevalidator } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import type { Database } from "db_types";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
 
@@ -29,7 +31,6 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 	const revalidator = useRevalidator();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
-	const { toast } = useToast();
 
 	const [supabase] = useState(() => createBrowserClient<Database>(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!));
 	const [user, setUser] = useState<User | null>(session?.user ?? null);
@@ -48,9 +49,16 @@ export const useSupabase = ({ env, session }: UseSupabase) => {
 			}
 			if (!session?.user && PROTECTED_ROUTES.includes(pathname)) {
 				navigate("/signin");
-				toast({
-					variant: "destructive",
-					description: "Please log in to view this content.",
+				toast.error("Please sign in to view this content.", {
+					duration: Infinity,
+					closeButton: true,
+					action: (
+						<Button asChild variant="outline">
+							<Link to="/signin">
+								Sign in <ArrowRightIcon />
+							</Link>
+						</Button>
+					),
 				});
 			}
 

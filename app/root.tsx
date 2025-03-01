@@ -103,7 +103,7 @@ export function Document({ children }: { children: React.ReactNode }) {
 				<GlobalPendingIndicator />
 				<QueryClientProvider client={queryClient}>
 					{children}
-					<Toaster />
+					<Toaster richColors closeButton />
 					{completeEnv?.SHOW_REACT_QUERY_DEVTOOLS && <ReactQueryDevtools buttonPosition="bottom-left" />}
 				</QueryClientProvider>
 				<ScrollRestoration />

@@ -3,11 +3,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const profileFormSchema = z.object({
@@ -43,8 +43,6 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function ProfileForm() {
-	const { toast } = useToast();
-
 	const form = useForm<ProfileFormValues>({
 		resolver: zodResolver(profileFormSchema),
 		defaultValues,
@@ -57,8 +55,7 @@ export default function ProfileForm() {
 	});
 
 	function onSubmit(data: ProfileFormValues) {
-		toast({
-			title: "You submitted the following values:",
+		toast.success("You submitted the following values:", {
 			description: (
 				<pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
 					<code className="text-white">{JSON.stringify(data, null, 2)}</code>

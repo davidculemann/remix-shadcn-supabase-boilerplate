@@ -1,4 +1,3 @@
-import { useToast } from "@/components/hooks/use-toast";
 import { Icons } from "@/components/icons";
 import { LoadingButton } from "@/components/shared/loading-button";
 import ProviderLoginButton from "@/components/shared/provider-login-button";
@@ -10,6 +9,7 @@ import { type ActionFunctionArgs, type LoaderFunctionArgs, json, redirect } from
 import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export async function loader({ request }: LoaderFunctionArgs) {
 	const { supabase, headers } = getSupabaseWithHeaders({ request });
@@ -44,14 +44,9 @@ export default function SignIn() {
 	const navigation = useNavigation();
 
 	const actionData = useActionData<ActionStatus | undefined>(); // Hook to retrieve action response
-	const { toast } = useToast();
 
 	useEffect(() => {
-		if (actionData)
-			toast({
-				variant: actionData?.success ? "default" : "destructive",
-				description: actionData.message,
-			});
+		if (actionData) toast.success(actionData.message);
 	}, [actionData]);
 
 	return (
