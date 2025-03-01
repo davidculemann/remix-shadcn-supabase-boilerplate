@@ -1,5 +1,4 @@
 import { ErrorBoundaryContent } from "@/components/layout/error-boundary";
-import { Toaster } from "@/components/ui/toaster";
 import { ClientHintCheck, getHints, useNonce, useTheme } from "@/lib/client-hints";
 import { queryClient } from "@/lib/react-query/query-client";
 import { useSupabase } from "@/lib/supabase/supabase";
@@ -25,6 +24,7 @@ import "cal-sans";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { GlobalPendingIndicator } from "./components/layout/global-pending-indicator";
+import { Toaster } from "./components/ui/sonner";
 import { isProductionHost, removeTrailingSlashes } from "./lib/docs-utils/http.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
