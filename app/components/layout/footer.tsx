@@ -1,6 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { Link } from "@remix-run/react";
 import { Github, Linkedin, Twitter } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const SOCIAL_LINKS = [
 	{
@@ -35,12 +36,22 @@ const NAV_LINKS = [
 
 const year = new Date().getFullYear();
 
+const footerClasses = {
+	wrapper: "z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-auto",
+	container: "mx-4 md:mx-8 flex h-14 items-center justify-between",
+	leftSection: "flex gap-4",
+	copyright: "text-xs text-muted-foreground",
+	socialLink: "text-muted-foreground hover:text-foreground",
+	nav: "flex items-center gap-4 sm:gap-6",
+	navLink: "text-xs hover:underline underline-offset-4",
+};
+
 export function Footer() {
 	return (
-		<footer className="z-20 w-full bg-background/95 shadow backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-auto">
-			<div className="mx-4 md:mx-8 flex h-14 items-center justify-between">
-				<div className="flex gap-4">
-					<p className="text-xs text-muted-foreground">
+		<footer className={footerClasses.wrapper}>
+			<div className={footerClasses.container}>
+				<div className={footerClasses.leftSection}>
+					<p className={footerClasses.copyright}>
 						© {year} {siteConfig.author}.
 					</p>
 					{FILTERED_SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
@@ -49,16 +60,16 @@ export function Footer() {
 							href={href}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground"
+							className={footerClasses.socialLink}
 						>
 							<Icon className="h-4 w-4" />
 							<span className="sr-only">{label}</span>
 						</a>
 					))}
 				</div>
-				<nav className="flex items-center gap-4 sm:gap-6">
+				<nav className={footerClasses.nav}>
 					{NAV_LINKS.map(({ to, label }) => (
-						<Link key={to} className="text-xs hover:underline underline-offset-4" to={to}>
+						<Link key={to} className={footerClasses.navLink} to={to}>
 							{label}
 						</Link>
 					))}
